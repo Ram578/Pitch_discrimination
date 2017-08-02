@@ -79,12 +79,6 @@ class AdminModel extends CI_Model
 		{
 			$strQuestionCode = $_POST['questioncode'];
 
-			$strOptionsCount = $_POST['optionscount'];
-
-			$strQuestionLevel = $_POST['questionlevel'];
-
-			$strOptionColor = $_POST['optioncolor'];
-
 			$target_file1 = false;
 
 			$strNewFileName = false;
@@ -124,9 +118,7 @@ class AdminModel extends CI_Model
 				{
 					$arrData = array(
 						'questioncode'  => $strQuestionCode, 
-						'optionscount'  => $strOptionsCount,
-						'optioncolor' 	=> $strOptionColor,
-						'questionlevel' => $strQuestionLevel,
+						'questiontype'  => 'test', 
 						'addeddate'	    => date('Y-m-d H:m:s'),
 						'audiopath'		=> $target_file1,
 						'audiofilename' => $strNewFileName,
@@ -136,9 +128,6 @@ class AdminModel extends CI_Model
 				{
 					$arrData = array(
 						'questioncode'  => $strQuestionCode, 
-						'optionscount'  => $strOptionsCount,
-						'optioncolor' 	=> $strOptionColor,
-						'questionlevel' => $strQuestionLevel,
 						'answer' 		=> $_POST['answer']
 					);
 				}
@@ -146,21 +135,45 @@ class AdminModel extends CI_Model
 				if($_POST['id'] == -1)
 				{
 					$result = $this->db->insert('aims_questions', $arrData);
+					
+					if($this->db->affected_rows()) {
+						$success = array(
+							"success" => "success",
+							"status" => "insert",
+							"message" => "Inserted successfully."
+						);
+					}
+					else {
+						$success = array(
+							"success" => "failed",
+							"status" => "insert",
+							"message" => "Something went wrong."
+						);
+					}
 				}
 				else
 				{
 					$this->db->where('id', $_POST['id']);
 
 					$result = $this->db->update('aims_questions', $arrData);
+					
+					if($this->db->affected_rows()) {
+						$success = array(
+							"success" => "success",
+							"status" => "update",
+							"message" => "Updated successfully."
+						);
+					}
+					else {
+						$success = array(
+							"success" => "failed",
+							"status" => "update",
+							"message" => "Something went wrong."
+						);
+					}
 				}
-
-				if($result)
-				{
-					return $result;
-				}else
-				{
-					return 0;
-				}
+				
+				return $success;
 			}
 		}
 	}
@@ -312,6 +325,9 @@ class AdminModel extends CI_Model
 
 		if($id)
 		{
+			$this->db->where('questionid', $id);
+			$this->db->delete('aims_user_answers');
+			
 			$this->db->where('id', $id);
 			$this->db->delete('aims_questions');
 			
@@ -435,6 +451,58 @@ class AdminModel extends CI_Model
 		else
 		{
 			return false;
+		}
+	}
+	
+	// Change the active status in aims_questions table
+	function DeleteQuestion()
+	{
+		$id = $_POST['questionid'];
+
+		$status = $_POST['active'];
+
+		if($id)
+		{
+			$arrData = array(
+                'active' => $status
+            );
+
+	 		$this->db->where('id', $id);
+
+			$this->db->update('aims_questions', $arrData);
+		}else
+		{
+			return false;
+		}
+	}
+	
+	// Get the practice question from aims_questions table in db
+	function fetch_practice_questions() {
+		$strQuery = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="practice"';
+
+		$objQuery = $this->db->query($strQuery);
+
+		if($objQuery->num_rows())
+		{
+			return $objQuery->result_array();
+		}else
+		{
+			return array();
+		}
+	}
+	
+	// Get the test question from aims_questions table in db
+	function fetch_test_questions() {
+		$strQuery = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="test"';
+
+		$objQuery = $this->db->query($strQuery);
+
+		if($objQuery->num_rows())
+		{
+			return $objQuery->result_array();
+		}else
+		{
+			return array();
 		}
 	}
 	

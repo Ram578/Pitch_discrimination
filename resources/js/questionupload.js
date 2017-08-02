@@ -2,6 +2,135 @@ $('document').ready(function(){
 	
 	$('#uploadQtnsList').DataTable();
 	
+	//Sortable for display questions order
+	$( "#testSortable" ).sortable();
+	$( "#practiceSortable" ).sortable();
+	
+	//
+	$( ".UploadQuestionsList" ).on("click", "#btnNewQuestion", function(e) {
+		$('#myModalLabel').text("New Question");
+		$("#sleFile").attr("disabled", false);
+		$("#uploadQuesDiv").show();
+		$('#hdnQuestionID').val("-1");
+		$('#newOrEdit').val("new");
+		$('#quesItemCode').val("");
+		$('#cboCorrectAnswer option[value=-1]').prop('selected', true);
+		// $('#cboCorrectAnswer').val("");
+	});
+	
+	//Edit the row
+	$( ".UploadQuestionsList" ).on("click", ".editBtn", function() {
+		$('#myModalLabel').text("Edit Question");
+		$("#sleFile").attr("disabled", true);
+		$("#uploadQuesDiv").hide();
+		
+		editId = $(this).data("id");
+		currentRow  = $(this).closest('tr');
+		var quesItemCode = currentRow.find("td:eq(0)").text();
+		var answer = currentRow.find("td:eq(2)").text();
+		
+		$('#hdnQuestionID').val(editId);
+		$('#newOrEdit').val("edit");
+		$('#quesItemCode').val(quesItemCode);
+		$('#cboCorrectAnswer option[value='+answer+']').prop('selected', true);
+	});
+	
+	 //form Submit action
+   $("form").submit(function(evt){	 
+		evt.preventDefault();
+		var formData = new FormData($(this)[0]);
+		var url = strBaseURL+'uploadquestions/uploadquestion';
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			enctype: 'multipart/form-data',
+			processData: false,
+			success: function (result) {
+				var data = JSON.parse(result);
+				$("#myModal").modal('hide');
+				if(data.success != "failed") {
+					if(data.status == "update") {
+						//get current row TD's & replace the text with the updated text
+						currentRow.find("td:eq(0)").text(quesItemCode);
+						currentRow.find("td:eq(2)").text(cboCorrectAnswer);
+						swal("Update!", data.message, "success");
+					} else {
+						location.reload(true);
+						swal("Insert!", data.message, "success");
+					}
+				} else {
+					swal("Warning!", "Something went wrong.", "warning");
+				}
+			},
+			error: function (err) {
+				console.log(err);
+			}
+	   });
+	   // return false;
+	});
+	
+	/*
+	//modal form submit
+	$("#uploadQuesForm").submit(function(e) {
+		e.preventDefault();
+		// var values = $(this).serialize();
+		// console.log(values);
+		
+		var url = strBaseURL+'uploadquestions/uploadquestion'; 
+		var id = $('#hdnQuestionID').val();
+		var newOrEdit = $('#newOrEdit').val();
+		var quesItemCode = $('#quesItemCode').val();
+		var uploadFile = $('#sleFile').val();
+		var cboCorrectAnswer = $('#cboCorrectAnswer').val();
+		
+		console.log(uploadFile);
+		
+		if(newOrEdit == "new") {
+			var formData = {
+				'id' : id,
+				'questioncode'    : quesItemCode,
+				'answer' : cboCorrectAnswer,
+			}; 
+		} else {
+			var formData = {
+				'id' : id,
+				'questioncode'    : quesItemCode,
+				'answer' : cboCorrectAnswer,
+			}; 
+		}	
+		
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: formData,
+			success: function (result) {
+				var data = JSON.parse(result);
+				$("#myModal").modal('hide');
+				if(data.success != "failed") {
+					if(data.status == "update") {
+						//get current row TD's & replace the text with the updated text
+						currentRow.find("td:eq(0)").text(quesItemCode);
+						currentRow.find("td:eq(2)").text(cboCorrectAnswer);
+						swal("Update!", data.message, "success");
+					} else {
+						location.reload(true);
+						swal("Insert!", data.message, "success");
+					}
+				} else {
+					swal("Warning!", "Something went wrong.", "warning");
+				}
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		 }); 
+	});
+	*/
+	
 	//Delete the row
 	$( "#uploadQtnsList" ).on("click", ".deleteBtn", function() {
 		var itemId = $(this).data("id");

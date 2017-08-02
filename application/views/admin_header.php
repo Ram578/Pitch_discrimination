@@ -21,9 +21,11 @@
 		
 		<script type="text/javascript" src="<?=base_url();?>resources/js/libraries/modernizr-2.6.2.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=base_url();?>resources/js/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="<?=base_url();?>resources/js/sweetalert.min.js"></script>
-		
+		<script type="text/javascript" src="<?=base_url();?>resources/js/adminHeader.js"></script>
 </head>
 	<body>
+	

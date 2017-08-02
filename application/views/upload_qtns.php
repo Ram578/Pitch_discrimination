@@ -6,7 +6,7 @@
 		<!-- Admin Dashboard Starts here -->
 			<!-- Header goes here -->
 			<nav class="navbar navbar-inverse navbar-fixed-top">
-				<div class="container">
+				<div class="uploadQuestionspage container">
 					<div class="navbar-header">
 					  <a class="navbar-brand" href="#">Dashboard</a>
 					</div>
@@ -14,7 +14,13 @@
 						<ul class="nav navbar-nav" style="float:none;">
 							<li><a href="<?=base_url();?>userslist">Users List</a></li>
 							<li><a href="<?=base_url();?>usertestresult">Test Result</a></li>
-							<li class="active"><a href="#">Upload Test Item</a></li>
+							<li class="dropdown active">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test Questions<span class="caret" style="margin-left:10px;"></span></a>
+								<ul class="dropdown-menu navbar-inverse" >
+									<li><a href="#">Upload Test Item</a></li>
+									<li><a href="<?=base_url();?>uploadquestions/display_questions_order">Display Order</a></li>
+								</ul>
+							</li>
 							<li><a href="<?=base_url();?>certilescores">Certile Scores</a></li>
 							<li class="pull-right"><a href="<?=base_url();?>admindashboard/logout">Log Out</a></li>
 						</ul>
@@ -24,7 +30,7 @@
 			<!-- Header ends here -->
 			<!-- Body Content goes here -->
 			<section class="adminDashboardView">
-				<div class="UserListView container">
+				<div class="UploadQuestionsList container">
 					<div class="pull-right" style="color:#a94442; font-size:13px; padding:0 0 10px 0;">
 						<?php
 							print_r($this->session->flashdata('Errors'));
@@ -33,40 +39,6 @@
 					<div>
 						<a id="btnNewQuestion" class="btn btn-primary pull-right col-md-1 col-sm-1" data-toggle="modal" data-target="#myModal" style="width:150px; min-width:inherit; margin-bottom:2%;">New Question</a>
 					</div>
-				<form role="form" class="col-m-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2" method="POST" action="uploadquestions/uploadquestion" enctype="multipart/form-data" onsubmit="fnValidateQuestionUpload();">
-						<div class="row">
-							<input type="hidden" name="id" value="-1" id="hdnQuestionID">
-							<div class="col-md-6 col-sm-12 col-xs-12">
-								<div class="form-group">
-									<label for="uploadFile">Item Code:</label>
-									<input type="text" id="sleItemCode" name="questioncode" class="form-control" placeholder="Item Code" />
-								  </div>
-							</div>
-							<div class="col-md-6 col-sm-6 col-xs-6">
-								<div class="form-group">
-									<label for="email">Choose Correct Answer:</label>
-									<select name="answer" id="cboCorrectAnswer" class="form-control">
-										<option value="-1"></option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 col-sm-12 col-xs-12">
-								<div class="form-group">
-									<label for="uploadFile">Please Upload Audio:</label>
-									<input name="audioname" id="sleFile" type="file" class="form-control" id="uploadFile" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 col-sm-12 col-xs-12" align="center">
-								<button type="submit" class="btn btn-primary">SAVE</button>
-							</div>
-						</div>
-					</form>
 					<div class="testupload-data-view">
 						<table width="100%" id="uploadQtnsList" cellspacing="0" cellpadding="0" class="table table-responsive table-striped">
 							<thead>
@@ -126,34 +98,37 @@
 						<h4 class="modal-title" id="myModalLabel">New Question</h4>
 					</div>
 					<div class="modal-body">
-						<form role="form" >
+						<form role="form" id="uploadQuesForm" enctype="multipart/form-data">
+							<input type="hidden" name="id" value="-1" id="hdnQuestionID">
+							<input type="hidden" name="new_or_edit" value="new" id="newOrEdit">
 							<div class="row">
 								<div class="col-md-6 col-sm-12 col-xs-12">
 									<div class="form-group">
 										<label for="uploadFile">Item Code:</label>
-										<input type="text" class="form-control" placeholder="Item Number" value="Test Item 01" />
+										<input type="text" class="form-control" id="quesItemCode" name="questioncode" placeholder="Item Code" value="" />
 									  </div>
 								</div>
 								<div class="col-md-6 col-sm-6 col-xs-6">
 									<div class="form-group">
 										<label for="email">Choose Correct Answer:</label>
-										<select class="form-control">
-											<option>1</option>
-											<option>2</option>
+										<select name="answer" id="cboCorrectAnswer" class="form-control">
+											<option value="-1"></option>
+											<option value="1">1</option>
+											<option value="2">2</option>
 										</select>
 									</div>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row" id="uploadQuesDiv">
 								<div class="col-md-6 col-sm-12 col-xs-12">
 									<div class="form-group">
 										<label for="uploadFile">Please Upload Audio:</label>
-										<input type="file" class="form-control" id="uploadFile" />
+										<input type="file" name="audioname" id="sleFile" class="form-control" />
 									</div>
 								</div>
 							</div>
 							<div align="center">
-								<button type="button" class="btn btn-primary">Save changes</button>
+								<button type="submit" class="btn btn-primary">Submit</button>
 							</div>
 						</form>
 					</div>

@@ -31,16 +31,8 @@ class UploadQuestions extends CI_Controller {
 		$this->load->model('adminmodel');
 
 		$result = $this->adminmodel->UploadQuestion();
-
-		if($result)
-		{
-			redirect('/uploadquestions', 'refresh');
-		}else
-		{
-			$this->session->set_flashdata('Errors', array('Unable to upload question. Please try again later.'));
-
-			redirect('/uploadquestions', 'refresh');
-		}
+		
+		echo json_encode($result);
 	}
 
 	function delete_question()
@@ -56,6 +48,24 @@ class UploadQuestions extends CI_Controller {
 		else
 		{
 			echo "fail";
+		}
+	}
+	
+	// Change the active status in aims_qusetions table
+	function deletequestion()
+	{
+		$this->load->model('adminmodel');
+
+		$result = $this->adminmodel->DeleteQuestion();
+
+		if($result)
+		{
+			redirect('/uploadquestions', 'refresh');
+		}else
+		{
+			$this->session->set_flashdata('Errors', array('Unable to upload question. Please try again later.'));
+
+			redirect('/uploadquestions', 'refresh');
 		}
 	}
 
@@ -74,5 +84,17 @@ class UploadQuestions extends CI_Controller {
 
 			redirect('/uploadquestions', 'refresh');
 		}
+	}
+	
+	function display_questions_order()
+	{
+		
+		$this->load->model('adminmodel');
+		
+		$arrData['practice_questions'] = $this->adminmodel->fetch_practice_questions();
+		
+		$arrData['test_questions'] = $this->adminmodel->fetch_test_questions();
+		
+		$this->load->view('display_questions_order', $arrData);
 	}
 }

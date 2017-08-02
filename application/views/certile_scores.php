@@ -13,7 +13,13 @@
 				  <ul class="nav navbar-nav" style="float:none;">
 					<li><a href="<?=base_url();?>userslist">Users List</a></li>
 					<li><a href="<?=base_url();?>usertestresult">Test Result</a></li>
-					<li><a href="<?=base_url();?>uploadquestions">Upload Test Item</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test Questions<span class="caret" style="margin-left:10px;"></span></a>
+						<ul class="dropdown-menu navbar-inverse">
+							<li><a href="<?=base_url();?>uploadquestions">Upload Test Item</a></li>
+							<li><a href="<?=base_url();?>uploadquestions/display_questions_order">Display Order</a></li>
+						</ul>
+					</li>
 					<li class="active"><a href="#">Certile Scores</a></li>
 					<li class="pull-right"><a href="<?=base_url();?>admindashboard/logout">Log Out</a></li>
 				  </ul>
@@ -93,7 +99,6 @@
 								</div>
 								<div class="col-md-6 col-sm-12 col-xs-12">
 									<label class="control-label col-sm-4" style="padding-left:0;">Gender : </label><br/>
-									<!--<input type="hidden" name="gender" id="hdnGender">-->
 									<div class="col-md-6 col-sm-6 col-xs-6" style="width:100%;padding-top:2%;">
 										<div class="row">
 											 <div class="col-sm-5" style="padding-left:0;">
