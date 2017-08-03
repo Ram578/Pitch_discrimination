@@ -454,7 +454,7 @@ class AdminModel extends CI_Model
 		}
 	}
 	
-	// Change the active status in aims_questions table
+	// Change the active status in aims_questions table.
 	function DeleteQuestion()
 	{
 		$id = $_POST['questionid'];
@@ -476,35 +476,76 @@ class AdminModel extends CI_Model
 		}
 	}
 	
-	// Get the practice question from aims_questions table in db
-	function fetch_practice_questions() {
+	// Get the practice and test questions from aims_questions table in db.
+	function fetch_questions() {
+		
+		$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
+
+		$result = $this->db->query($sql);
+		
+		// Check the pitch_questions_order table have sorted questions or not.
+		if($result->num_rows() > 0) {
+			
+			$row = $result->row();
+			
+			$obj = unserialize(base64_decode($row->question_order));
+			
+			$array['order'] = $obj;
+			
+		}
+			
 		$strQuery = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="practice"';
 
-		$objQuery = $this->db->query($strQuery);
+		$practiceQuery = $this->db->query($strQuery);
+		
+		$array['practice'] = $practiceQuery->result_array();
+		
+		$query = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="test"';
 
-		if($objQuery->num_rows())
-		{
-			return $objQuery->result_array();
-		}else
-		{
-			return array();
-		}
+		$testQuery = $this->db->query($query);
+		
+		$array['test'] = $testQuery->result_array();
+		
+		return $array;	
 	}
 	
-	// Get the test question from aims_questions table in db
-	function fetch_test_questions() {
-		$strQuery = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="test"';
+	
+	// save the questions order in pitch_questions_order table in db.
+	function save_questions_order() {
+		
+		$question_order = base64_encode(serialize($_POST['question_order']));
 
-		$objQuery = $this->db->query($strQuery);
+		if($question_order)
+		{	
+			$sql = "SELECT * FROM pitch_questions_order";
+			$result = $this->db->query($sql);
+			
+			if($result->num_rows() > 0) {
+				$arrData = array(
+						'question_order' => $question_order
+						);
+				
+				$this->db->where('type', 'questions');
 
-		if($objQuery->num_rows())
-		{
-			return $objQuery->result_array();
-		}else
-		{
-			return array();
+				$this->db->update('pitch_questions_order', $arrData);
+				
+			} else {
+				$arrData = array(
+							'type' => 'questions',
+							'question_order' => $question_order,
+							);
+				
+				$this->db->insert('pitch_questions_order', $arrData);
+			}
+			
+			if($this->db->affected_rows()) {
+				return "success";
+			} else {
+				return "fail";
+			}
 		}
 	}
 	
 }
+
 ?>

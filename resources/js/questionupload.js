@@ -1,12 +1,9 @@
 $('document').ready(function(){
 	
+	///// upload test item page /////
 	$('#uploadQtnsList').DataTable();
 	
-	//Sortable for display questions order
-	$( "#testSortable" ).sortable();
-	$( "#practiceSortable" ).sortable();
-	
-	//
+	// Set the default form values for new question when click the new question button
 	$( ".UploadQuestionsList" ).on("click", "#btnNewQuestion", function(e) {
 		$('#myModalLabel').text("New Question");
 		$("#sleFile").attr("disabled", false);
@@ -15,10 +12,9 @@ $('document').ready(function(){
 		$('#newOrEdit').val("new");
 		$('#quesItemCode').val("");
 		$('#cboCorrectAnswer option[value=-1]').prop('selected', true);
-		// $('#cboCorrectAnswer').val("");
 	});
 	
-	//Edit the row
+	// Show the required row data in the model when click the edit icon button in the table
 	$( ".UploadQuestionsList" ).on("click", ".editBtn", function() {
 		$('#myModalLabel').text("Edit Question");
 		$("#sleFile").attr("disabled", true);
@@ -35,8 +31,8 @@ $('document').ready(function(){
 		$('#cboCorrectAnswer option[value='+answer+']').prop('selected', true);
 	});
 	
-	 //form Submit action
-   $("form").submit(function(evt){	 
+	//form Submit action
+	$("form").submit(function(evt){	 
 		evt.preventDefault();
 		var formData = new FormData($(this)[0]);
 		var url = strBaseURL+'uploadquestions/uploadquestion';
@@ -70,68 +66,9 @@ $('document').ready(function(){
 				console.log(err);
 			}
 	   });
-	   // return false;
 	});
 	
-	/*
-	//modal form submit
-	$("#uploadQuesForm").submit(function(e) {
-		e.preventDefault();
-		// var values = $(this).serialize();
-		// console.log(values);
-		
-		var url = strBaseURL+'uploadquestions/uploadquestion'; 
-		var id = $('#hdnQuestionID').val();
-		var newOrEdit = $('#newOrEdit').val();
-		var quesItemCode = $('#quesItemCode').val();
-		var uploadFile = $('#sleFile').val();
-		var cboCorrectAnswer = $('#cboCorrectAnswer').val();
-		
-		console.log(uploadFile);
-		
-		if(newOrEdit == "new") {
-			var formData = {
-				'id' : id,
-				'questioncode'    : quesItemCode,
-				'answer' : cboCorrectAnswer,
-			}; 
-		} else {
-			var formData = {
-				'id' : id,
-				'questioncode'    : quesItemCode,
-				'answer' : cboCorrectAnswer,
-			}; 
-		}	
-		
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: formData,
-			success: function (result) {
-				var data = JSON.parse(result);
-				$("#myModal").modal('hide');
-				if(data.success != "failed") {
-					if(data.status == "update") {
-						//get current row TD's & replace the text with the updated text
-						currentRow.find("td:eq(0)").text(quesItemCode);
-						currentRow.find("td:eq(2)").text(cboCorrectAnswer);
-						swal("Update!", data.message, "success");
-					} else {
-						location.reload(true);
-						swal("Insert!", data.message, "success");
-					}
-				} else {
-					swal("Warning!", "Something went wrong.", "warning");
-				}
-			},
-			error: function (err) {
-				console.log(err);
-			}
-		 }); 
-	});
-	*/
-	
-	//Delete the row
+	//Delete the selected row in the aims_questions table in the db by using the ajax
 	$( "#uploadQtnsList" ).on("click", ".deleteBtn", function() {
 		var itemId = $(this).data("id");
 		var row = $(this).closest('tr');
@@ -171,13 +108,59 @@ $('document').ready(function(){
 		}); 
 	}); 
 	
-	/*
-	$('.delete-btn').each(function(){
-		$(this).on('click', function(){
-			$(this).parent().parent().remove();
-		});
+	///// Display question order page /////
+	//Sortable for practice and test questions in display order page
+	$( "#practiceSortable" ).sortable({
+		distance:30
 	});
-
+	$( "#testSortable" ).sortable({
+		distance:30
+	});
+	
+	//Save the sorted questions order for practice and test questions through ajax in pitch_questions_order table
+	$('.saveBtn').on("click", "#saveQuestionOrder", function () {
+		var questionsOrder = {};
+		questionsOrder['practice'] = $("#practiceSortable").sortable("toArray");
+		questionsOrder['test'] = $("#testSortable").sortable("toArray");
+		
+		swal({
+		  title: "Are you sure?",
+		  text: "You want to save this question order!",
+		  type: "warning",
+		  showCancelButton: true,
+		  confirmButtonClass: "btn-primary",
+		  confirmButtonText: "Save",
+		  closeOnConfirm: false
+		},
+		function(){
+			var url = strBaseURL+'uploadquestions/save_question_order'; 
+			var formData = {
+				"question_order"  : questionsOrder
+			};
+			console.log(questionsOrder);
+			console.log(formData);
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: formData,
+				success: function (result) {
+					console.log(result);
+					if(result == "success") {
+						//location.reload(true);
+						swal("Success!", "Your questions order is saved successfully.", "success");
+					} else {
+						swal("Warning!", "Something went wrong.", "warning");
+					}
+				},
+				error: function (err) {
+					console.log(err);
+				}
+			}); 
+		});
+		
+    });
+	
+	/*
 	$(".edit").each(function(){
 		selectedItem = $(this);
 		selectedItem.click(function(){
