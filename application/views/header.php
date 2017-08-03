@@ -15,13 +15,15 @@
     <meta name="description" content="" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link href="<?=base_url();?>resources/css/cssBundle.css" rel="stylesheet" />
+	<!---<link href="<?//=base_url();?>resources/css/cssBundle.css" rel="stylesheet" />
     <!--link href="https://www.aimstesting.org/css/theme/font-awesome/css/font-awesome.min.css" rel="stylesheet" / -->
-	<link href="<?=base_url();?>resources/css/intro.css" rel="stylesheet" />
+	<link href="<?=base_url();?>resources/css/style.css" rel="stylesheet" />
     <script src="<?=base_url();?>resources/js/modernizr-2.6.2.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	<script src="resources/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript">
     	var strBaseURL = "<?=base_url();?>";
         var arrAvailableLevels = <?=json_encode($this->config->item('AvailableLevels'));?>
