@@ -30,8 +30,8 @@
 			<!-- Header ends here -->
 			<!-- Body Content goes here -->
 			<!-- Practice Questions sorting list section start -->
-			<div>
-				<a id="" class="btn btn-primary pull-right col-md-1 col-sm-1" style="width:150px; min-width:inherit; margin-bottom:2%;">Save</a>
+			<div class="saveBtn">
+				<a id="saveQuestionOrder" class="btn btn-primary pull-right col-md-1 col-sm-1" style="width:150px; min-width:inherit; margin:0px 15% 2% 0px;">Save</a>
 			</div>
 			<section class="adminDashboardView">
 				<div class="DisplayQuestionsOrder container">
@@ -41,27 +41,18 @@
 							<div class="col-md-6 col-md-offset-3">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<h1 class="panel-title">List of questions</h1>
+										<h1 class="panel-title">Sorting List</h1>
 									</div>
 									<div id="container1" class="panel-body box-container">
-										<!--<div itemid="itm-1" class="btn btn-default box-item">Item 1</div>
-										<div itemid="itm-2" class="btn btn-default box-item">Item 2</div>
-										<div itemid="itm-3" class="btn btn-default box-item">Item 3</div>
-										<div itemid="itm-4" class="btn btn-default box-item">Item 4</div>
-										<div itemid="itm-5" class="btn btn-default box-item">Item 5</div> -->
 										<ul id="practiceSortable" class="list-group">
 											<?php
-												foreach($practice_questions as $row)
+												foreach($questions['practice'] as $row)
 												{
 											?>
-												<li class="list-group-item" data-id="<?=$row['id'];?>"><?=$row['questioncode'];?>-<?=$row['audiofilename'];?></li>
+												<li class="list-group-item" id="<?=$row['id'];?>"><?=$row['questioncode'];?>-<?=$row['audiofilename'];?></li>
 											<?php
 												}
 											?>
-											<!--<li class="list-group-item">Item 1</li>
-											<li class="list-group-item">Item 2</li>
-											<li class="list-group-item">Item 3</li>
-											<li class="list-group-item">Item 4</li> -->
 										</ul>
 									</div>
 								</div>
@@ -80,15 +71,15 @@
 							<div class="col-md-6 col-md-offset-3">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<h1 class="panel-title">List of questions</h1>
+										<h1 class="panel-title">Sorting List</h1>
 									</div>
 									<div id="container1" class="panel-body box-container">
 										<ul id="testSortable" class="list-group">
 											<?php
-												foreach($test_questions as $row)
+												foreach($questions['test'] as $row)
 												{
 											?>
-												<li class="list-group-item" data-id="<?=$row['id'];?>"><?=$row['questioncode'];?>-<?=$row['audiofilename'];?></li>
+												<li class="list-group-item" id="<?=$row['id'];?>"><?=$row['questioncode'];?>-<?=$row['audiofilename'];?></li>
 											<?php
 												}
 											?>
