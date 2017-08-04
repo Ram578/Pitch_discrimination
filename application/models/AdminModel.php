@@ -14,12 +14,11 @@ class AdminModel extends CI_Model
 	{
 		if(sizeof($_POST) > 0)
 		{
-			
 			$strUserName = $_POST['userame'];
 
 			$strPassword = md5($_POST['password']);
 
-			$strQuery = 'SELECT * FROM aims_employees WHERE username LIKE "'.$strUserName.'"';
+			$strQuery = 'SELECT * FROM pitch_employees WHERE username LIKE "'.$strUserName.'"';
 
 			$objQuery = $this->db->query($strQuery);
 
@@ -211,87 +210,37 @@ class AdminModel extends CI_Model
 
 		return $objQuery->result_array();
 	}
-
-	function FetchCertileWRT($p_intScore)
+	
+	//Get the certile score based on user age, gender and score from pitch_certile_scores table in db
+	function FetchCertileWRT($p_intScore, $age , $gender)
 	{
-		$strQuery = 'SELECT certile FROM aims_certile WHERE score = '.$p_intScore;
+		$strQuery = 'SELECT age,score,certile FROM pitch_certile_scores WHERE gender = "'.$gender.'"';
 
 		$objQuery = $this->db->query($strQuery);
 
+		$temp = 0;
+		
 		if($objQuery->num_rows())
 		{
-			$temp = $objQuery->row_array();
-
-			return $temp['certile'];
-		}else
-		{
-			return 0;
-		}
-
-		return $objQuery->result_array();
-	}
-
-	function FetchFilteredUsers()
-	{
-		$search_query = $_GET['search_query'];
-
-		$arrTemp = explode("-", $search_query);
-
-		if(count($arrTemp) == 3)
-		{
-			if($arrTemp[0] == 1)
-				$strGender = "female";
-			else
-				$strGender = "male";
-
-			$strQuery = $this->db->get_where('aims_users',array('gender ='=>$strGender, 'age >= ' => $arrTemp[1], 'age <= ' => $arrTemp[2]));
-
-			if($strQuery->num_rows())
+			//Get the certile score based on user age, gender and score
+			foreach($objQuery->result_array() as $row) 
 			{
-				return $strQuery->result_array();
-			}else
-			{
-				return array();
-			}
-
-
-		}elseif(count($arrTemp) == 2)
-		{
-			if($arrTemp[0] == 1)
-				$strGender = "female";
-			else
-				$strGender = "male";
-
-			$strQuery = $this->db->get_where('aims_users',array('age >= ' => $arrTemp[0], 'age <= ' => $arrTemp[1]));
-
-			if($strQuery->num_rows())
-			{
-				return $strQuery->result_array();
-			}else
-			{
-				return array();
+				//Explode the certile age and score for checking in between the user age and score. 
+				$certile_age = explode("-",$row['age']);
+				$certile_score = explode("-",$row['score']);
+				
+				if($age == $certile_age['0'] || $age >= $certile_age['0'] && $age <= $certile_age['1']) 
+				{
+					if($p_intScore == $certile_score['0'] || $p_intScore >= $certile_score['0'] && $p_intScore <= $certile_score['1']) 
+					{
+						$temp = $row['certile'];
+						break;
+					} 
+				}
 			}
 		}
-
-		/*elseif(count($arrTemp) == 1)
-		{
-			if($arrTemp[0] == 1)
-				$strGender = "female";
-			else
-				$strGender = "male";
-
-			$strQuery = $this->db->get_where('aims_users',array('gender ='=>'$strGender'));
-
-			if($strQuery->num_rows())
-			{
-				return $strQuery->result_array();
-			}else
-			{
-				return array();
-			}
-		}*/
-
-	}
+		return $temp;
+	} 
 
 	function _userResults($id_user)
 	{

@@ -27,6 +27,8 @@ class AdminDashboard extends CI_Controller {
 		$this->session->unset_userdata('EmployeeFName');
 
 		$this->session->unset_userdata('EmployeeLName');
+		
+		$this->session->unset_userdata('EmployeeRole');
 
 		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, no-transform, max-age=0, post-check=0, pre-check=0");
     	$this->output->set_header("Pragma: no-cache");

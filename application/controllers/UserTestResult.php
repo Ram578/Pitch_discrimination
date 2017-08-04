@@ -12,8 +12,15 @@ class UserTestResult extends CI_Controller {
 		$this->load->model('adminmodel');
 
 		$arrData['TestResults'] = $this->adminmodel->FetchTestResult();
+				
+		foreach ($arrData['TestResults'] as $key => &$value) 
+		{
+			$intScore = $this->adminmodel->FetchUserResult($value['id']);
 
-		$arrData['Certiles'] = $this->adminmodel->FetchCertile();
+			$value['score'] = $intScore;
+
+			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
+		}
 
 		$this->load->view('user_test_result', $arrData);
 	}
@@ -43,6 +50,7 @@ class UserTestResult extends CI_Controller {
 			unset($arrTempRow['test_result']);
 			unset($arrTempRow['active']);
 			unset($arrTempRow['addeddate']);
+			unset($arrTempRow['completeddate']);
 			$arrTemp[] = $arrTempRow;
 		}
 		
@@ -51,8 +59,6 @@ class UserTestResult extends CI_Controller {
 			}, $arrTemp));
 
 		//$this->cleanArray($arrTemp);
-
-		
 
 		foreach ($arrTemp as &$value) {
 			$intTempCount = count($value);
@@ -70,7 +76,7 @@ class UserTestResult extends CI_Controller {
 
 			$value['score'] = $intScore;
 
-			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore);
+			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
 		}
 
 		$arrHeaders[] = 'Score';

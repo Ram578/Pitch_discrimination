@@ -21,39 +21,40 @@
 <body>
 	<div class="intro-wrapper registrer-wrapper">
 	<!-- Registration Block goes here -->
-         <form class="form-horizontal col-lg-4 col-md-5 col-sm-6 col-xs-6" role="form" id="AdminLoginForm" action="admin/login" method="POST" autocomplete="false">
-         		<div class="pull-right" style="color:#a94442; font-size:13px; padding:0 0 10px 0;">
-	         		<?php
-	         			echo $this->session->flashdata('Errors');
-	         		?>
-         		</div>
-				<div class="clearfix"></div>
-                <!--h2>Registration Form</h2-->
-                <div class="form-group">
-                    <label for="Username" class="col-sm-4 control-label">User Name : </label>
-                    <div class="col-sm-8">
-                        <input type="text" id="Username" placeholder="User Name" class="form-control" maxlength="8" minlength="5" name="userame" autocomplete="off" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Password" class="col-sm-4 control-label">Password : </label>
-                    <div class="col-sm-8">
-                         <input type="password" id="Password" placeholder="Password" class="form-control" maxlength="8" minlength="5" name="password" autocomplete="off"  />
-                    </div>
-                </div>
-                
-                
-                <div class="form-group">
-                    <div class="col-sm-8 col-sm-offset-4">
-                        <button disabled="disabled" type="submit" id="LoginBtn" class="btn btn-primary btn-block">Login</button>
-                    </div>
-                </div>
-            </form> <!-- /form -->
+        <form class="form-horizontal col-lg-4 col-md-5 col-sm-6 col-xs-6" role="form" id="AdminLoginForm" action="admin/login" method="POST" autocomplete="false">
+			<div class="pull-right" style="color:#a94442; font-size:13px; padding:0 0 10px 0;">
+				<?php
+					echo $this->session->flashdata('Errors');
+				?>
+			</div>
+			<div class="clearfix"></div>
+            <!--h2>Registration Form</h2-->
+			<div class="form-group">
+				<label for="Username" class="col-sm-4 control-label">User Name : </label>
+				<div class="col-sm-8">
+					<input type="text" id="Username" placeholder="User Name" class="form-control" maxlength="8" minlength="5" name="userame" autocomplete="off" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="Password" class="col-sm-4 control-label">Password : </label>
+				<div class="col-sm-8">
+					 <input type="password" id="Password" placeholder="Password" class="form-control" maxlength="8" minlength="5" name="password" autocomplete="off"  />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-8 col-sm-offset-4">
+					<button disabled="disabled" type="submit" id="LoginBtn" class="btn btn-primary btn-block">Login</button>
+				</div>
+			</div>
+        </form> <!-- /form -->
     	<!-- Registration Block ends here -->
 		</div>
 		<!-- JS files will load here -->
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		-->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="resources/js/formValidator.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -91,7 +92,7 @@
 						}
 					}
 				});
-			});
+			}); //document end
 		</script>
 	</body>
 </html>

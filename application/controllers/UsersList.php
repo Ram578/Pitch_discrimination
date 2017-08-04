@@ -15,14 +15,15 @@ class UsersList extends CI_Controller {
 
 			$arrData['Users'] = $this->adminmodel->FetchUsers();
 
-			foreach ($arrData['Users'] as $key => &$value) {
+			foreach ($arrData['Users'] as $key => &$value) 
+			{
 				$intScore = $this->adminmodel->FetchUserResult($value['id']);
 
 				$value['score'] = $intScore;
 
-				$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore);
+				$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
 			}
-
+			
 			$this->load->view('userslist', $arrData);
 		}else
 		{
@@ -31,37 +32,27 @@ class UsersList extends CI_Controller {
 
 	}
 
-	public function getusers()
-	{
-		$search_query = $_GET['search_query'];
-
-		$this->load->model('adminmodel');
-
-		$arrData['Users'] = $this->adminmodel->FetchFilteredUsers();
-		
-		foreach ($arrData['Users'] as $key => &$value) {
-			$intScore = $this->adminmodel->FetchUserResult($value['id']);
-
-			$value['score'] = $intScore;
-
-			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore);
-		}
-
-		echo json_encode(array('Users' => $arrData['Users']));
-	}
-
 	public function export()
 	{
 		$this->load->model('adminmodel');
 
 		$arrData['Users'] = $this->adminmodel->FetchUsers();
 
-		foreach ($arrData['Users'] as $key => &$value) {
+		foreach ($arrData['Users'] as $key => &$value) 
+		{
 			$intScore = $this->adminmodel->FetchUserResult($value['id']);
+			
+			if($value['status'] == 0) 
+			{
+				$value['status'] = "Next";
+			} else
+			{
+				$value['status'] = "More Examples";
+			}
 
 			$value['score'] = $intScore;
 
-			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore);
+			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
 		}
 
 		// Enable to download this file
@@ -72,15 +63,20 @@ class UsersList extends CI_Controller {
 		 
 		$display = fopen("php://output", 'w');
 		 
-		$arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'Created Date', 'Completed Date', 'Active', 'Score', 'Certile');
+		$arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'Created Date', 'Completed Date', 'Active', 'Status', 'Score', 'Certile');
+		
 		$flag = false;
-		if(count($arrData['Users'])) {
-		    if(!$flag) {
+		
+		if(count($arrData['Users'])) 
+		{
+		    if(!$flag)
+			{
 		      // display field/column names as first row
 		      fputcsv($display, array_values($arrHeaders), ",", '"');
 		      $flag = true;
 		    }
-		    foreach ($arrData['Users'] as $key => $value) {
+		    foreach ($arrData['Users'] as $key => $value) 
+			{
 			    fputcsv($display, array_values($value), ",", '"');
 			}
 		  }
@@ -88,3 +84,4 @@ class UsersList extends CI_Controller {
 		fclose($display);
 	}
 }
+
