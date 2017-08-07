@@ -102,7 +102,6 @@ class UploadQuestions extends CI_Controller {
 			$practice_order_count = count($practice_order);
 			$practice = array();
 			
-			
 			for($i=0; $i<$practice_order_count; $i++) 
 			{
 				$id = $practice_order[$i];

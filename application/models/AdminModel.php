@@ -443,13 +443,13 @@ class AdminModel extends CI_Model
 			
 		}
 			
-		$strQuery = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="practice"';
+		$strQuery = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="practice" and active = 1';
 
 		$practiceQuery = $this->db->query($strQuery);
 		
 		$array['practice'] = $practiceQuery->result_array();
 		
-		$query = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="test"';
+		$query = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="test" and active = 1';
 
 		$testQuery = $this->db->query($query);
 		

@@ -47,10 +47,8 @@ class Home extends CI_Controller {
     	$this->load->model('registermodel');
 
     	$result = $this->registermodel->RegisterUser();
-		
-		// var_dump($_POST);
-    	
-		if(is_integer($result))
+
+    	if(is_integer($result))
     	{
     		 redirect('/welcome', 'refresh');
     	}else
@@ -60,32 +58,5 @@ class Home extends CI_Controller {
     		redirect('/', 'refresh');
     	}
 
-	}
-	
-	//
-	public function check_register() 
-	{
-		$this->load->model('registermodel');
-		
-		$result = $this->registermodel->check_register_user();
-				
-		if($result['status'])
-    	{
-    		redirect('/welcome', 'refresh');
-    	}
-		else
-    	{
-    		$arrData['Title'] = 'AIMs - Tonal Memory Registration Form';
-
-			$Header = $this->load->view('header', $arrData,true);
-
-			$arrData['Header'] = $Header;
-			
-			$arrData['file_number'] = $result['file_num'];
-
-			$arrData['Footer'] = $this->load->view('footer', $arrData, true);
-
-			$this->load->view('data_register', $arrData);
-    	} 
 	}
 }

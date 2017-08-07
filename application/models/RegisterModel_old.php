@@ -10,37 +10,6 @@ class RegisterModel extends CI_Model
     	parent::__construct();
   	}
 	
-	function check_register_user() {
-		
-		$arrData = array();
-		
-		$file_num = $_POST['filenumber'];	
-		
-		$strQuery = 'SELECT * FROM `aims_users` WHERE filenumber ="' . $file_num . '"';
-		
-		$objQuery = $this->db->query($strQuery);
-
-		if($objQuery->num_rows()>0)
-		{	
-			$row = $objQuery->row_array();
-			
-			$this->session->set_userdata("UserName", $row['firstname']);
-			$this->session->set_userdata("LastName", $row['lastname']);
-			$this->session->set_userdata("Gender", $row['gender']);
-			$this->session->set_userdata("UserID", $row['id']);
-			
-			$arrData['id']  = $row['id'];
-			$arrData['status']  = true;
-		}
-		else
-		{
-			$arrData['file_num']  = $file_num ;
-			$arrData['status']  = false;
-		}
-		
-		return $arrData;
-	}
-	
 	function RegisterUser()
 	{
 		if(sizeof($_POST) > 0)
@@ -73,6 +42,5 @@ class RegisterModel extends CI_Model
 			}
 		}
 	}
-	
 }
 ?>
