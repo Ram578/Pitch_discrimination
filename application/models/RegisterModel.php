@@ -16,7 +16,7 @@ class RegisterModel extends CI_Model
 		
 		$file_num = $_POST['filenumber'];	
 		
-		$strQuery = 'SELECT * FROM `aims_users` WHERE filenumber ="' . $file_num . '"';
+		$strQuery = 'SELECT * FROM `pitch_users` WHERE filenumber ="' . $file_num . '"';
 		
 		$objQuery = $this->db->query($strQuery);
 
@@ -56,7 +56,7 @@ class RegisterModel extends CI_Model
 				'active'		=> 1,
 			);
 
-			$result = $this->db->insert('aims_users', $arrUserData);
+			$result = $this->db->insert('pitch_users', $arrUserData);
 
 			if($result)
 			{
