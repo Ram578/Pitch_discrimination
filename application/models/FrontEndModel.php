@@ -5,10 +5,10 @@
 */
 class FrontEndModel extends CI_Model
 {
-	function FrontEndModel() 
-  	{
-    	parent::__construct();
-  	}
+	public function __construct()
+	{
+		parent::__construct();
+	}
 	
 	function FetchQuestions()
 	{	

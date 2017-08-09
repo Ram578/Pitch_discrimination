@@ -5,10 +5,10 @@
 */
 class AdminModel extends CI_Model
 {
-	function AdminModel() 
-  	{
-    	parent::__construct();
-  	}
+	public function __construct()
+	{
+		parent::__construct();
+	}
 	
 	function Login()
 	{
