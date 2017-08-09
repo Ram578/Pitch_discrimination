@@ -23,7 +23,6 @@ class TonalTest extends CI_Controller {
 				
 			$questions_result = $this->frontendmodel->FetchQuestions();
 			
-			/////////////////////////////////
 			if(isset($questions_result['order'])) {
 				
 				//To display the sorted order in display order page for test questions
@@ -44,16 +43,13 @@ class TonalTest extends CI_Controller {
 					}
 				}
 				
-				//Replace the sorted data for displaying in page
-				//$arrData['Questions_order']['test'] = $test;				
+				//Replace the sorted data for displaying in page				
 				// $questions_result['test'] = $test;		
 				$arrData['Questions'] = $test;
-			} else {
-				//$arrData['Questions_order']['test'] = $arrData['Questions_order']['test'];
+			} else
+			{
 				$arrData['Questions'] = $questions_result['test'];
 			}
-			
-			////////////////////////////////
 			
 			$this->load->view('tonal_test', $arrData);
 		}else

@@ -245,7 +245,7 @@ class AdminModel extends CI_Model
 	function _userResults($id_user)
 	{
 		
-		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE userid = '.$id_user;
+		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "test" AND userid = '.$id_user;
 
 		$objQuery = $this->db->query($strQuery);
 

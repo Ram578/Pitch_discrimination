@@ -19,13 +19,11 @@ class FrontEndModel extends CI_Model
 		// Check the pitch_questions_order table have sorted questions or not.
 		if($result->num_rows() > 0) 
 		{
-			
 			$row = $result->row();
 			
 			$obj = unserialize(base64_decode($row->question_order));
 			
 			$array['order'] = $obj;
-			
 		}
 		
 		$query = 'SELECT * FROM pitch_questions WHERE questiontype="test" and active = 1';
@@ -33,6 +31,32 @@ class FrontEndModel extends CI_Model
 		$testQuery = $this->db->query($query);
 		
 		$array['test'] = $testQuery->result_array();
+		
+		return $array;	
+	}
+	
+	// Get the practice test questions
+	function fetch_practice_questions()
+	{	
+		$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
+
+		$result = $this->db->query($sql);
+		
+		// Check the pitch_questions_order table have sorted questions or not.
+		if($result->num_rows() > 0) 
+		{
+			$row = $result->row();
+			
+			$obj = unserialize(base64_decode($row->question_order));
+			
+			$array['order'] = $obj;
+		}
+		
+		$query = 'SELECT * FROM pitch_questions WHERE questiontype="practice" and active = 1';
+
+		$testQuery = $this->db->query($query);
+		
+		$array['practice'] = $testQuery->result_array();
 		
 		return $array;	
 	}
@@ -59,7 +83,7 @@ class FrontEndModel extends CI_Model
 	{
 		$strQuery = "SELECT userid,questionid,includeinscoring, optionid, answer, IF(optionid = answer, 1,0) AS result FROM pitch_user_answers ua
 			INNER JOIN pitch_questions q ON q.id = ua.`questionid`
-			WHERE userid = ".$this->session->userdata('UserID');
+			WHERE q.questiontype = 'test' AND userid = ".$this->session->userdata('UserID');
 			
 		$objQuery = $this->db->query($strQuery);
 

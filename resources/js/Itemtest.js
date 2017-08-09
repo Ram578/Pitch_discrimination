@@ -27,19 +27,24 @@ function fnShowAlert()
 	}, 12000);
 }
 
-$('document').ready(function(){
-	
-function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
+$('document').ready(function()
+{
+	// if($.support.fullscreen){
+           // $('#container').fullScreen();
+		  // console.log("fullscreen");
+    // }
 
-$(document).on("keydown", disableF5);
+	function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
+
+	$(document).on("keydown", disableF5);
 	
    // More Info Audio
-   setTimeout(function(){
+	setTimeout(function(){
 		$(function () {
 		 //Find the audio control on the page
-		   var audioPlay = document.getElementById('TestAudioData');
+			var audioPlay = document.getElementById('TestAudioData');
 		  // Attaches an event ended and it gets fired when current playing song get ended
-		   audioPlay.addEventListener('ended', function() {
+			audioPlay.addEventListener('ended', function() {
 
 		   		clearInterval(showAlert);
 
@@ -50,15 +55,14 @@ $(document).on("keydown", disableF5);
 				showAlert = setInterval(function(){
 					fnShowAlert();
 				},8000);
-		   });
-
+			});
 	   });
-   },200);
+	},200);
 
-   $("input.custom-radio-button").bind('click', function()
+	$("input.custom-radio-button").bind('click', function()
 	{	
-
-		if(!$("input.custom-radio-button:checked").val()) {
+		if(!$("input.custom-radio-button:checked").val())
+		{
 			fnShowAlert();			
 		}else
 		{
@@ -68,11 +72,14 @@ $(document).on("keydown", disableF5);
 
 			fnSaveUserAnswer($("input.custom-radio-button:checked").attr("data-role-id"), $("input.custom-radio-button:checked").attr("data-role-option"));
 			
+			// var qid = $("input.custom-radio-button:checked").attr("data-role-id");
+			// var selectopt = $("input.custom-radio-button:checked").attr("data-role-option");
+			// alert(qid +" is "+ selectopt);
+			
 			setTimeout(function(){
 
 				if((parseInt($("#hdnQuestionNo").val())+1) == arrQuestions.length)
 				{
-					//$('.NextButtonWrapper').show();
 					setTimeout(function(){
 						window.location.href = $("#aNextButtonWrapper").attr('href');
 					},2000);
@@ -87,8 +94,12 @@ $(document).on("keydown", disableF5);
 					$("#TestAudioData").attr('src', strBaseURL+arrQuestions[intNextQuestion].audiopath);
 
 					$("input.custom-radio-button").attr("checked",false);
+					
+					//Change the data-role-id for Current Question id.
+					$("#id_1").attr('data-role-id', arrQuestions[intNextQuestion].id);
+					$("#id_2").attr('data-role-id', arrQuestions[intNextQuestion].id);
 
-					for(var intCtr = 1; intCtr<= arrQuestions[intNextQuestion].optionscount; intCtr++)
+					/*for(var intCtr = 1; intCtr<= arrQuestions[intNextQuestion].optionscount; intCtr++)
 					{
 						$("#id_"+intCtr).attr('data-role-id', arrQuestions[intNextQuestion].id);
 
@@ -106,7 +117,7 @@ $(document).on("keydown", disableF5);
 
 						$("#lbl_"+intCtr).addClass('btn-'+arrQuestions[intNextQuestion].optioncolor);
 
-					}
+					}*/
 					
 					$('.tonal-test-wrapper .tonal-test-view .option-view label').css('pointer-events','none');
 
