@@ -2,9 +2,6 @@
 <script type="text/javascript">
 	var arrQuestions = <?php echo json_encode($Questions); ?>
 </script>
-<?php 
-	//var_dump($Questions);
-?>
 <!-- Body content goes here -->
 <section class="intro-wrapper tonal-test-wrapper">
 		<div class="container">
@@ -18,29 +15,19 @@
                 </audio>
 
             <!-- Audio Play count list -->
-				<!-- show test item code -->
-				<h1 id="h1QuestionCode" class="text-center color-white"><?=$question['questioncode'];?></h1>
+				 <h1 id="h1QuestionCode" class="text-center color-white"><?=$question['questioncode'];?></h1>
 				 <!-- Acutal test starts here -->
 					<div class="tonal-test-view text-center">
-						<div class="option-view">
-							<input data-role-id="<?=$question['id'];?>" data-role-option="1" id="id_1" type="radio" name="SelectOption" class="radiobtn-custom-green custom-radio-button" />
-							<label id="lbl_1" for="id_1" class="btn-green">Higher</label>
-						</div>
-						<div class="option-view">
-							<input data-role-id="<?=$question['id'];?>" data-role-option="2" id="id_2" type="radio" name="SelectOption" class="radiobtn-custom-green custom-radio-button" />
-							<label id="lbl_2" for="id_2" class="btn-green">Lower</label>
-						</div>
-						 
 						<?php
-							//for($intCtr = 1; $intCtr <= $question['optionscount']; $intCtr++)
-							//{
+							for($intCtr = 1; $intCtr <= $question['optionscount']; $intCtr++)
+							{
 						?>
-							<!--<div class="option-view">
-								 <input data-role-id="<?//=$question['id'];?>" data-role-option="<?//=$intCtr;?>" id="id_<?//=$intCtr;?>" type="radio" name="SelectOption" class="radiobtn-custom-<?//=$question['optioncolor']?> custom-radio-button" />
-								 <label id="lbl_<?//=$intCtr;?>" for="id_<?//=$intCtr;?>" class="btn-<?//=$question['optioncolor']?>"><?//=$intCtr;?></label>
-							 </div> -->
+							<div class="option-view">
+								 <input data-role-id="<?=$question['id'];?>" data-role-option="<?=$intCtr;?>" id="id_<?=$intCtr;?>" type="radio" name="SelectOption" class="radiobtn-custom-<?=$question['optioncolor']?> custom-radio-button" />
+								 <label id="lbl_<?=$intCtr;?>" for="id_<?=$intCtr;?>" class="btn-<?=$question['optioncolor']?>"><?=$intCtr;?></label>
+							 </div>
 						<?php
-							//}
+							}
 						?>
 					</div>
 				 <!-- Actual test ends here -->
@@ -57,7 +44,7 @@
             <?php } } ?>
 		</div>
 		<?php
-			/*$arrAvailableLevels = $this->config->item('AvailableLevels'); 
+			$arrAvailableLevels = $this->config->item('AvailableLevels'); 
 
 			$intNextLevel = $CurrentLevel+1;
 
@@ -66,11 +53,10 @@
 			if(in_array($intNextLevel, $arrAvailableLevels))
 			{
 				$hasNextLevel = true;
-			} */
+			}
 		?>
 		<div class="NextButtonWrapper" style="display:none;">
-			<!--<a id="aNextButtonWrapper" href="<?php //if($hasNextLevel){ echo base_url().'introlevel/?level='.$intNextLevel; }else{ echo base_url().'thankyou'; } ?>" ><?php //if($hasNextLevel){ echo "Next"; }else{ echo "Finish"; } ?></a>  -->
-			<a id="aNextButtonWrapper" href="<?php echo base_url().'thankyou';?>" ><?php echo "Finish"; ?></a> 
+			<a id="aNextButtonWrapper" href="<?php if($hasNextLevel){ echo base_url().'introlevel/?level='.$intNextLevel; }else{ echo base_url().'thankyou'; } ?>" ><?php if($hasNextLevel){ echo "Next"; }else{ echo "Finish"; } ?></a> 
 		</div>
 </section>
 <!-- Body content ends here -->

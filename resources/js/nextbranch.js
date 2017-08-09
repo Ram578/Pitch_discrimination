@@ -1,8 +1,12 @@
 			$('document').ready(function(){
 					var innerHTML = "<source src='audio/next-branch/1.wav'></source>";
 					ctrlaudioNextBranch.InnerHtml = innerHTML;
-					hdTuneNames = "audio/next-branch/1.wav" + "," + "audio/next-branch/2.wav" + "," + "audio/next-branch/3o.wav" + "," + "audio/next-branch/new4.wav";
-					hdImgNames = "img/next/1.jpg" + "," + "img/next/6.gif" + "," + "img/next/7ori.jpg" + "," + "img/next/dummy.jpg";
+					//hdTuneNames = "audio/next-branch/1.wav" + "," + "audio/next-branch/2.wav" + "," + "audio/next-branch/3o.wav" + "," + "audio/next-branch/new4.wav";
+					//hdImgNames = "img/next/1.jpg" + "," + "img/next/6.gif" + "," + "img/next/7ori.jpg" + "," + "img/next/dummy.jpg";
+					
+					//test
+					hdTuneNames = "audio/next-branch/1.wav";
+					hdImgNames = "img/next/1.jpg";
 					
 					$(function () {
 					 //Find the audio control on the page
@@ -21,8 +25,6 @@
 						   if (curPlaying + 1 == lstTuneNames.length ) {
 							  $('.intro-screen-01').show();
 							  $('.intro-wrapper .img-view').hide();
-							  
-							   
 						   }
 						    
 						   var urls = audio.getElementsByTagName('source');

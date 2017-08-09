@@ -59,7 +59,7 @@ class AdminModel extends CI_Model
 
 	function FetchQuestions()
 	{
-		$strQuery = 'SELECT * FROM aims_questions';
+		$strQuery = 'SELECT * FROM pitch_questions';
 
 		$objQuery = $this->db->query($strQuery);
 
@@ -133,7 +133,7 @@ class AdminModel extends CI_Model
 
 				if($_POST['id'] == -1)
 				{
-					$result = $this->db->insert('aims_questions', $arrData);
+					$result = $this->db->insert('pitch_questions', $arrData);
 					
 					if($this->db->affected_rows()) {
 						$success = array(
@@ -154,7 +154,7 @@ class AdminModel extends CI_Model
 				{
 					$this->db->where('id', $_POST['id']);
 
-					$result = $this->db->update('aims_questions', $arrData);
+					$result = $this->db->update('pitch_questions', $arrData);
 					
 					if($this->db->affected_rows()) {
 						$success = array(
@@ -179,7 +179,7 @@ class AdminModel extends CI_Model
 
 	function FetchUsers()
 	{
-		$strQuery = 'SELECT * FROM aims_users ORDER BY id DESC';
+		$strQuery = 'SELECT * FROM pitch_users ORDER BY id DESC';
 
 		$objQuery = $this->db->query($strQuery);
 
@@ -245,7 +245,7 @@ class AdminModel extends CI_Model
 	function _userResults($id_user)
 	{
 		
-		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM aims_user_answers ua INNER JOIN aims_questions q ON q.id = ua.`questionid` WHERE userid = '.$id_user;
+		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE userid = '.$id_user;
 
 		$objQuery = $this->db->query($strQuery);
 
@@ -275,10 +275,10 @@ class AdminModel extends CI_Model
 		if($id)
 		{
 			$this->db->where('questionid', $id);
-			$this->db->delete('aims_user_answers');
+			$this->db->delete('pitch_user_answers');
 			
 			$this->db->where('id', $id);
-			$this->db->delete('aims_questions');
+			$this->db->delete('pitch_questions');
 			
 			if($this->db->affected_rows()) {
 				return true;
@@ -306,7 +306,7 @@ class AdminModel extends CI_Model
 
 	 		$this->db->where('id', $id);
 
-			$this->db->update('aims_questions', $arrData);
+			$this->db->update('pitch_questions', $arrData);
 		}else
 		{
 			return false;
@@ -403,7 +403,7 @@ class AdminModel extends CI_Model
 		}
 	}
 	
-	// Change the active status in aims_questions table.
+	// Change the active status in pitch_questions table.
 	function DeleteQuestion()
 	{
 		$id = $_POST['questionid'];
@@ -418,14 +418,14 @@ class AdminModel extends CI_Model
 
 	 		$this->db->where('id', $id);
 
-			$this->db->update('aims_questions', $arrData);
+			$this->db->update('pitch_questions', $arrData);
 		}else
 		{
 			return false;
 		}
 	}
 	
-	// Get the practice and test questions from aims_questions table in db.
+	// Get the practice and test questions from pitch_questions table in db.
 	function fetch_questions() {
 		
 		$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
@@ -433,7 +433,8 @@ class AdminModel extends CI_Model
 		$result = $this->db->query($sql);
 		
 		// Check the pitch_questions_order table have sorted questions or not.
-		if($result->num_rows() > 0) {
+		if($result->num_rows() > 0) 
+		{
 			
 			$row = $result->row();
 			
@@ -443,13 +444,13 @@ class AdminModel extends CI_Model
 			
 		}
 			
-		$strQuery = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="practice"';
+		$strQuery = 'SELECT id,questioncode,audiofilename FROM pitch_questions WHERE questiontype="practice" and active = 1';
 
 		$practiceQuery = $this->db->query($strQuery);
 		
 		$array['practice'] = $practiceQuery->result_array();
 		
-		$query = 'SELECT id,questioncode,audiofilename FROM aims_questions WHERE questiontype="test"';
+		$query = 'SELECT id,questioncode,audiofilename FROM pitch_questions WHERE questiontype="test" and active = 1';
 
 		$testQuery = $this->db->query($query);
 		

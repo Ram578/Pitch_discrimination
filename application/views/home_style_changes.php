@@ -1,25 +1,33 @@
 <?=$Header;?>
-	<div class="intro-wrapper registrer-wrapper">
+<div class="login-wrap">
+ <div class="login-html">
+	<div class="intro-wrapper registrer-wrapper" id="demo" >
 	<!-- Registration Block goes here -->
-        <form class="form-horizontal col-lg-4 col-md-5 col-sm-6 col-xs-6" role="form" id="pitchRegisterForm" action="home/check_register" method="POST" autocomplete="false">
+        <form class="form-horizontal col-sm-8 col-sm-offset-2" role="form" id="pitchRegisterForm" action="home/check_register" method="POST" autocomplete="false">
 			<?php
 				print_r($this->session->flashdata('Errors'));
 			?>
 			<!--h2>Registration Form</h2-->
-			<div class="form-group">
-				<label for="sleFileNumber" class="col-sm-4 control-label">File Number :</label>
-				<div class="col-sm-8">
+			<div class="form-group"  style="margin-top:10%; ">
+				<label for="sleFileNumber" class="col-sm-4 col-sm-offset-2 control-label" style="margin-bottom:7px;">File Number :</label>
+				
+				<div class="col-sm-4 col-sm-offset-4"  >
 					<input type="text" id="sleFileNumber" placeholder="File Number" class="form-control" name="filenumber" value="103B-D-2017-" autocomplete="false" />
 				</div>
+				
 			</div>
 			<div class="form-group">
-				<div class="col-sm-8 col-sm-offset-4">
-					<button disabled="disabled" type="submit" id="RegisterBtn" class="btn btn-primary btn-block">Register</button>
-				</div>
-			</div>
+                    <div class="col-sm-4 col-sm-offset-4" >
+                        <button  disabled="disabled" type="submit" id="RegisterBtn" class="btn btn-primary btn-block" >Register</button>
+                    </div>
+                </div>
+		
         </form> <!-- /form -->
     	<!-- Registration Block ends here -->
 		</div>
+		
+	</div>
+	</div>
 		<!-- JS files will load here -->
 		<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->

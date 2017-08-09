@@ -12,15 +12,15 @@
                         <h1>Instructions</h1>
                     </div>  -->
                         <div id="ctrlcount" class="text-center img-view">
-                            <img src="resources/img/introduction/12.jpg" alt="" title="" />
+                            <img src="resources/img/introduction/p3.jpg" alt="" title="" />
                         </div>
                     <!-- Auido Play count list ends here -->
                     
                     <!-- Next and New example Buttons will appear once the Audio will finish -->
                         <!-- Screen to check next or new example -->
                         <div class="intro-screen-01 col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2" style="display:none;">
-                            <a href="nextbranch" class="next-button col-md-4 col-sm-4 col-xs-4 text-center col-md-offset-1 col-sm-offset-1 col-xs-offset-1">Next</a>
-                             <a href="newexample" class="blue-button col-md-5 col-sm-5 col-xs-5 text-center col-md-offset-1 col-sm-offset-1 col-xs-offset-1">New Example</a>
+							<a href="nextbranch" class="next-button col-md-4 col-sm-4 col-xs-4 text-center col-md-offset-1 col-sm-offset-1 col-xs-offset-1">NEXT</a>
+                            <a href="newexample" class="blue-button col-md-5 col-sm-5 col-xs-5 text-center col-md-offset-1 col-sm-offset-1 col-xs-offset-1">MORE EXAMPLES</a>
                         </div>
                         <!-- Screen to check next or new example ends -->
                     </div>

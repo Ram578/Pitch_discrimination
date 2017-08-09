@@ -34,8 +34,14 @@ $('document').ready(function(){
 	//form Submit action
 	$("form").submit(function(evt){	 
 		evt.preventDefault();
+		
 		var formData = new FormData($(this)[0]);
 		var url = strBaseURL+'uploadquestions/uploadquestion';
+		
+		//get the form values
+		var quesItemCode = $('#quesItemCode').val();
+		var cboCorrectAnswer = $('#cboCorrectAnswer').val();
+		
 		$.ajax({
 			url: url,
 			type: 'POST',

@@ -11,13 +11,6 @@ class TonalTest extends CI_Controller {
 	{
 		if(isset($this->session->userdata['UserID']))
 		{
-			if(isset($_GET['level']))
-			{
-				$p_Level = $_GET['level'];
-			}else
-			{
-				$p_Level = 3;
-			}
 			$this->load->model('frontendmodel');
 
 			$arrData['Title'] = 'AIMS - Test';
@@ -27,11 +20,41 @@ class TonalTest extends CI_Controller {
 			$arrData['Header'] = $Header;
 
 			$arrData['Footer'] = $this->load->view('footer', $arrData,true);
-
-			$arrData['Questions'] = $this->frontendmodel->FetchQuestions($p_Level);
-
-			$arrData['CurrentLevel'] = $p_Level;
-
+				
+			$questions_result = $this->frontendmodel->FetchQuestions();
+			
+			/////////////////////////////////
+			if(isset($questions_result['order'])) {
+				
+				//To display the sorted order in display order page for test questions
+				$test_order = $questions_result['order']['test'];
+				$test_order_count = count($test_order);
+				$test = array();
+				
+				for($i=0; $i<$test_order_count; $i++) 
+				{
+					$id = $test_order[$i];
+					
+					foreach($questions_result['test'] as $row)
+					{
+						if($row['id'] == $id) 
+						{
+							array_push($test, $row);
+						}
+					}
+				}
+				
+				//Replace the sorted data for displaying in page
+				//$arrData['Questions_order']['test'] = $test;				
+				// $questions_result['test'] = $test;		
+				$arrData['Questions'] = $test;
+			} else {
+				//$arrData['Questions_order']['test'] = $arrData['Questions_order']['test'];
+				$arrData['Questions'] = $questions_result['test'];
+			}
+			
+			////////////////////////////////
+			
 			$this->load->view('tonal_test', $arrData);
 		}else
 		{
