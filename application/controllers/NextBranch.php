@@ -12,7 +12,8 @@ class NextBranch extends CI_Controller {
 		if(!isset($this->session->userdata['UserID']))
 		{
 			redirect('/', 'refresh');
-		}else
+		}
+		else
 		{
 			$this->load->model('frontendmodel');
 			
@@ -26,8 +27,27 @@ class NextBranch extends CI_Controller {
 			
 			$questions_result = $this->frontendmodel->fetch_practice_questions();
 			
-			if(isset($questions_result['order'])) {
+			if(isset($questions_result['practice'])) 
+			{
+				//Get the first 2 practice questions for displaying the questions in next
+				$practice_order = $questions_result['practice'];
+				$practice_order_count = count($practice_order);
+				$practice = array();
 				
+				for($i=0; $i<$practice_order_count; $i++) 
+				{
+					if($i <= 1) 
+					{
+						array_push($practice, $practice_order[$i]);
+					}
+				}
+				
+				$arrData['Questions'] = $practice;
+			} 
+			
+			/*
+			if(isset($questions_result['order'])) 
+			{
 				//To display the sorted order in display order page for practice questions
 				$practice_order = $questions_result['order']['practice'];
 				$practice_order_count = count($practice_order);
@@ -49,10 +69,12 @@ class NextBranch extends CI_Controller {
 				//Replace the sorted data for displaying in page				
 				// $questions_result['practice'] = $practice;		
 				$arrData['Questions'] = $practice;
-			} else 
+			} 
+			else 
 			{
 				$arrData['Questions'] = $questions_result['practice'];
 			}
+			*/
 
 			$this->load->view('next_branch', $arrData);
 		}

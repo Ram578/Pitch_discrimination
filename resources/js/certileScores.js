@@ -2,13 +2,14 @@ $(document).ready(function(){
 	
 	$('#certileScoresList').DataTable();
 	
-	//
+	//Clear the form values when click the add new row button
 	$( ".CertileScoresView" ).on("click", "#btnAddRow", function(e) {
 		$('#myModalLabel').text("New Row");
 		$('#id').val("");
 		$('#age').val("");
 		$('#score').val("");
-		$('#Male').attr('checked', 'checked');
+		$("input[name='sex']").attr("checked", false);
+		$('#Male').attr('checked', 'checked');	
 		$('#certile').val("");
 	});
 	
@@ -21,11 +22,13 @@ $(document).ready(function(){
 		var gender = currentRow.find("td:eq(1)").text();
 		var score = currentRow.find("td:eq(2)").text();
 		var certile = currentRow.find("td:eq(3)").text();
-		// console.log(editId+","+age+","+gender+","+score+","+certile);
+		
+		//append the values to the edit form
 		$('#myModalLabel').text("Edit Row");
 		$('#id').val(editId);
 		$('#age').val(age);
 		$('#score').val(score);
+		$("input[name='sex']").attr("checked", false);
 		$('#'+gender).attr('checked', 'checked');
 		$('#certile').val(certile);
 	});
@@ -82,7 +85,7 @@ $(document).ready(function(){
 	$( ".CertileScoresView" ).on("click", ".deleteBtn", function() {
 		var itemId = $(this).data("id");
 		var row = $(this).closest('tr');
-		// console.log(itemId);
+		
 		// showing bootstrap sweet alert for confirming the item deleting.
 		swal({
 		  title: "Are you sure?",

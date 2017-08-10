@@ -33,7 +33,7 @@
 			<div class="saveBtn">
 				<a id="saveQuestionOrder" class="btn btn-primary pull-right col-md-1 col-sm-1" style="width:150px; min-width:inherit; margin:0px 15% 2% 0px;">Save</a>
 			</div>
-			<section class="adminDashboardView">
+		<!--	<section class="adminDashboardView">
 				<div class="DisplayQuestionsOrder container">
 					<h3>Practice Questions:</h3>
 					<div class="container-fluid">
@@ -46,12 +46,12 @@
 									<div id="container1" class="panel-body box-container">
 										<ul id="practiceSortable" class="list-group">
 											<?php
-												foreach($questions['practice'] as $row)
-												{
+												// foreach($questions['practice'] as $row)
+												// {
 											?>
-												<li class="list-group-item" id="<?=$row['id'];?>"><?=$row['questioncode'];?>-<?=$row['audiofilename'];?></li>
+												<li class="list-group-item" id="<?//=$row['id'];?>"><?//=$row['questioncode'];?>-<?//=$row['audiofilename'];?></li>
 											<?php
-												}
+												// }
 											?>
 										</ul>
 									</div>
@@ -60,10 +60,10 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 			<!-- Practice Questions sorting list section end -->
 			<!-- Test Questions sorting list section start -->
-			<section class="adminDashboardView practiceQuesSection">
+			<section class="adminDashboardView">
 				<div class="DisplayQuestionsOrder container">
 					<h3>Test Questions:</h3>
 					<div class="container-fluid">

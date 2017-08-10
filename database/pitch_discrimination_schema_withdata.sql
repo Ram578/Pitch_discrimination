@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2017 at 03:32 PM
+-- Generation Time: Aug 10, 2017 at 03:31 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.4.24
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `pitch_discrimination`
 --
-CREATE DATABASE IF NOT EXISTS `pitch_discrimination` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `pitch_discrimination`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +26,6 @@ USE `pitch_discrimination`;
 -- Table structure for table `aims_answers`
 --
 
-DROP TABLE IF EXISTS `aims_answers`;
 CREATE TABLE IF NOT EXISTS `aims_answers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `questionid` int(11) NOT NULL,
@@ -46,7 +43,6 @@ CREATE TABLE IF NOT EXISTS `aims_answers` (
 -- Table structure for table `aims_certile`
 --
 
-DROP TABLE IF EXISTS `aims_certile`;
 CREATE TABLE IF NOT EXISTS `aims_certile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `score` int(5) NOT NULL,
@@ -112,7 +108,6 @@ INSERT INTO `aims_certile` (`id`, `score`, `certile`, `createddate`, `updatedate
 -- Table structure for table `aims_question_options`
 --
 
-DROP TABLE IF EXISTS `aims_question_options`;
 CREATE TABLE IF NOT EXISTS `aims_question_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `questionid` int(11) NOT NULL,
@@ -130,7 +125,6 @@ CREATE TABLE IF NOT EXISTS `aims_question_options` (
 -- Table structure for table `ci_sessions`
 --
 
-DROP TABLE IF EXISTS `ci_sessions`;
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
   `id` varchar(40) NOT NULL,
   `ip_address` varchar(45) NOT NULL,
@@ -181,7 +175,6 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 -- Table structure for table `pitch_certile_scores`
 --
 
-DROP TABLE IF EXISTS `pitch_certile_scores`;
 CREATE TABLE IF NOT EXISTS `pitch_certile_scores` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `age` varchar(8) NOT NULL,
@@ -207,7 +200,6 @@ INSERT INTO `pitch_certile_scores` (`id`, `age`, `gender`, `score`, `certile`) V
 -- Table structure for table `pitch_employees`
 --
 
-DROP TABLE IF EXISTS `pitch_employees`;
 CREATE TABLE IF NOT EXISTS `pitch_employees` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(25) NOT NULL,
@@ -237,7 +229,6 @@ INSERT INTO `pitch_employees` (`id`, `firstname`, `lastname`, `username`, `passw
 -- Table structure for table `pitch_questions`
 --
 
-DROP TABLE IF EXISTS `pitch_questions`;
 CREATE TABLE IF NOT EXISTS `pitch_questions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `questioncode` varchar(15) NOT NULL,
@@ -277,7 +268,6 @@ INSERT INTO `pitch_questions` (`id`, `questioncode`, `questionname`, `questionde
 -- Table structure for table `pitch_questions_order`
 --
 
-DROP TABLE IF EXISTS `pitch_questions_order`;
 CREATE TABLE IF NOT EXISTS `pitch_questions_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question_order` varchar(8000) NOT NULL,
@@ -298,7 +288,6 @@ INSERT INTO `pitch_questions_order` (`id`, `question_order`, `type`) VALUES
 -- Table structure for table `pitch_users`
 --
 
-DROP TABLE IF EXISTS `pitch_users`;
 CREATE TABLE IF NOT EXISTS `pitch_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(30) NOT NULL,
@@ -328,7 +317,6 @@ INSERT INTO `pitch_users` (`id`, `firstname`, `lastname`, `age`, `gender`, `file
 -- Table structure for table `pitch_user_answers`
 --
 
-DROP TABLE IF EXISTS `pitch_user_answers`;
 CREATE TABLE IF NOT EXISTS `pitch_user_answers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,

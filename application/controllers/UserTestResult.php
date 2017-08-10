@@ -51,6 +51,7 @@ class UserTestResult extends CI_Controller {
 			unset($arrTempRow['active']);
 			unset($arrTempRow['addeddate']);
 			unset($arrTempRow['completeddate']);
+			unset($arrTempRow['status']);
 			$arrTemp[] = $arrTempRow;
 		}
 		

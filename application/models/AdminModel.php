@@ -39,40 +39,43 @@ class AdminModel extends CI_Model
 					$this->session->set_userdata('EmployeeRole', $arrEmployee['role']);
 
 					return 1;
-				}elseif($arrEmployee['passwd'] != $strPassword)
+				}
+				elseif($arrEmployee['passwd'] != $strPassword)
 				{
 					$this->session->set_flashdata('Errors', 'Password is not matching with the records.');
 					return 0;
-				}elseif($arrEmployee['active'] !== 1)
+				}
+				elseif($arrEmployee['active'] !== 1)
 				{
 					$this->session->set_flashdata('Errors', 'User is not active.');
 					return 0;
 				}
-			}else
+			}
+			else
 			{
 				$this->session->set_flashdata('Errors', 'User is not registered with us. Please check username entered.');
 				return 0;
 			}
-
 		}
 	}
 
 	function FetchQuestions()
 	{
-		$strQuery = 'SELECT * FROM pitch_questions';
+		$strQuery = 'SELECT * FROM pitch_questions Where questiontype = "test" AND show_or_hide = 1';
 
 		$objQuery = $this->db->query($strQuery);
 
 		if($objQuery->num_rows())
 		{
 			return $objQuery->result_array();
-		}else
+		}
+		else
 		{
 			return array();
 		}
 	}
 
-	function UploadQuestion()
+	function upload_question()
 	{
 		if(sizeof($_POST))
 		{
@@ -123,7 +126,8 @@ class AdminModel extends CI_Model
 						'audiofilename' => $strNewFileName,
 						'answer' 		=> $_POST['answer']
 					);
-				}else
+				}
+				else
 				{
 					$arrData = array(
 						'questioncode'  => $strQuestionCode, 
@@ -135,14 +139,38 @@ class AdminModel extends CI_Model
 				{
 					$result = $this->db->insert('pitch_questions', $arrData);
 					
-					if($this->db->affected_rows()) {
+					if($this->db->affected_rows()) 
+					{
+						//Push the new question id in sorted test questions order
+						$new_id = $this->db->insert_id();
+						
+						$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
+						$result = $this->db->query($sql);
+						
+						if($result->num_rows() > 0) 
+						{
+							$row = $result->row();
+							$obj = unserialize($row->question_order);
+							
+							array_push($obj['test'], $new_id);
+							
+							$arrData = array(
+									'question_order' => serialize($obj)
+									);
+							
+							$this->db->where('type', 'questions');
+
+							$this->db->update('pitch_questions_order', $arrData);
+						} 
+						
 						$success = array(
 							"success" => "success",
 							"status" => "insert",
 							"message" => "Inserted successfully."
 						);
 					}
-					else {
+					else
+					{
 						$success = array(
 							"success" => "failed",
 							"status" => "insert",
@@ -163,7 +191,8 @@ class AdminModel extends CI_Model
 							"message" => "Updated successfully."
 						);
 					}
-					else {
+					else
+					{
 						$success = array(
 							"success" => "failed",
 							"status" => "update",
@@ -252,7 +281,8 @@ class AdminModel extends CI_Model
 		if($objQuery->num_rows() > 0)
 		{
 			return $objQuery->result_array();
-		}else
+		}
+		else
 		{
 			return array();
 		}
@@ -261,7 +291,8 @@ class AdminModel extends CI_Model
 	function FetchTestResult()
 	{
 		$arrUsers = $this->FetchUsers();
-		foreach ($arrUsers as $key => &$value) {
+		foreach ($arrUsers as $key => &$value) 
+		{
 			$value['test_result'] = $this->_userResults($value['id']);
 		}
 		
@@ -274,15 +305,52 @@ class AdminModel extends CI_Model
 
 		if($id)
 		{
+			/*
+			//Delete the question in pitch_questions and delete that question user responses
 			$this->db->where('questionid', $id);
 			$this->db->delete('pitch_user_answers');
 			
 			$this->db->where('id', $id);
 			$this->db->delete('pitch_questions');
+			*/
 			
-			if($this->db->affected_rows()) {
+			//Update the question show_or_hide field to hide the question
+			$this->db->where('id', $id);
+			$this->db->update('pitch_questions', array('show_or_hide'  => 0, 'active' => 0));
+			
+			if($this->db->affected_rows()) 
+			{
+				$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
+				$result = $this->db->query($sql);
+				
+				if($result->num_rows() > 0) 
+				{
+					$row = $result->row();
+					$obj = unserialize($row->question_order);
+					
+					foreach($obj['test'] as $key => $value) 
+					{
+						if($value == $id) 
+						{
+							//delete the element of question
+							array_splice($obj['test'], $key, 1);
+						}
+					}
+					
+					$arrData = array(
+							'question_order' => serialize($obj)
+							);
+					
+					$this->db->where('type', 'questions');
+
+					$this->db->update('pitch_questions_order', $arrData);
+					
+				} 
+				/////
 				return true;
-			} else {
+			}
+			else
+			{
 				return false;
 			}
 		}
@@ -307,7 +375,8 @@ class AdminModel extends CI_Model
 	 		$this->db->where('id', $id);
 
 			$this->db->update('pitch_questions', $arrData);
-		}else
+		}
+		else
 		{
 			return false;
 		}
@@ -349,7 +418,8 @@ class AdminModel extends CI_Model
 					"message" => "Inserted successfully."
 				);
 			}
-			else {
+			else 
+			{
 				$success = array(
 					"success" => "failed",
 					"status" => "insert",
@@ -364,14 +434,16 @@ class AdminModel extends CI_Model
 
 			$this->db->update('pitch_certile_scores', $arrData);
 			
-			if($this->db->affected_rows()) {
+			if($this->db->affected_rows()) 
+			{
 				$success = array(
 					"success" => "success",
 					"status" => "update",
 					"message" => "Updated successfully."
 				);
 			}
-			else {
+			else 
+			{
 				$success = array(
 					"success" => "failed",
 					"status" => "update",
@@ -391,9 +463,12 @@ class AdminModel extends CI_Model
 			$this->db->where('id', $id);
 			$this->db->delete('pitch_certile_scores');
 			
-			if($this->db->affected_rows()) {
+			if($this->db->affected_rows()) 
+			{
 				return true;
-			} else {
+			} 
+			else 
+			{
 				return false;
 			}
 		}
@@ -404,7 +479,7 @@ class AdminModel extends CI_Model
 	}
 	
 	// Change the active status in pitch_questions table.
-	function DeleteQuestion()
+	function inactive_question()
 	{
 		$id = $_POST['questionid'];
 
@@ -419,14 +494,55 @@ class AdminModel extends CI_Model
 	 		$this->db->where('id', $id);
 
 			$this->db->update('pitch_questions', $arrData);
-		}else
+			
+			if($this->db->affected_rows()) 
+			{
+				//Push the new question id in sorted test questions order
+				$new_id = $this->db->insert_id();
+				
+				$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
+				$result = $this->db->query($sql);
+				
+				if($result->num_rows() > 0) 
+				{
+					$row = $result->row();
+					$obj = unserialize($row->question_order);
+					
+					if($status == 1) 
+					{
+						array_push($obj['test'], $id);
+					} 
+					else 
+					{
+						foreach($obj['test'] as $key => $value) 
+						{
+							if($value == $id) 
+							{
+								//delete the element of question
+								array_splice($obj['test'], $key, 1);
+							}
+						}
+					}
+					
+					$arrData = array(
+							'question_order' => serialize($obj)
+							);
+					
+					$this->db->where('type', 'questions');
+
+					$this->db->update('pitch_questions_order', $arrData);
+				} 
+			}
+		}
+		else
 		{
 			return false;
 		}
 	}
 	
 	// Get the practice and test questions from pitch_questions table in db.
-	function fetch_questions() {
+	function fetch_questions() 
+	{
 		
 		$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
 
@@ -435,21 +551,24 @@ class AdminModel extends CI_Model
 		// Check the pitch_questions_order table have sorted questions or not.
 		if($result->num_rows() > 0) 
 		{
-			
 			$row = $result->row();
 			
-			$obj = unserialize(base64_decode($row->question_order));
+			// $obj = unserialize(base64_decode($row->question_order));
+			$obj = unserialize($row->question_order);
 			
 			$array['order'] = $obj;
-			
 		}
 			
+		/* 
+		//Get the practice test questions
 		$strQuery = 'SELECT id,questioncode,audiofilename FROM pitch_questions WHERE questiontype="practice" and active = 1';
 
 		$practiceQuery = $this->db->query($strQuery);
 		
 		$array['practice'] = $practiceQuery->result_array();
+		*/
 		
+		//Get the test questions
 		$query = 'SELECT id,questioncode,audiofilename FROM pitch_questions WHERE questiontype="test" and active = 1';
 
 		$testQuery = $this->db->query($query);
@@ -461,16 +580,19 @@ class AdminModel extends CI_Model
 	
 	
 	// save the questions order in pitch_questions_order table in db.
-	function save_questions_order() {
+	function save_questions_order() 
+	{
 		
-		$question_order = base64_encode(serialize($_POST['question_order']));
+		// $question_order = base64_encode(serialize($_POST['question_order']));
+		$question_order = serialize($_POST['question_order']);
 
 		if($question_order)
 		{	
 			$sql = "SELECT * FROM pitch_questions_order";
 			$result = $this->db->query($sql);
 			
-			if($result->num_rows() > 0) {
+			if($result->num_rows() > 0) 
+			{
 				$arrData = array(
 						'question_order' => $question_order
 						);
@@ -479,18 +601,23 @@ class AdminModel extends CI_Model
 
 				$this->db->update('pitch_questions_order', $arrData);
 				
-			} else {
+			} 
+			else 
+			{
 				$arrData = array(
 							'type' => 'questions',
 							'question_order' => $question_order,
-							);
+						   );
 				
 				$this->db->insert('pitch_questions_order', $arrData);
 			}
 			
-			if($this->db->affected_rows()) {
+			if($this->db->affected_rows())
+			{
 				return "success";
-			} else {
+			} 
+			else 
+			{
 				return "fail";
 			}
 		}

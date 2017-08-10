@@ -10,7 +10,8 @@ class RegisterModel extends CI_Model
 		parent::__construct();
 	}
 	
-	function check_register_user() {
+	function check_register_user()
+	{
 		
 		$arrData = array();
 		
@@ -67,7 +68,8 @@ class RegisterModel extends CI_Model
 				$this->session->set_userdata("Gender", $_POST['gender']);
 				$this->session->set_userdata("UserID", $intUserID);
 				return $intUserID;
-			}else
+			}
+			else
 			{
 				return array('OOPS...! We are not able to register you now. Please try again later.');
 			}

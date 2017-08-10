@@ -5,6 +5,7 @@ $('document').ready(function(){
 	
 	// Set the default form values for new question when click the new question button
 	$( ".UploadQuestionsList" ).on("click", "#btnNewQuestion", function(e) {
+		
 		$('#myModalLabel').text("New Question");
 		$("#sleFile").attr("disabled", false);
 		$("#uploadQuesDiv").show();
@@ -99,7 +100,7 @@ $('document').ready(function(){
 				url: url,
 				data: formData,
 				success: function (result) {
-					console.log(result);
+					//console.log(result);
 					if(result == "success") {
 						row.remove();
 						swal("Deleted!", "Your item has been deleted.", "success");
@@ -116,17 +117,21 @@ $('document').ready(function(){
 	
 	///// Display question order page /////
 	//Sortable for practice and test questions in display order page
+	/*
 	$( "#practiceSortable" ).sortable({
 		distance:30
 	});
+	*/
+	
+	//Sortable for test questions in display order page
 	$( "#testSortable" ).sortable({
-		distance:30
+		//distance:30
 	});
 	
 	//Save the sorted questions order for practice and test questions through ajax in pitch_questions_order table
 	$('.saveBtn').on("click", "#saveQuestionOrder", function () {
 		var questionsOrder = {};
-		questionsOrder['practice'] = $("#practiceSortable").sortable("toArray");
+		//questionsOrder['practice'] = $("#practiceSortable").sortable("toArray");
 		questionsOrder['test'] = $("#testSortable").sortable("toArray");
 		
 		swal({
@@ -143,14 +148,14 @@ $('document').ready(function(){
 			var formData = {
 				"question_order"  : questionsOrder
 			};
-			console.log(questionsOrder);
-			console.log(formData);
+			//console.log(questionsOrder);
+			//console.log(formData);
 			$.ajax({
 				type: "POST",
 				url: url,
 				data: formData,
 				success: function (result) {
-					console.log(result);
+					//console.log(result);
 					if(result == "success") {
 						//location.reload(true);
 						swal("Success!", "Your questions order is saved successfully.", "success");
@@ -189,6 +194,7 @@ function fnDeleteQuestion(question_id, active)
 	if(question_id)
 	{
 		console.log(question_id);
+		console.log(active);
 		$.ajax({
 			'type'		: 'POST',
 			'url'		: strBaseURL+'uploadquestions/deletequestion', 

@@ -26,6 +26,25 @@ class NewExample extends CI_Controller {
 			
 			$questions_result = $this->frontendmodel->fetch_practice_questions();
 			
+			if(isset($questions_result['practice'])) 
+			{
+				//Get the from the 3rd practice question for displaying the questions in more examples
+				$practice_order = $questions_result['practice'];
+				$practice_order_count = count($practice_order);
+				$practice = array();
+				
+				for($i=0; $i<$practice_order_count; $i++) 
+				{
+					if($i >= 2) 
+					{
+						array_push($practice, $practice_order[$i]);
+					}
+				}
+				
+				$arrData['Questions'] = $practice;
+			} 
+			
+			/*
 			if(isset($questions_result['order'])) {
 				
 				//To display the sorted order in display order page for practice questions
@@ -53,6 +72,7 @@ class NewExample extends CI_Controller {
 			{
 				$arrData['Questions'] = $questions_result['practice'];
 			}
+			*/
 
 			$this->load->view('new_example', $arrData);
 		}

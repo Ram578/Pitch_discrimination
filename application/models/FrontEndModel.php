@@ -21,7 +21,7 @@ class FrontEndModel extends CI_Model
 		{
 			$row = $result->row();
 			
-			$obj = unserialize(base64_decode($row->question_order));
+			$obj = unserialize($row->question_order);
 			
 			$array['order'] = $obj;
 		}
@@ -38,6 +38,7 @@ class FrontEndModel extends CI_Model
 	// Get the practice test questions
 	function fetch_practice_questions()
 	{	
+		/*
 		$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
 
 		$result = $this->db->query($sql);
@@ -47,10 +48,11 @@ class FrontEndModel extends CI_Model
 		{
 			$row = $result->row();
 			
-			$obj = unserialize(base64_decode($row->question_order));
+			$obj = unserialize($row->question_order);
 			
 			$array['order'] = $obj;
 		}
+		*/
 		
 		$query = 'SELECT * FROM pitch_questions WHERE questiontype="practice" and active = 1';
 
@@ -90,7 +92,8 @@ class FrontEndModel extends CI_Model
 		if($objQuery->num_rows())
 		{
 			return $objQuery->result_array();
-		}else
+		}
+		else
 		{
 			return array();
 		}
@@ -103,9 +106,12 @@ class FrontEndModel extends CI_Model
 		$user_id = $this->session->userdata('UserID');
 		
 		//Check and save for next -> 0 and for more examples -> 1
-		if($status == "next") {
+		if($status == "next") 
+		{
 			$status_code = 0;
-		} else {
+		} 
+		else 
+		{
 			$status_code = 1;
 		}
 		

@@ -30,7 +30,7 @@ class UploadQuestions extends CI_Controller {
 	{
 		$this->load->model('adminmodel');
 
-		$result = $this->adminmodel->UploadQuestion();
+		$result = $this->adminmodel->upload_question();
 		
 		echo json_encode($result);
 	}
@@ -56,7 +56,7 @@ class UploadQuestions extends CI_Controller {
 	{
 		$this->load->model('adminmodel');
 
-		$result = $this->adminmodel->DeleteQuestion();
+		$result = $this->adminmodel->inactive_question();
 
 		if($result)
 		{
@@ -98,7 +98,7 @@ class UploadQuestions extends CI_Controller {
 			$result = $arrData['questions'];
 			
 			//To display the sorted order in display order page for practice questions
-			$practice_order = $result['order']['practice'];
+		/*	$practice_order = $result['order']['practice'];
 			$practice_order_count = count($practice_order);
 			$practice = array();
 			
@@ -113,7 +113,7 @@ class UploadQuestions extends CI_Controller {
 						array_push($practice, $row);
 					}
 				}
-			}
+			}*/
 			
 			//To display the sorted order in display order page for test questions
 			$test_order = $result['order']['test'];
@@ -134,7 +134,7 @@ class UploadQuestions extends CI_Controller {
 			}
 			
 			//Replace the sorted data for displaying in page
-			$arrData['questions']['practice'] = $practice;
+			//$arrData['questions']['practice'] = $practice;
 			$arrData['questions']['test'] = $test;
 			
 			$this->load->view('display_questions_order',$arrData);
