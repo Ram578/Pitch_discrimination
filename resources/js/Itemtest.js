@@ -29,12 +29,28 @@ function fnShowAlert()
 
 $('document').ready(function()
 {
-	// if($.support.fullscreen){
-           // $('#container').fullScreen();
-		  // console.log("fullscreen");
-    // }
-
-	function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
+	//Stop the default audio play
+	audioPlayStart = document.getElementById('TestAudioData');
+	audioPlayStart.pause();
+	
+	//Start the exam after click the start
+	$("#fullscreen").click(function(e){
+        var elm = $(this);
+        if(screenfull.enabled){
+            screenfull.request();
+            elm.hide();
+            $('#tonal-test').show();
+			audioPlayStart.play();
+        }
+    });
+	
+	//Disable required function keys
+	function disableF5(e) {
+		if ((e.which || e.keyCode) == 27 || (e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82){
+			e.preventDefault(); 
+			return false;
+		} 
+	};
 
 	$(document).on("keydown", disableF5);
 	
@@ -80,6 +96,7 @@ $('document').ready(function()
 
 				if((parseInt($("#hdnQuestionNo").val())+1) == arrQuestions.length)
 				{
+					$("#test-completed").trigger('click');
 					setTimeout(function(){
 						window.location.href = $("#aNextButtonWrapper").attr('href');
 					},2000);
@@ -130,6 +147,19 @@ $('document').ready(function()
 		
 			}, 1000);
 		}
+	});
+	
+	// Save the test completed date in pitch_users table in db through ajax.
+	$( "#test-completed" ).on("click", function() {
+		$.ajax({
+			'type'		: 'POST',
+			'url'		: strBaseURL+'tonaltest/save_test_completed_date', 
+			'ajax' 		: true,
+			'data' 		: { 'test_status' : 'completed' },
+			'success' 	: function(){},
+			'failure' 	: function(){}
+		});
+			
 	});
 
 });

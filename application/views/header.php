@@ -23,7 +23,7 @@
 	<!--<link href="<?//=base_url();?>resources/css/style.css" rel="stylesheet" />-->
     <script src="<?=base_url();?>resources/js/modernizr-2.6.2.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="<?=base_url();?>resources/js/jquery.fullscreen.min.js"></script>
+	<script src="<?=base_url();?>resources/js/screenfull.js"></script>
 	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script> -->
     <script type="text/javascript">
     	var strBaseURL = "<?=base_url();?>";

@@ -72,10 +72,10 @@
 											</button> 
 										</td>
 										<td class="text-center">
-											<input type="checkbox" id="activeQuestion" name="active" <?php if($question['active']){ echo "checked"; } ?> data-id="<?=$question['id'];?>" />
+											<input type="checkbox" name="active" <?php if($question['active']){ echo "checked"; } ?>  onchange='fnDeleteQuestion("<?=$question['id'];?>","<?php if($question['active']){ echo 0; }else{ echo 1; } ?>")' />
 										</td>
 										<td class="text-center">
-											<input type="checkbox" id="includeinQuestion" name="includeinscoring" <?php if($question['includeinscoring']){ echo "checked"; } ?> data-id="<?=$question['id'];?>" />
+											<input type="checkbox" name="includeinscoring" <?php if($question['includeinscoring']){ echo "checked"; } ?> onchange="fnIncludeInScore('<?=$intQuestionID;?>', '<?php if($intIncludeInScore){ echo 0; }else{ echo 1; } ?>');" />
 										</td>
 									</tr>
 								<?php

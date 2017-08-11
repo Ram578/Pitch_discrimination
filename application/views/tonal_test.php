@@ -10,7 +10,7 @@
 	<section class="intro-wrapper tonal-test-wrapper">
 		<div class="container">
 			<?php foreach($Questions as $key=>$question){ if($key == 0){ ?>
-			<div class="row">
+			<div class="row" id="tonal-test" style="display:none;">
 				<input type="hidden" id="hdnQuestionNo" value="<?=$key;?>" />
 
 			 <!-- When the page loads Audio will auto play -->
@@ -46,9 +46,15 @@
 				</div>
             </div>
             <?php } } ?>
+			
+			<div class="intro-screen-01  col-md-12 col-sm-12 col-xs-12 text-center">
+                <!--<a href="tonaltest" class="next-button">Start</a>-->
+                <a id="fullscreen" class="next-button">Start</a>
+            </div>
 		</div>
 		
 		<div class="NextButtonWrapper" style="display:none;">
+			<button id="test-completed"> Test Completed</button>
 			<a id="aNextButtonWrapper" href="<?php echo base_url().'thankyou';?>" ><?php echo "Finish"; ?></a> 
 		</div>
 	</section>

@@ -37,24 +37,30 @@ class UsersList extends CI_Controller {
 		$this->load->model('adminmodel');
 
 		$arrData['Users'] = $this->adminmodel->FetchUsers();
-
+		
 		foreach ($arrData['Users'] as $key => &$value) 
 		{
+			
 			$intScore = $this->adminmodel->FetchUserResult($value['id']);
 			
-			if($value['status'] == 0) 
+			if($value['status'] == 1) 
 			{
 				$value['status'] = "Next";
-			} else
+			}
+			else if($value['status'] == 2)
 			{
 				$value['status'] = "More Examples";
+			} 
+			else
+			{
+				$value['status'] = "";
 			}
 
 			$value['score'] = $intScore;
 
 			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
 		}
-
+		
 		// Enable to download this file
 		$filename = "UsersList.csv";
 		 
@@ -79,7 +85,7 @@ class UsersList extends CI_Controller {
 			{
 			    fputcsv($display, array_values($value), ",", '"');
 			}
-		  }
+		}
 		 
 		fclose($display);
 	}

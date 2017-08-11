@@ -115,6 +115,52 @@ $('document').ready(function(){
 		}); 
 	}); 
 	
+	// Save the question active status on onchange event.
+	$( ".UploadQuestionsList" ).on("change", "#activeQuestion", function(e) {
+		var question_id = $(this).data("id");
+		
+		if ($(this).is(":checked"))
+		{
+			// it is checked
+			var active = 1;
+		} else {
+			var active = 0;
+		}
+		
+		$.ajax({
+			'type'		: 'POST',
+			'url'		: strBaseURL+'uploadquestions/deletequestion', 
+			'ajax' 		: true,
+			'data' 		: { questionid : question_id, active : active },
+			'success' 	: function(){},
+			'failure' 	: function(){}
+		});
+		
+	});
+	
+	// Save the question include in sharing status on onchange event.
+	$( ".UploadQuestionsList" ).on("change", "#includeinQuestion", function(e) {
+		var question_id = $(this).data("id");
+		
+		if ($(this).is(":checked"))
+		{
+			// it is checked
+			var includeinscore = 1;
+		} else {
+			var includeinscore = 0;
+		}
+		
+		$.ajax({
+			'type'		: 'POST',
+			'url'		: strBaseURL+'uploadquestions/includeinscore', 
+			'ajax' 		: true,
+			'data' 		: { questionid : question_id, includeinscore : includeinscore },
+			'success' 	: function(){},
+			'failure' 	: function(){}
+		});
+		
+	});
+	
 	///// Display question order page /////
 	//Sortable for practice and test questions in display order page
 	/*
@@ -148,18 +194,19 @@ $('document').ready(function(){
 			var formData = {
 				"question_order"  : questionsOrder
 			};
-			//console.log(questionsOrder);
-			//console.log(formData);
+			
 			$.ajax({
 				type: "POST",
 				url: url,
 				data: formData,
 				success: function (result) {
-					//console.log(result);
-					if(result == "success") {
+					if(result == "success") 
+					{
 						//location.reload(true);
 						swal("Success!", "Your questions order is saved successfully.", "success");
-					} else {
+					} 
+					else 
+					{
 						swal("Warning!", "Something went wrong.", "warning");
 					}
 				},
@@ -169,72 +216,7 @@ $('document').ready(function(){
 			}); 
 		});
 		
-    });
-	
-	/*
-	$(".edit").each(function(){
-		selectedItem = $(this);
-		selectedItem.click(function(){
-			index = $(this).attr("data-index");
-			id = $(this).attr("data-questionid");
-			fnEditQuestion(index, id);
-		});
-	});
-	*/
+    }); 
 	
 });
 
-function fnValidateQuestionUpload()
-{
-	
-}
-
-function fnDeleteQuestion(question_id, active)
-{
-	if(question_id)
-	{
-		console.log(question_id);
-		console.log(active);
-		$.ajax({
-			'type'		: 'POST',
-			'url'		: strBaseURL+'uploadquestions/deletequestion', 
-			'ajax' 		: true,
-			'data' 		: { questionid : question_id, active : active },
-			'success' 	: function(){},
-			'failure' 	: function(){}
-		});
-	}
-	
-}
-
-function fnIncludeInScore(question_id, includeinscore)
-{
-	if(question_id)
-	{
-		$.ajax({
-			'type'		: 'POST',
-			'url'		: strBaseURL+'uploadquestions/includeinscore', 
-			'ajax' 		: true,
-			'data' 		: { questionid : question_id, includeinscore : includeinscore },
-			'success' 	: function(){},
-			'failure' 	: function(){}
-		});
-	}
-}
-
-function fnEditQuestion(index, question_id)
-{
-	if(question_id && arrQuestions.length)
-	{
-		if(arrQuestions[index])
-		{
-			$("#sleFile").attr("disabled", true);
-			$("#hdnQuestionID").val(arrQuestions[index]['id']);
-			$("#sleItemCode").val(arrQuestions[index]['questioncode']);
-			$("#cboOptionColor").val(arrQuestions[index]['optioncolor']);
-			$("#cboOptionCount").val(arrQuestions[index]['optionscount']);
-			$("#cboCorrectAnswer").val(arrQuestions[index]['answer']);
-			$("#cboQuestionLevel").val(arrQuestions[index]['questionlevel']);
-		}
-	}
-}

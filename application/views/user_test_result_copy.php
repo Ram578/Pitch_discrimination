@@ -105,30 +105,39 @@
 											<td width="10%">Practice Responses</td>
 											<td width="2.3%"><?php echo $value['status'] == 1 ?"Next":"More Examples"; ?></td>
 											<?php
-												if($value['status'] == 1) :
-													for($intCtr = 0; $intCtr< sizeof($value['practice_result']); $intCtr++) :
+												if($value['status'] == 1) {
+													for($intCtr = 0; $intCtr< sizeof($value['practice_result']); $intCtr++) {
 											?>
-													<td width="2.3%"><?=$value['practice_result'][$intCtr]['optionid'];?></td>
+														<td width="2.3%"><?=$value['practice_result'][$intCtr]['optionid'];?></td>
 													<?php 
-													endfor;
-													for($i=0;$i<5;$i++) :
+													}
+													for($i=0;$i<5;$i++) {
 													?>
-													<td width="2.3%">0</td>
+														<td width="2.3%">0</td>
 											<?php
-													endfor;
-												else :
-													for($i=0;$i<2;$i++) :
+													}
+												}
+												else 
+												{
+													for($i=0;$i<2;$i++) {
 												?>
 													<td width="2.3%">0</td>
 												<?php		
-													endfor;
-													for($intCtr = 0; $intCtr< sizeof($value['practice_result']); $intCtr++) :
+													}
+													for($intCtr = 0; $intCtr< sizeof($value['practice_result']); $intCtr++) {
 												?>
-													<td width="2.3%"><?=$value['practice_result'][$intCtr]['optionid'];?></td>
-											<?php
-													endfor;
-												endif;
-											?> 
+														<td width="2.3%"><?=$value['practice_result'][$intCtr]['optionid'];?></td>
+													<?php
+													}
+												}
+												
+												?> 
+												
+												<?php
+												//for($intCtr = 0; $intCtr< sizeof($value['practice_result']); $intCtr++) {
+												?>
+													<!--<td width="2.3%"><?//=$value['practice_result'][$intCtr]['optionid'];?></td>-->
+												<?php //} ?>
 										</tr>
 									</table>
 									<table width="100%" cellpadding="0" cellspacing="0">

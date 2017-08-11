@@ -12,7 +12,7 @@ class UserTestResult extends CI_Controller {
 		$this->load->model('adminmodel');
 
 		$arrData['TestResults'] = $this->adminmodel->FetchTestResult();
-				
+						
 		foreach ($arrData['TestResults'] as $key => &$value) 
 		{
 			$intScore = $this->adminmodel->FetchUserResult($value['id']);
@@ -21,6 +21,9 @@ class UserTestResult extends CI_Controller {
 
 			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
 		}
+		
+		// print_r($arrData);
+		// die;
 
 		$this->load->view('user_test_result', $arrData);
 	}
@@ -35,7 +38,8 @@ class UserTestResult extends CI_Controller {
 
 		$arrHeaders = array('ID','First Name', 'Last Name', 'Age', 'Gender', 'File Number');
 
-		foreach ($arrResult as $key => &$value) {
+		foreach ($arrResult as $key => &$value) 
+		{
 			$intQt = 1;
 			if(count($value['test_result']) > 0)
 			{
@@ -45,9 +49,20 @@ class UserTestResult extends CI_Controller {
 					$intQt++;
 				}
 			}
+			
+			// $statusintQt = 1;
+			// if(count($value['practice_result']) > 0)
+			// {
+				// foreach ($value['practice_result'] as $key => $qt) {
+					// $value['Answer '.$statusintQt] = $qt['answer'];
+					// $arrHeaders[] = "NQ".$statusintQt;
+					// $statusintQt++;
+				// }
+			// }
 
 			$arrTempRow = $value;
 			unset($arrTempRow['test_result']);
+			unset($arrTempRow['practice_result']);
 			unset($arrTempRow['active']);
 			unset($arrTempRow['addeddate']);
 			unset($arrTempRow['completeddate']);
@@ -61,7 +76,8 @@ class UserTestResult extends CI_Controller {
 
 		//$this->cleanArray($arrTemp);
 
-		foreach ($arrTemp as &$value) {
+		foreach ($arrTemp as &$value) 
+		{
 			$intTempCount = count($value);
 			if($maxColumns > $intTempCount)
 			{
@@ -72,7 +88,8 @@ class UserTestResult extends CI_Controller {
 			}
 		}
 		//print_r($arrTemp); exit;
-		foreach ($arrTemp as $key => &$value) {
+		foreach ($arrTemp as $key => &$value) 
+		{
 			$intScore = $this->adminmodel->FetchUserResult($value['id']);
 
 			$value['score'] = $intScore;
@@ -98,7 +115,8 @@ class UserTestResult extends CI_Controller {
 
 		fputcsv($display, array_values($arrHeaders), ",", '"');
 		
-		foreach ($arrTemp as $file) {
+		foreach ($arrTemp as $file) 
+		{
 		    $result = [];
 		    array_walk_recursive($file, function($item) use (&$result) {
 		        $result[] = $item;

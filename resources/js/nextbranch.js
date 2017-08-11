@@ -72,8 +72,11 @@ $('document').ready(function()
 
 				if((parseInt($("#hdnQuestionNo").val())+1) == arrQuestions.length)
 				{
-					$('.intro-screen-01').show();
-					$('.container .next-practice-test').hide();
+					// $('.intro-screen-01').show();
+					// $('.container .next-practice-test').hide();
+					setTimeout(function(){
+						window.location.href = $("#tonal-next-branch").attr('href');
+					},2000);
 				}
 
 				var intNextQuestion = parseInt($("#hdnQuestionNo").val())+1;

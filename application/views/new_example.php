@@ -44,7 +44,8 @@
             <?php } } ?>
 			
 			<div class="intro-screen-01  col-md-12 col-sm-12 col-xs-12 text-center" style="display:none;">
-                <a href="tonaltest" class="next-button">Start</a>
+               <!-- <a href="tonaltest" class="next-button">Start</a> -->
+               <a id="tonal-more-branch" href="<?php echo base_url() . "tonaltest";?>" class="next-button">Start</a>
             </div>
 			
 		</div>

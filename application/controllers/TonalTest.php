@@ -64,4 +64,11 @@ class TonalTest extends CI_Controller {
 
 		$this->frontendmodel->SaveUserAnswer();
 	}
+	
+	function save_test_completed_date()
+	{
+		$this->load->model('frontendmodel');
+
+		$this->frontendmodel->update_test_completed_date();
+	}
 }

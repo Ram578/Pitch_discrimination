@@ -287,18 +287,38 @@ class AdminModel extends CI_Model
 			return array();
 		}
 	}
+	
+	function _userPracticeResults($id_user)
+	{
+		
+		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "practice" AND userid = '.$id_user;
 
+		$objQuery = $this->db->query($strQuery);
+
+		if($objQuery->num_rows() > 0)
+		{
+			return $objQuery->result_array();
+		}
+		else
+		{
+			return array();
+		}
+	}
+
+	//Get all users practice and test question results
 	function FetchTestResult()
 	{
 		$arrUsers = $this->FetchUsers();
 		foreach ($arrUsers as $key => &$value) 
 		{
 			$value['test_result'] = $this->_userResults($value['id']);
+			
+			$value['practice_result'] = $this->_userPracticeResults($value['id']);
 		}
 		
 		return $arrUsers;
 	}
-
+	
 	function delete_question_row()
 	{
 		$id = $_POST['id'];

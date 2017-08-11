@@ -108,17 +108,32 @@ class FrontEndModel extends CI_Model
 		//Check and save for next -> 0 and for more examples -> 1
 		if($status == "next") 
 		{
-			$status_code = 0;
+			$status_code = 1;
 		} 
 		else 
 		{
-			$status_code = 1;
+			$status_code = 2;
 		}
 		
 		$this->db->where('id', $user_id);
 		$result = $this->db->update('pitch_users', array('status' => $status_code));
 		
 		return $result;
+	}
+	
+	//Save the user test completed date in pitch_users table after the exam is completed.
+	function update_test_completed_date()
+	{
+		$status = $_POST['test_status'];
+		$user_id = $this->session->userdata('UserID');	
+		
+		//Check and save for next -> 0 and for more examples -> 1
+		if($status == "completed") 
+		{
+			$date = date('Y-m-d H:m:s');
+			$this->db->where('id', $user_id);
+			$this->db->update('pitch_users', array('completeddate' => $date));
+		} 
 	}
 }
 ?>
