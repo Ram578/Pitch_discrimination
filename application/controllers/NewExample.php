@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class NewExample extends CI_Controller {
+class Newexample extends CI_Controller {
 
 	/**
 	 * This is NewExample page controller.
@@ -32,13 +32,11 @@ class NewExample extends CI_Controller {
 				$practice_order = $questions_result['practice'];
 				$practice_order_count = count($practice_order);
 				$practice = array();
+				$examples = array();
 				
-				for($i=0; $i<$practice_order_count; $i++) 
+				for($i=2; $i<$practice_order_count; $i++) 
 				{
-					if($i >= 2) 
-					{
-						array_push($practice, $practice_order[$i]);
-					}
+					array_push($practice, $practice_order[$i]);
 				}
 				
 				$arrData['Questions'] = $practice;

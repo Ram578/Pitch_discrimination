@@ -30,6 +30,13 @@ function fnShowAlert()
 
 $('document').ready(function()
 {
+	//Swiper
+	swiper = new Swiper('.swiper-container', {
+                loop: true,
+                slidesPerView: 1,
+                simulateTouch: false
+			});
+			
 	function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
 
 	$(document).on("keydown", disableF5);
@@ -72,11 +79,11 @@ $('document').ready(function()
 
 				if((parseInt($("#hdnQuestionNo").val())+1) == arrQuestions.length)
 				{
-					// $('.intro-screen-01').show();
-					// $('.container .next-practice-test').hide();
 					setTimeout(function(){
 						window.location.href = $("#tonal-next-branch").attr('href');
 					},2000);
+				} else {
+					swiper.slideNext(null, 800);
 				}
 
 				var intNextQuestion = parseInt($("#hdnQuestionNo").val())+1;

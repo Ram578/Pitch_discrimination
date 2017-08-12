@@ -1,5 +1,5 @@
 var showAlert;
-
+var swiper;
 var showGuessAlert;
 
 function fnSaveUserAnswer(questionid, selectedoption)
@@ -41,6 +41,12 @@ $('document').ready(function()
             elm.hide();
             $('#tonal-test').show();
 			audioPlayStart.play();
+			
+			swiper = new Swiper('.swiper-container', {
+                loop: true,
+                slidesPerView: 1,
+                simulateTouch: false
+			});
         }
     });
 	
@@ -67,7 +73,7 @@ $('document').ready(function()
 				clearTimeout(showGuessAlert);
 
 				$('.tonal-test-wrapper .tonal-test-view .option-view label').css('pointer-events','inherit');
-
+				
 				showAlert = setInterval(function(){
 					fnShowAlert();
 				},8000);
@@ -75,8 +81,8 @@ $('document').ready(function()
 	   });
 	},200);
 
-	$("input.custom-radio-button").bind('click', function()
-	{	
+	$(".swiper-container").on('click', 'input.custom-radio-button', function() {
+		
 		if(!$("input.custom-radio-button:checked").val())
 		{
 			fnShowAlert();			
@@ -88,10 +94,6 @@ $('document').ready(function()
 
 			fnSaveUserAnswer($("input.custom-radio-button:checked").attr("data-role-id"), $("input.custom-radio-button:checked").attr("data-role-option"));
 			
-			// var qid = $("input.custom-radio-button:checked").attr("data-role-id");
-			// var selectopt = $("input.custom-radio-button:checked").attr("data-role-option");
-			// alert(qid +" is "+ selectopt);
-			
 			setTimeout(function(){
 
 				if((parseInt($("#hdnQuestionNo").val())+1) == arrQuestions.length)
@@ -100,8 +102,10 @@ $('document').ready(function()
 					setTimeout(function(){
 						window.location.href = $("#aNextButtonWrapper").attr('href');
 					},2000);
+				} else {
+					swiper.slideNext(null, 800);
 				}
-
+				
 				var intNextQuestion = parseInt($("#hdnQuestionNo").val())+1;
 
 				if(arrQuestions.length > intNextQuestion)

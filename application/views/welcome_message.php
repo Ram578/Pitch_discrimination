@@ -5,14 +5,14 @@
 				<div class="row">
 					<!-- When the page loads Audio will auto play -->
 					<audio id="ctrlaudio" controls="controls" runat="server" class="audio-control" autoplay>
-						   <source src='resources/audio/introduction/1.wav'></source>
+						   <source src='resources/audio/introduction/1.mp3'></source>
 					</audio>
 				<!-- Audio Play count list -->
 				<!--<div class="ttl-view text-center">
 					<h1>Instructions</h1>
 				</div>  -->
 					<div id="ctrlcount" class="text-center img-view">
-						<img src="resources/img/introduction/p3.jpg" alt="" title="" />
+						<img src="resources/img/introduction/1.jpg" alt="" title="" />
 					</div>
 				<!-- Auido Play count list ends here -->
 				

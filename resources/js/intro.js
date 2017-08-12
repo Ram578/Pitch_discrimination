@@ -17,15 +17,15 @@
 		});
 		
 		//
-		var innerHTML = "<source src='audio/1.wav'></source>";
+		var innerHTML = "<source src='audio/introduction/1.mp3'></source>";
 		ctrlaudio.InnerHtml = innerHTML;
 		//ctrlcount.InnerHtml = innerHTML;
-		//hdTuneNames = "audio/introduction/1.wav" + "," + "audio/introduction/2.wav" + "," + "audio/introduction/3.wav" + "," + "audio/introduction/4.wav" + "," + "audio/introduction/6.wav" + "," + "audio/introduction/7.wav" + "," + "audio/introduction/8.wav" + "," + "audio/introduction/5.wav";
-		//hdImgNames = "img/introduction/p3.jpg" + "," + "img/introduction/p4.jpg" + "," + "img/introduction/p5.jpg" + "," + "img/introduction/p6.jpg" + "," + "img/introduction/p7.jpg" + "," + "img/introduction/p8.jpg" + "," + "img/introduction/p9.jpg" + "," + "img/introduction/52.jpg";
+		hdTuneNames = "audio/introduction/1.mp3" + "," + "audio/introduction/2.mp3" + "," + "audio/introduction/3.mp3" + "," + "audio/introduction/4.mp3" + "," + "audio/introduction/5.mp3" + "," + "audio/introduction/6.mp3" + "," + "audio/introduction/7.mp3";
+		hdImgNames = "img/introduction/1.jpg" + "," + "img/introduction/2.jpg" + "," + "img/introduction/3.jpg" + "," + "img/introduction/4.jpg" + "," + "img/introduction/5.jpg" + "," + "img/introduction/6.jpg" + "," + "img/introduction/7.jpg";
 		
 		//testing
-		hdTuneNames = "audio/introduction/1.wav";
-		hdImgNames = "img/introduction/p3.jpg";
+		// hdTuneNames = "audio/introduction/1.mp3";
+		// hdImgNames = "img/introduction/p1.jpg";
 		
 		$(function () {
 		 //Find the audio control on the page

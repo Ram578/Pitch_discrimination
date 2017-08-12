@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class AdminDashboard extends CI_Controller {
+class Admindashboard extends CI_Controller {
 
 	/**
 	 * This is TonalTest page controller.

@@ -20,14 +20,18 @@
 				<h1 id="h1QuestionCode" class="text-center color-white"><?=$question['questioncode'];?></h1>
 				
 				<!-- Acutal test starts here -->
-				<div class="tonal-test-view text-center">
-					<div class="option-view">
-						<input data-role-id="<?=$question['id'];?>" data-role-option="1" id="id_1" type="radio" name="SelectOption" class="radiobtn-custom-green custom-radio-button" />
-						<label id="lbl_1" for="id_1" class="btn-green">Higher</label>
-					</div>
-					<div class="option-view">
-						<input data-role-id="<?=$question['id'];?>" data-role-option="2" id="id_2" type="radio" name="SelectOption" class="radiobtn-custom-green custom-radio-button" />
-						<label id="lbl_2" for="id_2" class="btn-green">Lower</label>
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="tonal-test-view text-center swiper-slide">
+							<div class="option-view">
+								<input data-role-id="<?=$question['id'];?>" data-role-option="1" id="id_1" type="radio" name="SelectOption" class="radiobtn-custom-green custom-radio-button" />
+								<label id="lbl_1" for="id_1" class="btn-green">Higher</label>
+							</div>
+							<div class="option-view">
+								<input data-role-id="<?=$question['id'];?>" data-role-option="2" id="id_2" type="radio" name="SelectOption" class="radiobtn-custom-green custom-radio-button" />
+								<label id="lbl_2" for="id_2" class="btn-green">Lower</label>
+							</div>
+						</div>
 					</div>
 				</div>
 				 <!-- Actual test ends here -->
@@ -37,15 +41,11 @@
 				<div class="alert alert-warning text-center col-md-4 col-sm-4 col-xs-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4" style="display:none; position:absolute;">
 				  <strong> You have not answered the last problem. <br> <br> If you are having a problem and cannot continue, please talk to an AIMS staff member <font size="4"> Immediately! </font> </strong> 
 				</div>
-				<div class="alert alert-success text-center col-md-4 col-sm-4 col-xs-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4" style="display:none; position:absolute;">
-				  <strong>The test will be terminated in another 20 seconds.!</strong> 
-				</div>
             </div>
             <?php } } ?>
 			
 			<div class="intro-screen-01  col-md-12 col-sm-12 col-xs-12 text-center" style="display:none;">
-                <!--<a href="tonaltest" class="next-button">Start</a>-->
-                <a id="tonal-next-branch" href="<?php echo base_url() . "tonaltest";?>" class="next-button">Start</a>
+                <a id="tonal-next-branch" href="<?php echo base_url() . "moreinfo";?>" class="next-button">Start</a>
             </div>
 		</div>
 	</section>

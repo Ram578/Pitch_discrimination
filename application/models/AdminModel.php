@@ -3,7 +3,7 @@
 * This class is used to handle the customer related info.
 * Develope on 19th July'2016 by Hemanth Kumar
 */
-class AdminModel extends CI_Model
+class Adminmodel extends CI_Model
 {
 	public function __construct()
 	{

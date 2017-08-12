@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class UsersList extends CI_Controller {
+class Userslist extends CI_Controller {
 
 	/**
 	 * This is TonalTest page controller.
