@@ -5,7 +5,6 @@
 <!-- Body content goes here -->
 	<section class="intro-wrapper nextbranch-view tonal-test-wrapper">
 		<div class="container">
-			<?php //var_dump($Questions); ?>
 			<?php foreach($Questions as $key=>$question){ if($key == 0){ ?>
 			<div class="row next-practice-test">
 				<input type="hidden" id="hdnQuestionNo" value="<?=$key;?>" />
@@ -49,7 +48,6 @@
 				</div>
             </div>
             <?php } } ?>
-			
 		</div>
 		<div class="intro-screen-01  col-md-12 col-sm-12 col-xs-12 text-center" style="display:none;">
             <a id="tonal-more-branch" href="<?php echo base_url() . "moreinfo";?>" class="next-button">Start</a>

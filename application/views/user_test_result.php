@@ -103,7 +103,22 @@
 									<table width="100%" cellspacing="0" cellpadding="0" class="table table-bordered">
 										<tr>
 											<td width="10%">Practice Responses</td>
-											<td width="2.3%"><?php echo $value['status'] == 1 ?"Next":"More Examples"; ?></td>
+											<!-- Check the user status -->
+											<?php 
+												if($value['status'] == 1) :
+													
+											?>
+											<td width="2.3%">Next</td>
+											<?php
+												elseif($value['status'] == 2) :
+											?>
+												
+											<td width="2.3%">More Examples</td>
+											<?php
+												endif;
+											?>
+											</td>
+											
 											<?php
 												if($value['status'] == 1) :
 													for($intCtr = 0; $intCtr< sizeof($value['practice_result']); $intCtr++) :
@@ -116,7 +131,7 @@
 													<td width="2.3%">0</td>
 											<?php
 													endfor;
-												else :
+												elseif($value['status'] == 2) :
 													for($i=0;$i<2;$i++) :
 												?>
 													<td width="2.3%">0</td>

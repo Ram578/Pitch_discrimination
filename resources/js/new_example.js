@@ -1,5 +1,7 @@
 var showAlert;
 
+var swiper;
+
 var showGuessAlert;
 
 function fnSaveUserAnswer(questionid, selectedoption)
@@ -14,8 +16,7 @@ function fnSaveUserAnswer(questionid, selectedoption)
 	});
 }
 
-function fnShowAlert()
-{
+function fnShowAlert() {
 	clearInterval(showAlert);
 
 	clearTimeout(showGuessAlert);
@@ -27,20 +28,14 @@ function fnShowAlert()
 	}, 12000);
 }
 
-
+//
 $('document').ready(function()
 {
-	swiper = new Swiper('.swiper-container', {
-                loop: true,
-                slidesPerView: 1,
-                simulateTouch: false
-			});
-			
 	function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
 
 	$(document).on("keydown", disableF5);
 	
-   // More Info Audio
+	// More Info Audio
 	setTimeout(function(){
 		$(function () {
 		 //Find the audio control on the page
@@ -66,21 +61,33 @@ $('document').ready(function()
 	   });
 	},200);
 
-	$("input.custom-radio-button").bind('click', function()
+	$('.swiper-container').on('click', "input.custom-radio-button", function()
 	{
-		if(parseInt($("#hdnQuestionNo").val()) == 0) {
+		if(parseInt($("#hdnQuestionNo").val()) == 0) 
+		{
 			$('[data-img-id="2"]').show();
 			$('.tonal-test-view').hide();
-		} else if((parseInt($("#hdnQuestionNo").val())+1) > 1) {
+		}
+		else if((parseInt($("#hdnQuestionNo").val())+1) == 2) 
+		{			
 			$('[data-img-id="2"]').hide();
 			$('[data-role-option="1"] + label').text('Higher');
 			$('[data-role-option="2"] + label').text('Lower');
+			
+			//Add swiper to the practice test questions.
+			swiper = new Swiper('.swiper-container', {
+				loop: true,
+				slidesPerView: 1,
+				simulateTouch: false
+			});
+			
 		}
 		
 		if(!$("input.custom-radio-button:checked").val())
 		{
 			fnShowAlert();			
-		}else
+		}
+		else
 		{
 			clearInterval(showAlert);
 
@@ -95,8 +102,9 @@ $('document').ready(function()
 					setTimeout(function(){
 						window.location.href = $("#tonal-more-branch").attr('href');
 					},2000);
-				} else if((parseInt($("#hdnQuestionNo").val())+1) > 1) {
-					console.log("slider");
+				}
+				else if((parseInt($("#hdnQuestionNo").val())+1) > 2) 
+				{
 					swiper.slideNext(null, 800);
 				}
 

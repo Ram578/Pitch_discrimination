@@ -30,7 +30,7 @@ function fnShowAlert()
 
 $('document').ready(function()
 {
-	//Swiper
+	//Add swiper to the practice item questions.
 	swiper = new Swiper('.swiper-container', {
                 loop: true,
                 slidesPerView: 1,

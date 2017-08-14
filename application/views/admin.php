@@ -30,21 +30,15 @@
 			<div class="clearfix"></div>
             <!--h2>Registration Form</h2-->
 			<div class="form-group">
-				<label for="Username" class="col-sm-4 control-label">User Name : </label>
-				<div class="col-sm-8">
-					<input type="text" id="Username" placeholder="User Name" class="form-control" maxlength="8" minlength="5" name="userame" autocomplete="off" />
-				</div>
+				<label for="Username" class="">User Name : </label>
+				<input type="text" id="Username" placeholder="User Name" class="form-control" maxlength="8" minlength="5" name="userame" autocomplete="off" />
 			</div>
 			<div class="form-group">
-				<label for="Password" class="col-sm-4 control-label">Password : </label>
-				<div class="col-sm-8">
-					 <input type="password" id="Password" placeholder="Password" class="form-control" maxlength="8" minlength="5" name="password" autocomplete="off"  />
-				</div>
+				<label for="Password" class="">Password : </label>
+				<input type="password" id="Password" placeholder="Password" class="form-control" maxlength="8" minlength="5" name="password" autocomplete="off"  />
 			</div>
 			<div class="form-group">
-				<div class="col-sm-8 col-sm-offset-4">
-					<button disabled="disabled" type="submit" id="LoginBtn" class="btn btn-primary btn-block">Login</button>
-				</div>
+				<button disabled="disabled" type="submit" id="LoginBtn" class="btn btn-primary btn-block">Login</button>
 			</div>
         </form> <!-- /form -->
     	<!-- Registration Block ends here -->

@@ -36,10 +36,48 @@ class Usertestresult extends CI_Controller {
 
 		$arrTemp = array();
 
-		$arrHeaders = array('ID','First Name', 'Last Name', 'Age', 'Gender', 'File Number');
+		$arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7');
 
 		foreach ($arrResult as $key => &$value) 
 		{
+			
+			
+			if(count($value['practice_result']) > 0)
+			{
+				
+				// foreach ($value['practice_result'] as $key => $qt) {
+					// $value['Practice '.$practiceintQt] = $qt['answer'];
+					//$arrHeaders[] = $intQt;
+					// $practiceintQt++;
+				// }
+				
+				if($value['status'] == 1) {
+					$practiceintQt = 1;
+					foreach ($value['practice_result'] as $key => $qt) {
+						$value['Practice '.$practiceintQt] = $qt['answer'];
+						$practiceintQt++;
+					}
+					
+					$value['Practice 3'] = '0';
+					$value['Practice 4'] = '0';
+					$value['Practice 5'] = '0';
+					$value['Practice 6'] = '0';
+					$value['Practice 7'] = '0';
+					
+				} 
+				elseif($value['status'] == 2)
+				{
+					$value['Practice 1'] = '0';
+					$value['Practice 2'] = '0';
+					$practiceintQt = 3;
+					foreach ($value['practice_result'] as $key => $qt) {
+						$value['Practice '.$practiceintQt] = $qt['answer'];
+						$practiceintQt++;
+					}
+				}
+				
+			}
+			
 			$intQt = 1;
 			if(count($value['test_result']) > 0)
 			{
@@ -63,15 +101,19 @@ class Usertestresult extends CI_Controller {
 		$maxColumns = max(array_map(function($row){
 			    return count($row);
 			}, $arrTemp));
+			
+		// var_dump($arrResult);
+		// die;
 
 		//$this->cleanArray($arrTemp);
-
+		
+		//If there is no values then it gives empty values
 		foreach ($arrTemp as &$value) 
 		{
 			$intTempCount = count($value);
 			if($maxColumns > $intTempCount)
 			{
-				for($intCtr = ($intTempCount-6); $intCtr < ($maxColumns-$intTempCount); $intCtr++)
+				for($intCtr = ($intTempCount-13); $intCtr < ($maxColumns-$intTempCount); $intCtr++)
 				{
 					$value['Answer '.($intCtr+1)] = ' ';
 				}
@@ -124,10 +166,11 @@ class Usertestresult extends CI_Controller {
 		    foreach ($arrTemp as $key => $value) {
 			    fputcsv($display, array_values($value), ",", '"');
 			}
-		  }*/
+		  } 
+		  */
 		 
 		fclose($display);
-
+		
 	}
 
 	function cleanArray(&$array)
