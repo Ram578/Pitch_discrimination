@@ -72,8 +72,8 @@ class Userslist extends CI_Controller {
 		$arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'Created Date', 'Completed Date', 'Active', 'Status', 'Score', 'Certile');
 		
 		$flag = false;
-		
-		if(count($arrData['Users'])) 
+		$users =$arrData['Users'];
+		if(count($users)) 
 		{
 		    if(!$flag)
 			{
@@ -81,7 +81,7 @@ class Userslist extends CI_Controller {
 		      fputcsv($display, array_values($arrHeaders), ",", '"');
 		      $flag = true;
 		    }
-		    foreach ($arrData['Users'] as $key => $value) 
+		    foreach ($users as $users) 
 			{
 			    fputcsv($display, array_values($value), ",", '"');
 			}
