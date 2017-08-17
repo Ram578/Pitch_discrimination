@@ -62,16 +62,19 @@ $('document').ready(function()
 	
    // More Info Audio
 	setTimeout(function(){
-		$(function () {
-		 //Find the audio control on the page
+		$(function () {	
+		//Find the audio control on the page
 			var audioPlay = document.getElementById('TestAudioData');
-		  // Attaches an event ended and it gets fired when current playing song get ended
+		// Attaches an event ended and it gets fired when current playing song get ended
 			audioPlay.addEventListener('ended', function() {
 
 		   		clearInterval(showAlert);
 
 				clearTimeout(showGuessAlert);
-
+				
+				//Enable the radio buttons
+				$(":radio[name='SelectOption']").attr("disabled", false);
+				
 				$('.tonal-test-wrapper .tonal-test-view .option-view label').css('pointer-events','inherit');
 				
 				showAlert = setInterval(function(){
@@ -86,13 +89,17 @@ $('document').ready(function()
 		if(!$("input.custom-radio-button:checked").val())
 		{
 			fnShowAlert();			
-		}else
+		}
+		else
 		{
 			clearInterval(showAlert);
 
 			clearTimeout(showGuessAlert);
 
 			fnSaveUserAnswer($("input.custom-radio-button:checked").attr("data-role-id"), $("input.custom-radio-button:checked").attr("data-role-option"));
+			
+			//Disable the radio buttons
+			$(":radio[name='SelectOption']").attr("disabled", true);
 			
 			setTimeout(function(){
 
@@ -102,7 +109,9 @@ $('document').ready(function()
 					setTimeout(function(){
 						window.location.href = $("#aNextButtonWrapper").attr('href');
 					},2000);
-				} else {
+				}
+				else 
+				{
 					swiper.slideNext(null, 800);
 				}
 				
@@ -146,7 +155,7 @@ $('document').ready(function()
 
 					audioPlay1.play();
 
-					$("#h1QuestionCode").html(arrQuestions[intNextQuestion].questioncode);
+					$("#h1QuestionCode").html(arrQuestions[intNextQuestion].serial_number);
 				}
 		
 			}, 1000);

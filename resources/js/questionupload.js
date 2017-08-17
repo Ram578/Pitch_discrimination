@@ -11,6 +11,7 @@ $('document').ready(function(){
 		$("#uploadQuesDiv").show();
 		$('#hdnQuestionID').val("-1");
 		$('#newOrEdit').val("new");
+		$('#serialNumber').val("");
 		$('#quesItemCode').val("");
 		$('#cboCorrectAnswer option[value=-1]').prop('selected', true);
 	});
@@ -23,11 +24,13 @@ $('document').ready(function(){
 		
 		editId = $(this).data("id");
 		currentRow  = $(this).closest('tr');
-		var quesItemCode = currentRow.find("td:eq(0)").text();
-		var answer = currentRow.find("td:eq(2)").text();
+		var serialNumber = currentRow.find("td:eq(0)").text();
+		var quesItemCode = currentRow.find("td:eq(1)").text();
+		var answer = currentRow.find("td:eq(3)").text();
 		
 		$('#hdnQuestionID').val(editId);
 		$('#newOrEdit').val("edit");
+		$('#serialNumber').val(serialNumber);
 		$('#quesItemCode').val(quesItemCode);
 		$('#cboCorrectAnswer option[value='+answer+']').prop('selected', true);
 	});
@@ -40,6 +43,7 @@ $('document').ready(function(){
 		var url = strBaseURL+'uploadquestions/uploadquestion';
 		
 		//get the form values
+		var serialNumber = $('#serialNumber').val();
 		var quesItemCode = $('#quesItemCode').val();
 		var cboCorrectAnswer = $('#cboCorrectAnswer').val();
 		
@@ -58,8 +62,9 @@ $('document').ready(function(){
 				if(data.success != "failed") {
 					if(data.status == "update") {
 						//get current row TD's & replace the text with the updated text
-						currentRow.find("td:eq(0)").text(quesItemCode);
-						currentRow.find("td:eq(2)").text(cboCorrectAnswer);
+						currentRow.find("td:eq(0)").text(serialNumber);
+						currentRow.find("td:eq(1)").text(quesItemCode);
+						currentRow.find("td:eq(3)").text(cboCorrectAnswer);
 						swal("Update!", data.message, "success");
 					} else {
 						location.reload(true);

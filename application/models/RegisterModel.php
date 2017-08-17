@@ -77,12 +77,5 @@ class Registermodel extends CI_Model
 		}
 	}
 	
-	function test_date() 
-	{
-		$datestring = '%Y-%m-%d %h:%i:%s';
-		$time = time();
-		return mdate($datestring, $time);
-	}
-	
 }
 ?>

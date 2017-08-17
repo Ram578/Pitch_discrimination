@@ -79,6 +79,7 @@ class Adminmodel extends CI_Model
 	{
 		if(sizeof($_POST))
 		{
+			$serial_number = $_POST['serial_number'];
 			$strQuestionCode = $_POST['questioncode'];
 
 			$target_file1 = false;
@@ -119,6 +120,7 @@ class Adminmodel extends CI_Model
 				if($_POST['id'] == -1)
 				{
 					$arrData = array(
+						'serial_number'  => $serial_number, 
 						'questioncode'  => $strQuestionCode, 
 						'questiontype'  => 'test', 
 						'addeddate'	    => date('Y-m-d H:m:s'),
@@ -130,6 +132,7 @@ class Adminmodel extends CI_Model
 				else
 				{
 					$arrData = array(
+						'serial_number'  => $serial_number, 
 						'questioncode'  => $strQuestionCode, 
 						'answer' 		=> $_POST['answer']
 					);
@@ -589,7 +592,7 @@ class Adminmodel extends CI_Model
 		*/
 		
 		//Get the test questions
-		$query = 'SELECT id,questioncode,audiofilename FROM pitch_questions WHERE questiontype="test" and active = 1';
+		$query = 'SELECT id,serial_number,audiofilename FROM pitch_questions WHERE questiontype="test" and active = 1';
 
 		$testQuery = $this->db->query($query);
 		
@@ -597,7 +600,6 @@ class Adminmodel extends CI_Model
 		
 		return $array;	
 	}
-	
 	
 	// save the questions order in pitch_questions_order table in db.
 	function save_questions_order() 

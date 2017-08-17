@@ -75,7 +75,7 @@ class Frontendmodel extends CI_Model
 			'userid'  => $this->session->userdata('UserID'), 
 			'questionid'  => $intQuestionID,
 			'optionid' => $intSelectedOption,
-			'addeddate'	    => date('Y-m-d H:m:s'),
+			'addeddate'	    => date('Y-m-d H:m:s')
 		);
 
 		$result = $this->db->insert('pitch_user_answers', $arrData);
@@ -128,13 +128,19 @@ class Frontendmodel extends CI_Model
 	{
 		$status = $_POST['test_status'];
 		$user_id = $this->session->userdata('UserID');	
+		$arrData = array(
+						'completeddate' => date('Y-m-d H:m:s')
+						);
 		
-		//Check and save for next -> 0 and for more examples -> 1
+		//Check and save for next -> 1 and for more examples -> 2
 		if($status == "completed") 
 		{
-			$date = date('Y-m-d H:m:s');
+			// $date = date('Y-m-d H:m:s');
+			// $this->db->where('id', $user_id);
+			// $this->db->update('pitch_users', array('completeddate' => $date));
+			
 			$this->db->where('id', $user_id);
-			$this->db->update('pitch_users', array('completeddate' => $date));
+			$this->db->update('pitch_users', $arrData);
 		} 
 	}
 }

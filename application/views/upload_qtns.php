@@ -43,6 +43,7 @@
 						<table width="100%" id="uploadQtnsList" cellspacing="0" cellpadding="0" class="table table-responsive table-striped">
 							<thead>
 								<tr>
+									<th>S.No.</th>
 									<th>Item No</th>
 									<th>Audio</th>
 									<th>Actual Answer</th>
@@ -60,6 +61,7 @@
 										$intIncludeInScore = $question['includeinscoring'];
 								?>
 									<tr>
+										<td><?=$question['serial_number'];?></td>
 										<td><?=$question['questioncode'];?></td>
 										<td><?=$question['audiofilename'];?></td>
 										<td><?=$question['answer'];?></td>
@@ -119,8 +121,14 @@
 									</div>
 								</div>
 							</div>
-							<div class="row" id="uploadQuesDiv">
+							<div class="row">
 								<div class="col-md-6 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<label for="serialNumber">Serial No.</label>
+										<input type="text" class="form-control" id="serialNumber" name="serial_number" placeholder="1" value="" />
+									  </div>
+								</div>
+								<div class="col-md-6 col-sm-12 col-xs-12" id="uploadQuesDiv">
 									<div class="form-group">
 										<label for="uploadFile">Please Upload Audio:</label>
 										<input type="file" name="audioname" id="sleFile" class="form-control" />

@@ -79,7 +79,7 @@
 												foreach($questions['test'] as $row)
 												{
 											?>
-												<li class="list-group-item" id="<?=$row['id'];?>"><?=$row['questioncode'];?>-<?=$row['audiofilename'];?></li>
+												<li class="list-group-item" id="<?=$row['id'];?>"><?=$row['serial_number'];?> - <?=$row['audiofilename'];?></li>
 											<?php
 												}
 											?>

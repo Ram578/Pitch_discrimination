@@ -20,7 +20,7 @@
 				
 				<!-- Audio Play count list -->
 				<!-- show test item code -->
-				<h1 id="h1QuestionCode" class="text-center color-white"><?=$question['questioncode'];?></h1>
+				<h1 id="h1QuestionCode" class="text-center color-white"><?=$question['serial_number'];?></h1>
 				
 				<!-- Acutal test starts here -->
 				<div class="swiper-container">

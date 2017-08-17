@@ -46,7 +46,10 @@ $('document').ready(function()
 		   		clearInterval(showAlert);
 
 				clearTimeout(showGuessAlert);
-
+				
+				//Enable the radio buttons
+				$(":radio[name='SelectOption']").attr("disabled", false);
+				
 				$('.tonal-test-wrapper .tonal-test-view .option-view label').css('pointer-events','inherit');
 				
 				if((parseInt($("#hdnQuestionNo").val())) == 0 || (parseInt($("#hdnQuestionNo").val())) == 1) {
@@ -94,6 +97,9 @@ $('document').ready(function()
 			clearTimeout(showGuessAlert);
 
 			fnSaveUserAnswer($("input.custom-radio-button:checked").attr("data-role-id"), $("input.custom-radio-button:checked").attr("data-role-option"));
+			
+			//Disable the radio buttons
+			$(":radio[name='SelectOption']").attr("disabled", true);
 			
 			setTimeout(function(){
 
