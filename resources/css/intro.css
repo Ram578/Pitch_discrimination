@@ -33,7 +33,6 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
     border-width: 5;
     background-color: #ec6a9c;
     box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
-   
     line-height: 1;
     text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
     -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
@@ -53,8 +52,8 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
      color:#fff; text-decoration: none; cursor: pointer;
 }
 .next-button:active, .next-button:focus, .blue-button:active, .blue-button:focus {
-    -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
-    -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);      
+    -webkit-box-shadow:    0 8px 0 #c5376d;
+    -moz-box-shadow: 0 8px 0 #c5376d;      
 }
 /** Registration form **/
     .registrer-wrapper{justify-content:center;}
@@ -66,8 +65,8 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
     
   /*** Acutal test UI starts here ***/
     .tonal-test-wrapper h1{font-size:16px; font-weight:normal; position:fixed; bottom:20px; right:20px;}
-    .tonal-test-wrapper .tonal-test-view{margin:50px 0;}
-    .tonal-test-wrapper .tonal-test-view .option-view{ margin:56px;}
+    .tonal-test-wrapper .tonal-test-view{margin:18px 0;}
+    .tonal-test-wrapper .tonal-test-view .option-view{ margin:12%;}
     .tonal-test-wrapper .tonal-test-view .option-view label{font-size:40px; padding:35px 55px; pointer-events:none;}
     .btn-blue {
 		background: #108FE8;
@@ -81,7 +80,7 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
 
 .btn-blue:hover {
   background: #333; color:#fff;
-  box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset;
+  box-shadow: 0 -2px 0 3px #1a1a1a inset;
 }
 .btn-blue.active{border:3px solid #fff;}
 .btn-blue:focus{text-decoration:none;}
@@ -92,7 +91,7 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
   box-shadow: 0 -2px 0 3px #c91919 inset, 0 5px 5px rgba(65, 8, 8, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
   cursor: pointer;
   display: inline-block;
- color:#fff;
+  color:#fff;
 }
 .btn-red:hover {
   background: #333; color:#fff;
@@ -124,7 +123,8 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
 	color:#fff;
 }
 .btn-yellow:hover{
-  background: #333; color:#fff;
+  background: #333;
+  color:#fff;
   box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset;
 }
 .btn-yellow:focus{text-decoration:none;}
@@ -162,3 +162,13 @@ border-radius: 5px; box-shadow: 0 -2px 0 3px #c91919 inset, 0 5px 5px rgba(65, 8
 .NextButtonWrapper a:hover {background: #f86262; color:#fff; box-shadow: 0 -2px 0 3px #E53030 inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset;}
 .tonal-test-wrapper .ttl-position{position:absolute; right:50px; bottom:30px; font-size:16px;}
 .thankyou-view h1{color:#fff;}
+
+.img-view img{
+    width: 100%;
+    height:80vh;
+	margin:-3px 0px 0px 2px;
+}
+.next-button {
+	
+	padding:44px 50px;
+}

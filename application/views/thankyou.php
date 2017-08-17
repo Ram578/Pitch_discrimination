@@ -1,14 +1,14 @@
 <?=$Header;?>
 <!-- Body content goes here -->
-<section class="intro-wrapper nextbranch-view" style="background:#f4b081 url('resources/img/ribbon.png') repeat-x;">
+<section class="intro-wrapper nextbranch-view" style="background:#f4b081 url('resources/img/12.jpg');">
 		<div class="container">
 			<div class="row">
 				<div class="thankyou-view">
 					<div class="thankyou_01">
-						<h1 style="color:#000; font-size:36px; line-height:50px;">
+						<h1 style="color:#fff; font-size:36px; line-height:50px;">
 							You have completed the AIMS Tonal Memory exercise. You correctly answered <span style="color:#ff0000;"><?=$CorrectAns;?></span> of the <span style="color:#ff0000;"><?=$NoOfQtsAttempted;?></span> items.
 						</h1>
-						<h2 class="color-white" style="color:#000; font-size:36px;  line-height:50px;">
+						<h2 class="color-white" style="color:#fff; font-size:36px;  line-height:50px;">
 							This indicates that you have <span class="color:"><?=$Grade;?></span> Tonal Memory ability. 
 						</h2>
 					</div>
