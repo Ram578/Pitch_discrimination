@@ -23,42 +23,7 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
 }
 .text-center{text-align:center;}
 .intro-wrapper .img-view{margin:10px 0 0 0;}
-.next-button{
-    text-shadow: linear-gradient(#1b7323,#18a328);
-    padding: 44px 50px;
-    background-image:0 -1px 1px rgba(175, 49, 95, .9), 0 0 5px rgba(255, 255, 255, .8);
-    color: #fff;
-    font-size: 30px;
-    border-radius: 25px;
-    border-width: 5;
-    background-color: #ec6a9c;
-    /* box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15); */
-	/* box-shadow: 0 -2px 0 3px #0d72b8 inset, 0 5px 5px rgba(3, 25, 41, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset; */
-    line-height: 1;
-    text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
-    -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
-    -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
-    transition: background-color .2s ease-in-out, transform .1s ease-in-out;
-}
-}
-.next-button:after{
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    height: 50%;
-    box-shadow:0 20px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
-    
-}
-.next-button:hover{
-     color:#fff; text-decoration: none; cursor: pointer;
-}
-.next-button:active, .next-button:focus {
-    -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
-    -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
-        
-}
-.blue-button{
+.next-button, .blue-button {
     text-shadow: linear-gradient(#1b7323,#18a328);
     padding: 30px 50px;
     background-image:0 -1px 1px rgba(175, 49, 95, .9), 0 0 5px rgba(255, 255, 255, .8);
@@ -76,23 +41,20 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
     -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
     transition: background-color .2s ease-in-out, transform .1s ease-in-out;
 }
-}
-.blue-button:after{
+.next-button:after, .blue-button:after {
     content: '';
     position: absolute;
     top: 2px;
     left: 2px;
     height: 50%;
-    box-shadow:0 20px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
-    
+    box-shadow:0 20px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);   
 }
-.blue-button:hover{
-     color:#fff; text-decoration: none; 
+.next-button:hover, .blue-button:hover{
+     color:#fff; text-decoration: none; cursor: pointer;
 }
-.blue-button:active, .blue-button:focus {
+.next-button:active, .next-button:focus, .blue-button:active, .blue-button:focus {
     -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
-    -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
-        
+    -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);      
 }
 /** Registration form **/
     .registrer-wrapper{justify-content:center;}
@@ -108,14 +70,15 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
     .tonal-test-wrapper .tonal-test-view .option-view{ margin:56px;}
     .tonal-test-wrapper .tonal-test-view .option-view label{font-size:40px; padding:35px 55px; pointer-events:none;}
     .btn-blue {
-	background: #108FE8;
-	border: 3px solid transparent;
-	border-radius: 100%;
-	box-shadow: 0 -2px 0 3px #0d72b8 inset, 0 5px 5px rgba(3, 25, 41, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
-  cursor: pointer;
-  display: inline-block;
- color:#fff;
-}
+		background: #108FE8;
+		border: 3px solid transparent;
+		border-radius: 100%;
+		box-shadow: 0 -2px 0 3px #0d72b8 inset, 0 5px 5px rgba(3, 25, 41, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+		cursor: pointer;
+		display: inline-block;
+		color:#fff;
+	}
+
 .btn-blue:hover {
   background: #333; color:#fff;
   box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset;
@@ -152,45 +115,47 @@ html, body{height: 100%; background-color: rgba(40,57,101,.9);}
 .btn-green.active{border:3px solid #fff;}
 .btn-green:focus{text-decoration:none;}
 .btn-yellow {
-  background: #FFC334;
-  border: 3px solid #fff;
-  border-radius: 100%;
-  box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
-  cursor: pointer;
-  display: inline-block;
- color:#fff;
+	background: #FFC334;
+	border: 3px solid #fff;
+	border-radius: 100%;
+	box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+	cursor: pointer;
+	display: inline-block;
+	color:#fff;
 }
 .btn-yellow:hover{
   background: #333; color:#fff;
   box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset;
 }
 .btn-yellow:focus{text-decoration:none;}
- input.radiobtn-custom-green[type='radio'] {display: none; }
- input.radiobtn-custom-green[type='radio'] + label { background-color: #ec6a9c; margin-top:-7px;   display: inline-block; color:#fff; position: relative; cursor:point; transition: top ease 0.4s;}
- input.radiobtn-custom-green[type='radio'] + label:active {
+input.radiobtn-custom-green[type='radio'] {display: none; }
+
+input.radiobtn-custom-green[type='radio'] + label { background-color: #ec6a9c; margin-top:-7px; display: inline-block; color:#fff; position: relative; cursor:pointer; transition: top ease 0.4s;}
+input.radiobtn-custom-green[type='radio'] + label:active {
     top: 8px;
     cursor: pointer;
     transition: top ease 0.4s;
  }
- input.radiobtn-custom-green[type='radio']:checked + label{ cursor: pointer; }
+input.radiobtn-custom-green[type='radio']:checked + label{ cursor: pointer; }
  
  /* input.radiobtn-custom-yellow[type='radio'] {display: none; }
- input.radiobtn-custom-yellow[type='radio'] + label { background-color: #ec6a9c;  cursor: pointer;  margin-top:-7px;  display: inline-block; color:#fff; position:relative;} */
- input.radiobtn-custom-yellow[type='radio'] + label{ background-color: #ec6a9c; margin-top:-7px;   display: inline-block; color:#fff; position: relative; cursor:point; transition: top ease 0.4s;}
+ input.radiobtn-custom-yellow[type='radio'] + label { background-color: #ec6a9c;  cursor: pointer;  margin-top:-7px;  display: inline-block; color:#fff; position:relative;}
+ input.radiobtn-custom-yellow[type='radio'] + label{ background-color: #ec6a9c; margin-top:-7px;   display: inline-block; color:#fff; position: relative; cursor:pointer; transition: top ease 0.4s;}
  input.radiobtn-custom-yellow[type='radio'] + label:active {
     top: 8px;
     cursor: pointer;
     transition: top ease 0.4s;
  }
- input.radiobtn-custom-yellow[type='radio']:checked + label{cursor:point;}
+ input.radiobtn-custom-yellow[type='radio']:checked + label{cursor:pointer;}
  
  input.radiobtn-custom-blue[ty pe='radio'] {display: none; }
  input.radiobtn-custom-blue[type='radio'] + label {background-color: #ec6a9c; margin-top:-7px;  cursor:point;  display: inline-block; color:#fff; position: relative; transition: top ease 0.4s;}
- /* input.radiobtn-custom-blue[type='radio']:checked + label{border:3px solid #fff;} */
+ /* input.radiobtn-custom-blue[type='radio']:checked + label{border:3px solid #fff;} 
  input.radiobtn-custom-blue[type='radio'] + label:active{top: 8px;
     transition: top ease 0.4s;
     cursor: pointer;
- }
+ } */
+ 
  input.radiobtn-custom-green[type='radio']:checked + label{ cursor: pointer; }
 .NextButtonWrapper a{padding:10px 30px; position: absolute; bottom: 50px; right:50px; background: #E53030; 
 border-radius: 5px; box-shadow: 0 -2px 0 3px #c91919 inset, 0 5px 5px rgba(65, 8, 8, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset; cursor: pointer; display: inline-block; color:#fff; font-size:16px;}

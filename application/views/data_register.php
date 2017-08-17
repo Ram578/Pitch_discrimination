@@ -28,12 +28,12 @@
 								</div>
 								 <div class="col-sm-4">
 									<label class="radio-inline">
-										<input type="radio" id="rdMaleGender" value="Male" name="sex" onclick="$('#hdnGender').val($(this).val());" required>Male
+										<input type="radio" id="rdMaleGender" value="Male" name="gender" onclick="$('#hdnGender').val($(this).val());" required>Male
 									</label>
 								</div>
 								<div class="col-sm-4">
 									<label class="radio-inline">
-										<input type="radio" id="rdFeMaleGender" name="sex" value="Female" onclick="$('#hdnGender').val($(this).val());" required>Female
+										<input type="radio" id="rdFeMaleGender" name="gender" value="Female" onclick="$('#hdnGender').val($(this).val());" required>Female
 									</label>
 								</div>
 							</div>

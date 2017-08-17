@@ -23,10 +23,6 @@
 		hdTuneNames = "audio/introduction/1.mp3" + "," + "audio/introduction/2.mp3" + "," + "audio/introduction/3.mp3" + "," + "audio/introduction/4.mp3" + "," + "audio/introduction/5.mp3" + "," + "audio/introduction/6.mp3" + "," + "audio/introduction/7.mp3";
 		hdImgNames = "img/introduction/1.jpg" + "," + "img/introduction/2.jpg" + "," + "img/introduction/3.jpg" + "," + "img/introduction/4.jpg" + "," + "img/introduction/5.jpg" + "," + "img/introduction/6.jpg" + "," + "img/introduction/7.jpg";
 		
-		//testing
-		// hdTuneNames = "audio/introduction/1.mp3";
-		// hdImgNames = "img/introduction/p1.jpg";
-		
 		$(function () {
 		 //Find the audio control on the page
 		   var audio = document.getElementById('ctrlaudio');

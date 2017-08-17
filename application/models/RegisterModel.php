@@ -8,11 +8,12 @@ class Registermodel extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
+		
+		$this->load->helper('date');
 	}
 	
 	function check_register_user()
 	{
-		
 		$arrData = array();
 		
 		$file_num = $_POST['filenumber'];	
@@ -74,6 +75,13 @@ class Registermodel extends CI_Model
 				return array('OOPS...! We are not able to register you now. Please try again later.');
 			}
 		}
+	}
+	
+	function test_date() 
+	{
+		$datestring = '%Y-%m-%d %h:%i:%s';
+		$time = time();
+		return mdate($datestring, $time);
 	}
 	
 }
