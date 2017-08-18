@@ -25,7 +25,7 @@ class Welcome extends CI_Controller {
 			redirect('/', 'refresh');
 		}else
 		{
-			$arrData['Title'] = 'AIMs - Tonal Memory Registration Form';
+			$arrData['Title'] = 'AIMs - Pitch Discrimination Registration Form';
 
 			$Header = $this->load->view('header', $arrData,true);
 			

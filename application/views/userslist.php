@@ -5,33 +5,34 @@
 		<!-- Admin Dashboard Starts here -->
 			<!-- Header goes here -->
 			<nav class="navbar navbar-inverse navbar-fixed-top">
-			  <div class="container">
-				<div class="navbar-header">
-				  <a class="navbar-brand" href="<?=base_url();?>admindashboard">Dashboard</a>
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-				  <ul class="nav navbar-nav" style="float:none;">
-					<li class="active"><a href="#">Users List</a></li>
-					<li><a href="<?=base_url();?>usertestresult">Test Result</a></li>
-					<?php 
-						$status = $this->session->userdata['EmployeeRole'];
-						if($status == "admin") {
-					?>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test Questions<span class="caret" style="margin-left:10px;"></span></a>
-						<ul class="dropdown-menu navbar-inverse">
-							<li><a href="<?=base_url();?>uploadquestions">Upload Test Item</a></li>
-							<li><a href="<?=base_url();?>uploadquestions/display_questions_order">Display Order</a></li>
+				<div class="container">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="<?=base_url();?>admindashboard">Dashboard</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav" style="float:none;">
+							<li class="active"><a href="<?=base_url();?>userslist">Users List</a></li>
+							<li><a href="<?=base_url();?>usertestresult">Test Result</a></li>
+							<?php 
+								$status = $this->session->userdata['EmployeeRole'];
+								if($status == "admin") {
+							?>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test Questions<span class="caret" style="margin-left:10px;"></span></a>
+								<ul class="dropdown-menu navbar-inverse">
+									<li><a href="<?=base_url();?>uploadquestions">Upload Test Item</a></li>
+									<li><a href="<?=base_url();?>uploadquestions/display_questions_order">Display Order</a></li>
+								</ul>
+							</li>
+							<li><a href="<?=base_url();?>certilescores">Certile Scores</a></li>
+							<li><a href="<?=base_url();?>subscores">Sub Scores</a></li>
+							<?php
+								}
+							?>
+							<li class="pull-right"><a href="<?=base_url();?>admindashboard/logout">Log Out</a></li>
 						</ul>
-					</li>
-					<li><a href="<?=base_url();?>certilescores">Certile Scores</a></li>
-					<?php
-						}
-					?>
-					<li class="pull-right"><a href="<?=base_url();?>admindashboard/logout">Log Out</a></li>
-				  </ul>
-				</div><!--/.nav-collapse -->
-			  </div>
+					</div><!--/.nav-collapse -->
+				</div>
 			</nav>
 			<!-- Header ends here -->
 			<!-- Body Content goes here -->
@@ -43,8 +44,6 @@
 					<table width="100%" id="tblCustomerList" cellspacing="0" cellpadding="0" class="table table-responsive table-striped">
 						<thead>
 							<tr>
-								<!--th width="20%">First Name</th>
-								<th width="20%">Last Name</th-->
 								<th>Age</th>
 								<th>Gender</th>
 								<th>File Number</th>
@@ -59,8 +58,6 @@
 								foreach($Users as $user){
 							?>
 								<tr>
-									<!--td><?//=$user['firstname'];?></td>
-									<td><?//=$user['lastname'];?></td-->
 									<td><?=$user['age'];?></td>
 									<td><?=$user['gender'];?></td>
 									<td><?=$user['filenumber'];?></td>

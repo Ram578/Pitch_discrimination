@@ -47,6 +47,9 @@ class Registermodel extends CI_Model
 	{
 		if(sizeof($_POST) > 0)
 		{
+			$timestamp = time();
+			$date_format = date("Y-m-d H:i:s", $timestamp);
+			
 			$arrUserData = array
 			(
 				'firstname'  	=> $_POST['firstname'],
@@ -54,8 +57,8 @@ class Registermodel extends CI_Model
 				'age'			=> $_POST['age'],
 				'gender'		=> $_POST['gender'],
 				'filenumber'	=> $_POST['filenumber'],
-				'addeddate'		=> date('Y-m-d H:m:s'),
-				'active'		=> 1,
+				'addeddate'		=> $date_format,
+				'active'		=> 1
 			);
 
 			$result = $this->db->insert('pitch_users', $arrUserData);

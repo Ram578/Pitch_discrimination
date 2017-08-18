@@ -17,11 +17,12 @@
 							<li class="dropdown active">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test Questions<span class="caret" style="margin-left:10px;"></span></a>
 								<ul class="dropdown-menu navbar-inverse" >
-									<li><a href="#">Upload Test Item</a></li>
+									<li><a href="<?=base_url();?>uploadquestions">Upload Test Item</a></li>
 									<li><a href="<?=base_url();?>uploadquestions/display_questions_order">Display Order</a></li>
 								</ul>
 							</li>
 							<li><a href="<?=base_url();?>certilescores">Certile Scores</a></li>
+							<li><a href="<?=base_url();?>subscores">Sub Scores</a></li>
 							<li class="pull-right"><a href="<?=base_url();?>admindashboard/logout">Log Out</a></li>
 						</ul>
 					</div><!--/.nav-collapse -->

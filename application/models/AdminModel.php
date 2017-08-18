@@ -81,6 +81,7 @@ class Adminmodel extends CI_Model
 		{
 			$serial_number = $_POST['serial_number'];
 			$strQuestionCode = $_POST['questioncode'];
+			$timestamp = time();
 
 			$target_file1 = false;
 
@@ -94,7 +95,7 @@ class Adminmodel extends CI_Model
 				{
 					$target_dir = "uploads/";
 
-			        $path = $target_dir.date('Ymd');
+			        $path = $target_dir.date('Ymd', $timestamp);
 			        
 			        if(!file_exists($path)) 
 			        {
@@ -105,7 +106,7 @@ class Adminmodel extends CI_Model
 
 			        $fileInfo = pathinfo($_FILES["audioname"]["name"]);
 			        
-			        $strNewFileName = date('YmdHis').'.'.$fileInfo['extension'];
+			        $strNewFileName = date('YmdHis', $timestamp).'.'.$fileInfo['extension'];
 					
 					$target_file = $path ."/". basename($_FILES["audioname"]["name"]);
 				
@@ -123,7 +124,7 @@ class Adminmodel extends CI_Model
 						'serial_number'  => $serial_number, 
 						'questioncode'  => $strQuestionCode, 
 						'questiontype'  => 'test', 
-						'addeddate'	    => date('Y-m-d H:m:s'),
+						'addeddate'	    => date('Y-m-d H:m:s', $timestamp),
 						'audiopath'		=> $target_file1,
 						'audiofilename' => $strNewFileName,
 						'answer' 		=> $_POST['answer']
@@ -644,6 +645,81 @@ class Adminmodel extends CI_Model
 			}
 		}
 	}
+	
+	//fetch subscores data to display in admin subscores view table
+	function fetch_subscores()
+	{
+		$strQuery = 'SELECT * FROM pitch_subscores ORDER BY id DESC';
+
+		$objQuery = $this->db->query($strQuery);
+
+		return $objQuery->result_array();
+	}
+	
+	//Update subscores row data in db
+	function update_subscores()
+	{
+		$id = $_POST['id'];
+		$questions = $_POST['questions'];
+		$score_range = $_POST['score_range'];
+		
+		$arrData = array(
+                'questions' => $questions,
+                'score_range' => $score_range,
+            );
+
+		//update the row
+		$this->db->where('id', $id);
+
+		$this->db->update('pitch_subscores', $arrData);
+		
+		if($this->db->affected_rows()) 
+		{
+			$success = array(
+				"success" => "success",
+				"status" => "update",
+				"message" => "Updated successfully."
+			);
+		}
+		else 
+		{
+			$success = array(
+				"success" => "failed",
+				"status" => "update",
+				"message" => "Something went wrong."
+			);
+		}
+		return $success;
+	}
+	
+	// Change the subscore status in pitch_subscores table.
+	function update_subscores_status()
+	{
+		$id = $_POST['rowId'];
+
+		$status = $_POST['active'];
+
+		if($id)
+		{
+			$arrData = array(
+                'subscore_status' => $status
+            );
+
+	 		$this->db->where('id', $id);
+
+			$this->db->update('pitch_subscores', $arrData);
+			
+			if($this->db->affected_rows()) 
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 }
 
 ?>

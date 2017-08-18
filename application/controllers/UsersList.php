@@ -25,7 +25,8 @@ class Userslist extends CI_Controller {
 			}
 			
 			$this->load->view('userslist', $arrData);
-		}else
+		}
+		else
 		{
 			redirect('/admin', 'refresh');
 		}
@@ -40,9 +41,9 @@ class Userslist extends CI_Controller {
 		
 		foreach ($arrData['Users'] as $key => &$value) 
 		{
-			
 			$intScore = $this->adminmodel->FetchUserResult($value['id']);
 			
+			// Check the Status & then assign the value
 			if($value['status'] == 1) 
 			{
 				$value['status'] = "Next";
@@ -65,28 +66,24 @@ class Userslist extends CI_Controller {
 		$filename = "UsersList.csv";
 		 
 		header("Content-Disposition: attachment; filename=\"$filename\"");
-		header("Content-Type: text/csv");
-		 
-		$display = fopen("php://output", 'w');
-		 
-		$arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'Created Date', 'Completed Date', 'Active', 'Status', 'Score', 'Certile');
+        header("Content-Type: text/csv");
+         
+        $display = fopen("php://output", 'w');
+         
+        $arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'Created Date', 'Completed Date', 'Active', 'Status', 'Score', 'Certile');
+        
+        fputcsv($display, array_values($arrHeaders), ",", '"');
+       
+		$users = $arrData['Users'];
 		
-		$flag = false;
-		$users =$arrData['Users'];
-		if(count($users)) 
+		if(isset($users))    
 		{
-		    if(!$flag)
+            foreach ($users as  $users)
 			{
-		      // display field/column names as first row
-		      fputcsv($display, array_values($arrHeaders), ",", '"');
-		      $flag = true;
-		    }
-		    foreach ($users as $users) 
-			{
-			    fputcsv($display, array_values($value), ",", '"');
+               fputcsv($display, array_values($users), ",", '"');
 			}
 		}
-		 
+       
 		fclose($display);
 	}
 }

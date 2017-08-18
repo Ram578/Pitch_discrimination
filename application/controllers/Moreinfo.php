@@ -13,7 +13,7 @@ class Moreinfo extends CI_Controller {
 		*/
 		if(isset($this->session->userdata['UserID']))
 		{
-			$arrData['Title'] = 'AIMs - Tonal Memory Registration Form';
+			$arrData['Title'] = 'AIMs - Pitch Discrimination Registration Form';
 
 			$Header = $this->load->view('header', $arrData,true);
 

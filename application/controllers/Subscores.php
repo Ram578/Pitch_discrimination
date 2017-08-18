@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Certilescores extends CI_Controller {
+class Subscores extends CI_Controller {
 
 	/**
 	 * This is TonalTest page controller.
@@ -13,9 +13,9 @@ class Certilescores extends CI_Controller {
 		{
 			$this->load->model('adminmodel');
 
-			$arrData['certile_scores'] = $this->adminmodel->fetch_certile_scores();
+			$arrData['sub_scores'] = $this->adminmodel->fetch_subscores();
 
-			$this->load->view('certile_scores', $arrData);
+			$this->load->view('sub_scores', $arrData);
 			
 		}
 		else
@@ -25,31 +25,26 @@ class Certilescores extends CI_Controller {
 
 	}
 	
-	// Add or Edit a row in certile scores table
-	function add_or_edit_certile_scores()
+	// Delete a row in certile scores table
+	function edit_subscores()
 	{
 		$this->load->model('adminmodel');
 
-		$result = $this->adminmodel->edit_or_add_certilescores();
+		$result = $this->adminmodel->update_subscores();
 
 		echo json_encode($result);
-		
 	}
 	
-	// Delete a row in certile scores table
-	function delete_row()
+	// Update the subscores status active or inactive for application functionality
+	function inactive_subscores()
 	{
 		$this->load->model('adminmodel');
 
-		$result = $this->adminmodel->delete_certile_score_row();
+		$result = $this->adminmodel->update_subscores_status();
 
 		if($result)
 		{
-			echo "success";
-		}
-		else
-		{
-			echo "fail";
+			redirect('/subscores', 'refresh');
 		}
 	}
 }

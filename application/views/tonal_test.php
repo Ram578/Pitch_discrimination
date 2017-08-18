@@ -8,7 +8,7 @@
 <!-- Body content goes here -->
 	
 	<section class="intro-wrapper tonal-test-wrapper">
-		 <div class="container">
+		<div class="container">
 			<?php foreach($Questions as $key=>$question){ if($key == 0){ ?>
 			<div class="row" id="tonal-test" style="display:none;">
 				<input type="hidden" id="hdnQuestionNo" value="<?=$key;?>" />
@@ -37,7 +37,6 @@
 						</div>
 					</div>
 				</div>
-
 				 <!-- Actual test ends here -->
 				 
 				<div class="alert alert-danger text-center col-md-6 col-sm-6 col-xs-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3" style="display:none; position:absolute;">
