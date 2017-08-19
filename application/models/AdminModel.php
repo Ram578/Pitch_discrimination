@@ -278,7 +278,7 @@ class Adminmodel extends CI_Model
 	function _userResults($id_user)
 	{
 		
-		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "test" AND userid = '.$id_user;
+		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "test" AND userid = '.$id_user.' ORDER BY q.serial_number';
 
 		$objQuery = $this->db->query($strQuery);
 
@@ -294,7 +294,6 @@ class Adminmodel extends CI_Model
 	
 	function _userPracticeResults($id_user)
 	{
-		
 		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "practice" AND userid = '.$id_user;
 
 		$objQuery = $this->db->query($strQuery);
@@ -605,7 +604,6 @@ class Adminmodel extends CI_Model
 	// save the questions order in pitch_questions_order table in db.
 	function save_questions_order() 
 	{
-		
 		// $question_order = base64_encode(serialize($_POST['question_order']));
 		$question_order = serialize($_POST['question_order']);
 

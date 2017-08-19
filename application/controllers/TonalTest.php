@@ -21,9 +21,12 @@ class Tonaltest extends CI_Controller {
 
 			$arrData['Footer'] = $this->load->view('footer', $arrData,true);
 				
+			$arrData['subscores'] = $this->frontendmodel->fetch_subscores();
+			
 			$questions_result = $this->frontendmodel->FetchQuestions();
 			
-			if(isset($questions_result['order'])) {
+			if(isset($questions_result['order'])) 
+			{
 				
 				//To display the sorted order in display order page for test questions
 				$test_order = $questions_result['order']['test'];
@@ -46,13 +49,15 @@ class Tonaltest extends CI_Controller {
 				//Replace the sorted data for displaying in page				
 				// $questions_result['test'] = $test;		
 				$arrData['Questions'] = $test;
-			} else
+			} 
+			else
 			{
 				$arrData['Questions'] = $questions_result['test'];
 			}
 			
 			$this->load->view('tonal_test', $arrData);
-		}else
+		}
+		else
 		{
 			redirect('/', 'refresh');
 		}
@@ -70,5 +75,25 @@ class Tonaltest extends CI_Controller {
 		$this->load->model('frontendmodel');
 
 		$this->frontendmodel->update_test_completed_date();
+	}
+	
+	//get the user for check the subscore
+	function get_user_score() 
+	{
+		$this->load->model('frontendmodel');
+
+		$arrResult = $this->frontendmodel->FetchResult();
+
+		$intCounter = 0;
+
+		foreach ($arrResult as $key => $value) 
+		{
+			if($value['result'] && $value['includeinscoring'])
+			{
+				$intCounter = $intCounter + 1;
+			}
+		}
+		
+		echo $intCounter;
 	}
 }

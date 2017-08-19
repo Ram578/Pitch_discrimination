@@ -1,6 +1,7 @@
 <?=$Header;?>
 <script type="text/javascript">
-	var arrQuestions = <?php echo json_encode($Questions); ?>
+	var arrQuestions = <?php echo json_encode($Questions); ?>;
+	var subScores = <?php echo json_encode($subscores); ?>;
 </script>
 <?php 
 	//var_dump($Questions);

@@ -28,14 +28,14 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		 $(".thankyou_01, .thankyou_02").hide();
-			timer = setTimeout(function () {
-				$('.thankyou_01').show();
-			}, 100);
-			timer = setTimeout(function () {
-				$('.thankyou_02').show();
-				$('.thankyou_01').hide();
-			}, 15000);
+		$(".thankyou_01, .thankyou_02").hide();
+		timer = setTimeout(function () {
+			$('.thankyou_01').show();
+		}, 100);
+		timer = setTimeout(function () {
+			$('.thankyou_02').show();
+			$('.thankyou_01').hide();
+		}, 15000);
 			
 		setTimeout(function(){
 			$.ajax({

@@ -37,6 +37,23 @@ class Frontendmodel extends CI_Model
 		return $array;	
 	}
 	
+	//Get the subscores data from pitch_subscores table
+	function fetch_subscores() 
+	{
+		$sql = 'SELECT * FROM pitch_subscores WHERE id=1';
+
+		$result = $this->db->query($sql);
+		
+		$row = $result->row_array();
+				
+		$score_range = explode("-", $row['score_range']);
+		
+		$row['min_score'] = $score_range[0];
+		$row['max_score'] = isset($score_range[1])? $score_range[1] : "";
+		
+		return $row;
+	}
+	
 	// Get the practice test questions
 	function fetch_practice_questions()
 	{	
