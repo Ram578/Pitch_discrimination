@@ -8,7 +8,7 @@
 						print_r($this->session->flashdata('Errors'));
 					?>
 					<!--h2>Registration Form</h2-->
-					<div class="col_full form-group">
+					<div class="col_full form-group"> 
 						<label for="sleFileNumber">File Number :</label>
 						<input type="text" id="sleFileNumber" placeholder="File Number" class="form-control" name="filenumber" value="103B-D-2017-" autocomplete="false" />
 					</div>

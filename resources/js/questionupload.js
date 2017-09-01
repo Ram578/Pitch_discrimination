@@ -30,7 +30,7 @@ $('document').ready(function(){
 		
 		$('#hdnQuestionID').val(editId);
 		$('#newOrEdit').val("edit");
-		$('#serialNumber').val(serialNumber);
+		 $('#serialNumber').val(serialNumber);
 		$('#quesItemCode').val(quesItemCode);
 		$('#cboCorrectAnswer option[value='+answer+']').prop('selected', true);
 	});

@@ -32,7 +32,10 @@
 			<section class="adminDashboardView">
 				<div class="subScoresView container">
 					<div class="testupload-data-view">
-						<table width="100%" id="subScoresList" cellspacing="0" cellpadding="0" class="table table-responsive table-striped">
+					  <div>
+						<a id="btnAddRow" class="btn btn-primary pull-right col-md-1 col-sm-1" data-toggle="modal" data-target="#myModal"   style="width:130px; min-width:inherit; margin-bottom:2%;"> Add Subscore </a>
+						</div>
+						 <table width="100%" id="subScoresList" cellspacing="0" cellpadding="0" class="table table-responsive table-striped">
 							<thead>
 								<tr>
 									<th>Questions</th>
@@ -53,6 +56,9 @@
 											<button type="button" class="btn btn-default btn-xs editBtn" title="Edit" data-id="<?=$row['id'];?>" data-toggle="modal" data-target="#myModal">
 												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
+											<button type="button" class="btn btn-default btn-xs deleteBtn" title="Delete" data-id="<?=$row['id'];?>">
+												<span class="glyphicon glyphicon-trash"></span>
+											</button> 
 										</td>
 									</tr>
 								<?php endforeach; ?>
@@ -70,10 +76,10 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">Edit Sub Scores</h4>
+						<h4 class="modal-title" id="myModalLabel">Add SubScore</h4>
 					</div>
 					<div class="modal-body">
-						<form role="form" id="editRow">
+						<form role="form" id="addOrEditRow">
 							<input type="hidden" id="id" name="id" value="" />
 							<div class="row">
 								<div class="col-md-6 col-sm-6 col-xs-6">

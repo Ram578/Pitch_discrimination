@@ -26,6 +26,14 @@ class Subscores extends CI_Controller {
 	}
 	
 	// Delete a row in certile scores table
+	/*function edit_subscores()
+	{
+		$this->load->model('adminmodel');
+
+		$result = $this->adminmodel->update_subscores();
+
+		echo json_encode($result);
+	}*/
 	function edit_subscores()
 	{
 		$this->load->model('adminmodel');
@@ -33,6 +41,7 @@ class Subscores extends CI_Controller {
 		$result = $this->adminmodel->update_subscores();
 
 		echo json_encode($result);
+		
 	}
 	
 	// Update the subscores status active or inactive for application functionality
@@ -45,6 +54,21 @@ class Subscores extends CI_Controller {
 		if($result)
 		{
 			redirect('/subscores', 'refresh');
+		}
+	}
+	function delete_row()
+	{
+		$this->load->model('adminmodel');
+
+		$result = $this->adminmodel->delete_certile_score_row();
+
+		if($result)
+		{
+			echo "success";
+		}
+		else
+		{
+			echo "fail";
 		}
 	}
 }

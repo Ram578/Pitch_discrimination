@@ -12,10 +12,15 @@ html, body {
 	margin:0 0 5px 0;
 }
 .testupload-data-view {
-	padding:20px 0;
+	padding: 36px 2px;
 }
-.testupload-data-view a {
+/*.testupload-data-view a {
 	text-decoration:underline;
+}*/
+.subScoresView {
+	
+	width:60%;
+	margin:auto;
 }
 .testupload-data-view a:hover {
 	text-decoration:none;

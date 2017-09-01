@@ -667,12 +667,37 @@ class Adminmodel extends CI_Model
             );
 
 		//update the row
-		$this->db->where('id', $id);
-
-		$this->db->update('pitch_subscores', $arrData);
+		// $this->db->where('id', $id);
+	if($id == "")
+	{
+		//insert row
+		$this->db->insert('pitch_subscores', $arrData);
 		
 		if($this->db->affected_rows()) 
 		{
+			$success = array(
+				"success" => "success",
+				"status" => "Inserted",
+				"message" => "Inserted successfully."
+			);
+		}
+		else 
+		{
+			$success = array(
+				"success" => "failed",
+				"status" => "Inserted",
+				"message" => "Something went wrong."
+			);
+		}
+		
+	}
+	else {
+		$this->db->where('id', $id);
+
+			$this->db->update('pitch_subscores', $arrData);
+			
+			if($this->db->affected_rows()) 
+			{
 			$success = array(
 				"success" => "success",
 				"status" => "update",
@@ -687,8 +712,11 @@ class Adminmodel extends CI_Model
 				"message" => "Something went wrong."
 			);
 		}
-		return $success;
+		
 	}
+		return $success;
+}
+	
 	
 	// Change the subscore status in pitch_subscores table.
 	function update_subscores_status()
@@ -710,6 +738,30 @@ class Adminmodel extends CI_Model
 			if($this->db->affected_rows()) 
 			{
 				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	// deleteing add subscore row in subscore table
+	function delete_subscore_row()
+	{
+		$id = $_POST['id'];
+
+		if($id)
+		{
+			$this->db->where('id', $id);
+			$this->db->delete('pitch_subscores');
+			
+			if($this->db->affected_rows()) 
+			{
+				return true;
+			} 
+			else 
+			{
+				return false;
 			}
 		}
 		else

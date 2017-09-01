@@ -2,8 +2,17 @@ $(document).ready(function(){
 	
 	$('#subScoresList').DataTable();
 	
-	//Edit the row
+	//Add a new row
+	$( ".subScoresView" ).on("click", "#btnAddRow", function() {
+		$('#myModalLabel').text("New Subscore");
+		//append the values to the edit form
+		$('#id').val("");
+		$('#questions').val("");
+		$('#score-range').val("");
+	});
+	
 	$( ".subScoresView" ).on("click", ".editBtn", function() {
+		$('#myModalLabel').text("Edit Subscore");
 		editId = $(this).data("id");
 		currentRow  = $(this).closest('tr');
 		var questions = currentRow.find("td:eq(0)").text();
@@ -14,46 +23,50 @@ $(document).ready(function(){
 		$('#questions').val(questions);
 		$('#score-range').val(scoreRange);
 	});
-	
 	//modal form submit
-	$("#editRow").submit(function(e) {
+	$("#addOrEditRow").submit(function(e) {
 		e.preventDefault();
 		var url = strBaseURL+'subscores/edit_subscores'; 
 		var id = $('#id').val();
 		var questions = $('#questions').val();
 		var scoreRange = $('#score-range').val();
-		
-		var formData = {
-			'id' : id,
-			'questions'    : questions,
-			'score_range' : scoreRange
-		}; 
+		if(questions != "" && scoreRange != "") {
+			var formData = {
+				'id' : id,
+				'questions'    : questions,
+				'score_range' : scoreRange
+			}; 
 	
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: formData,
-			success: function (result) {
-				var data = JSON.parse(result);
-				$("#myModal").modal('hide');
-				if(data.success != "failed") {
-					if(data.status == "update") {
-						//get current row TD's & replace the text with the updated text
-						currentRow.find("td:eq(0)").text(questions);
-						currentRow.find("td:eq(1)").text(scoreRange);
-						swal("Update!", data.message, "success");
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: formData,
+				success: function (result) {
+					var data = JSON.parse(result);
+					$("#myModal").modal('hide');
+					if(data.success != "failed") {
+						if(data.status == "update") {
+							//get current row TD's & replace the text with the updated text
+							currentRow.find("td:eq(0)").text(questions);
+							currentRow.find("td:eq(1)").text(scoreRange);
+							swal("Update!", data.message, "success");
+						} else {
+							location.reload(true);
+							swal("Insert!", data.message, "success");
+							// swal("Warning!", "Something went wrong.", "warning");
+						}
 					} else {
 						swal("Warning!", "Something went wrong.", "warning");
 					}
-				} else {
-					swal("Warning!", "Something went wrong.", "warning");
+				},
+				error: function (err) {
+					console.log(err);
 				}
-			},
-			error: function (err) {
-				console.log(err);
-			}
-		 }); 
-	});
+			}); 
+		} else {
+			swal("Warning!", "Please fill out the empty fields.", "warning");
+		}
+	}); //on submit end
 	
 	// Save the sub scores active status on onchange event.
 	$( ".subScoresView" ).on("change", "#activeSubscores", function(e) {
@@ -77,5 +90,45 @@ $(document).ready(function(){
 		});
 		
 	});
+	
+	$( ".subScoresView" ).on("click", ".deleteBtn", function() {
+		var row_id = $(this).data("id");
+		// var id = $(this).data("id");
+		var row = $(this).closest('tr');
+		
+		// showing bootstrap sweet alert for confirming the item deleting.
+		swal({
+		  title: "Are you sure?",
+		  text: "You will not be able to recover this item!",
+		  type: "warning",
+		  showCancelButton: true,
+		  confirmButtonClass: "btn-danger",
+		  confirmButtonText: "Delete",
+		  closeOnConfirm: false
+		},
+		function(){
+			var url = strBaseURL+'subscores/delete_row'; 
+			var formData = {
+				'id'  : row_id
+			};
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: formData,
+				success: function (result) {
+					console.log(result);
+					if(result == "success") {
+						row.remove();
+						swal("Deleted!", "Your item has been deleted.", "success");
+					} else {
+						swal("Warning!", "Something went wrong.", "warning");
+					}
+				},
+				error: function (err) {
+					console.log(err);
+				}
+			}); 
+		}); 
+	}); 
 	
 });

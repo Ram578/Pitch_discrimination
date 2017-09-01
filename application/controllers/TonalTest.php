@@ -54,7 +54,6 @@ class Tonaltest extends CI_Controller {
 			{
 				$arrData['Questions'] = $questions_result['test'];
 			}
-			
 			$this->load->view('tonal_test', $arrData);
 		}
 		else
