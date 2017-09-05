@@ -99,7 +99,7 @@ html, body {
     box-shadow:0 20px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);   
 }
 .next-button:hover, .blue-button:hover {
-	color:#fff; 
+	color:#fff;
 	text-decoration: none; 
 	cursor: pointer; 
 }

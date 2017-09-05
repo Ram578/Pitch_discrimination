@@ -12,6 +12,8 @@ class Tonaltest extends CI_Controller {
 		if(isset($this->session->userdata['UserID']))
 		{
 			$this->load->model('frontendmodel');
+			
+			$this->load->model('adminmodel');
 
 			$arrData['Title'] = 'AIMS - Test';
 
@@ -22,6 +24,8 @@ class Tonaltest extends CI_Controller {
 			$arrData['Footer'] = $this->load->view('footer', $arrData,true);
 				
 			$arrData['subscores'] = $this->frontendmodel->fetch_subscores();
+			
+			$arrData['subscore_status'] = $this->adminmodel->fetch_subscores_status();
 			
 			$questions_result = $this->frontendmodel->FetchQuestions();
 			

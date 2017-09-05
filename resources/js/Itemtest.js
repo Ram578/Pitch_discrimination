@@ -1,7 +1,6 @@
 var showAlert;
 var swiper;
 var showGuessAlert;
-
 function fnSaveUserAnswer(questionid, selectedoption)
 {
 	$.ajax({
@@ -100,26 +99,31 @@ $('document').ready(function()
 			
 			//Disable the radio buttons
 			$(":radio[name='SelectOption']").attr("disabled", true);
-			
-			//Check the subscore functionality
-			if(subScores.subscore_status == 1) 
+			if(subscore_status.subscore_check == 1) 
+				// if(subScore.subscore_status == 1)
 			{
-				if((parseInt($("#hdnQuestionNo").val())+1) == subScores.questions) 
-				{
-					$.ajax({
-						'type'		: 'POST',
-						'url'		: strBaseURL+'tonaltest/get_user_score', 
-						'ajax' 		: true,
-						'success' 	: function(response){
-										if(response <= subScores.min_score || response >= subScores.max_score) 
-										{
-											$("#test-completed").trigger('click');
-											window.location.href = $("#aNextButtonWrapper").attr('href');
-										}
-									},
-						'failure' 	: function(){}
-					});
-				}
+				 for(var i=0;i<subScores.length;i++) {
+					
+					if((parseInt($("#hdnQuestionNo").val())+1) == subScores[i].questions) {
+						var minScore = subScores[i].min_score;
+						var maxScore = subScores[i].max_score;
+						console.log("success");
+						$.ajax({
+							'type'		: 'POST',
+							'url'		: strBaseURL+'tonaltest/get_user_score', 
+							'ajax' 		: true,
+							'success' 	: function(response){
+											if(response <= minScore || response >= maxScore) 
+											{
+												$("#test-completed").trigger('click');
+												window.location.href = $("#aNextButtonWrapper").attr('href');
+											}
+										},
+							'failure' 	: function(){}
+						});
+					}
+				 }
+				 
 			}
 			
 			setTimeout(function(){

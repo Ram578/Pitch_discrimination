@@ -769,7 +769,65 @@ class Adminmodel extends CI_Model
 			return false;
 		}
 	}
+	// function checkbox() {
+		
+		// $subscore_check = $_POST['active'];
+		// $this->db->where('id', 1);
+		// $this->db->update('pitch_subscore_checkbox', array('active' => $subscore_check));	
+		
+	// }	
+	/*function checkbox() {
+		$subscore_check = $_POST['active'];
+		$this->db->where('id', 1);
+		$this->db->update('pitch_subscore_checkbox', array('active' => $subscore_check));	
+		
+		if($this->db->affected_rows()) 
+		{
+			$success = array(
+				"success" => "success",
+				"status" => "update",
+				"message" => "Updated successfully."
+			);
+		}
+		else 
+		{
+			$success = array(
+				"success" => "failed",
+				"status" => "update",
+				"message" => "Something went wrong."
+			);
+		}
+		return $success;
+	}*/
+	function  checkbox()
+	{
+		$subscore_check = $_POST['active'];
+
+		$arrData = array(
+			'subscore_check' => $subscore_check
+		);
+
+		$this->db->where('id', 1);
+
+		$this->db->update('pitch_subscore_checkbox', $arrData);
+		
+		if($this->db->affected_rows()) 
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
+	function fetch_subscores_status() {
+		
+		$query = "select subscore_check from pitch_subscore_checkbox where id= 1";
+		
+		$objQuery = $this->db->query($query);
+
+		return $objQuery->row_array();
+		
+	}
 }
 
 ?>

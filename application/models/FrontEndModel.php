@@ -40,18 +40,21 @@ class Frontendmodel extends CI_Model
 	//Get the subscores data from pitch_subscores table
 	function fetch_subscores() 
 	{
-		$sql = 'SELECT * FROM pitch_subscores';
+		$sql = 'SELECT * FROM pitch_subscores where subscore_status = 1';
 
 		$result = $this->db->query($sql);
 		
 		$rows = $result->result_array();
-		$subscores_data = array();
+		$subscores_data = array(); 
 		
 		foreach($rows as $row) {
+			// $row['subscore_status'] = $subscore_status;
 			$score_range = explode("-", $row['score_range']);
 		
 			$row['min_score'] = $score_range[0];
 			$row['max_score'] = isset($score_range[1])? $score_range[1] : "";
+			
+			// $rowsubscore_status
 			$subscores_data[] = $row;
 		}
 		// var_dump($subscores_data);
@@ -74,22 +77,6 @@ class Frontendmodel extends CI_Model
 	// Get the practice test questions
 	function fetch_practice_questions()
 	{	
-		/*
-		$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
-
-		$result = $this->db->query($sql);
-		
-		// Check the pitch_questions_order table have sorted questions or not.
-		if($result->num_rows() > 0) 
-		{
-			$row = $result->row();
-			
-			$obj = unserialize($row->question_order);
-			
-			$array['order'] = $obj;
-		}
-		*/
-		
 		$query = 'SELECT * FROM pitch_questions WHERE questiontype="practice" and active = 1';
 
 		$testQuery = $this->db->query($query);

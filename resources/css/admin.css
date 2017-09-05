@@ -14,9 +14,12 @@ html, body {
 .testupload-data-view {
 	padding: 36px 2px;
 }
-/*.testupload-data-view a {
-	text-decoration:underline;
-}*/
+#checked {
+    width: 100%;
+    min-width: inherit;
+    margin-bottom: 2%;
+}
+
 .subScoresView {
 	
 	width:60%;

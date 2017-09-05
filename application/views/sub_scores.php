@@ -31,7 +31,24 @@
 			<!-- Body Content goes here -->
 			<section class="adminDashboardView">
 				<div class="subScoresView container">
-					<div class="testupload-data-view">
+					<div class="testupload-data-view" id="checked">
+						<?php 
+							if($subscore_status['subscore_check'])
+							{
+								$subscore_status_code = "yes"; 
+							}
+							else {
+								$subscore_status_code = "no";
+							}
+							// if($subscore_status['subscore_check']){ echo "unchecked"; }
+						?>
+						<label> Activate Subscore?</label >
+						<label style="padding-left:10px;">Yes</label>
+						<input type="radio" class="status" name="active" value="yes" <?php echo $subscore_status_code == "yes"?"checked":""; ?>> 
+						<label style="padding-left:10px;"> No</label>
+						<input type="radio" class="status" name="active" value="no" <?php echo $subscore_status_code == "no"?"checked":""; ?>> 
+					</div>
+					
 					  <div>
 						<a id="btnAddRow" class="btn btn-primary pull-right col-md-1 col-sm-1" data-toggle="modal" data-target="#myModal"   style="width:130px; min-width:inherit; margin-bottom:2%;"> Add Subscore </a>
 						</div>
@@ -40,7 +57,7 @@
 								<tr>
 									<th>Questions</th>
 									<th>Score Range</th>
-									<th>Subscore activate / deactivate</th>
+									<th>Status</th>
 									<th>Actions</th>
 								</tr>
 							</thead>

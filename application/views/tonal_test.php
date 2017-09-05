@@ -2,6 +2,7 @@
 <script type="text/javascript">
 	var arrQuestions = <?php echo json_encode($Questions); ?>;
 	var subScores = <?php echo json_encode($subscores); ?>;
+	var subscore_status = <?php echo json_encode($subscore_status); ?>;
 </script>
 <?php 
 	//var_dump($Questions);

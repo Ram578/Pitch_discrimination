@@ -91,6 +91,7 @@ $(document).ready(function(){
 		
 	});
 	
+	
 	$( ".subScoresView" ).on("click", ".deleteBtn", function() {
 		var row_id = $(this).data("id");
 		// var id = $(this).data("id");
@@ -131,4 +132,34 @@ $(document).ready(function(){
 		}); 
 	}); 
 	
-});
+	// added checkbox on subscores 
+	$( ".testupload-data-view" ).on("click", ".status", function(e) {
+		var url = strBaseURL+'subscores/subscore_subcheck'; 
+		// if($(this).is(":checked"))
+		
+		if($(this).val() == "yes")
+		{
+			// it is checked
+			var subscoreCheck = 1;
+		} else {
+			var subscoreCheck = 0;
+		}
+		
+		var formData = {
+				'active'  : subscoreCheck
+			};
+		
+		$.ajax({
+			'type'		: 'POST',
+			'url'		: url, 
+			'ajax' 		: true,
+			'data' 		: formData,
+			'success' 	: function(){},
+			'failure' 	: function(){}
+		});
+		
+	});
+	
+ });
+	
+
