@@ -212,7 +212,7 @@ class Adminmodel extends CI_Model
 
 	function FetchUsers()
 	{
-		$strQuery = 'SELECT * FROM pitch_users ORDER BY id DESC';
+		$strQuery = 'SELECT * FROM users ORDER BY id DESC';
 
 		$objQuery = $this->db->query($strQuery);
 
