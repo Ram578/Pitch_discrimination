@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Usertestresult extends CI_Controller {
+class User_test_result extends CI_Controller {
 
 	/**
 	 * This is NewExampleInfo page controller.
@@ -13,12 +13,11 @@ class Usertestresult extends CI_Controller {
 		
 		$application_type = $_GET['type'];
 		
-		$this->load->model('adminmodel');
+		$arrData['type'] = $application_type;
 		
-		$arrData['application_type'] = $application_type;
+		// var_dump($application_type);
 		
-		var_dump($application_type);
-		$arrData['TestResults'] = $this->adminmodel->FetchTestResult();
+		$arrData['TestResults'] = $this->adminmodel->FetchResult();
 						
 		foreach ($arrData['TestResults'] as $key => &$value) 
 		{
@@ -26,23 +25,22 @@ class Usertestresult extends CI_Controller {
 
 			$value['score'] = $intScore;
 
-			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
+			$value['certile'] = $this->adminmodel->FetchPitchCertileWRT($intScore, $value['age'], $value['gender']);
 		}
 		
 		// print_r($arrData);
 		// die;
 
-		$this->load->view('userslist', $arrData);
+		 $this->load->view('user_test_result', $arrData);
 	}
 
 	public function export()
 	{
 		$this->load->model('adminmodel');
-
-		$arrResult = $this->adminmodel->FetchTestResult();
 		
-		var_dump($applicationtype)
-
+		
+		$arrResult = $this->adminmodel->FetchResult();
+		
 		$arrTemp = array();
 
 		$arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7');
@@ -134,7 +132,7 @@ class Usertestresult extends CI_Controller {
 		$arrHeaders = array_unique($arrHeaders);
 		
 		// Enable to download this file
-		$filename = "UsersTestResult.csv";
+		$filename = "user_test_result.csv";
 		 		
 		header("Pragma: public");
 		header("Content-Type: text/plain");

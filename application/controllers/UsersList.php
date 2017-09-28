@@ -12,7 +12,11 @@ class Userslist extends CI_Controller {
 		if(isset($this->session->userdata['EmployeeID']))
 		{
 			$this->load->model('adminmodel');
-
+			
+			$application_type = $_GET['type'];
+						
+			$arrData['application_type'] = $application_type;
+			
 			$arrData['Users'] = $this->adminmodel->FetchUsers();
 
 			foreach ($arrData['Users'] as $key => &$value) 
@@ -21,7 +25,7 @@ class Userslist extends CI_Controller {
 
 				$value['score'] = $intScore;
 
-				$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
+				$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender'], $application_type);
 			}
 			
 			$this->load->view('userslist', $arrData);
@@ -31,11 +35,15 @@ class Userslist extends CI_Controller {
 			redirect('/admin', 'refresh');
 		}
 
-	}
+	 }
 
 	public function export()
 	{
 		$this->load->model('adminmodel');
+		
+		 // $application_type = $_GET['type'];
+						
+		 // $arrData['application_type'] = $application_type;
 
 		$arrData['Users'] = $this->adminmodel->FetchUsers();
 		
@@ -59,7 +67,7 @@ class Userslist extends CI_Controller {
 
 			$value['score'] = $intScore;
 
-			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
+			$value['certile'] = $this->adminmodel->FetchAllCertileWRT($intScore, $value['age'], $value['gender']);
 		}
 		
 		// Enable to download this file
@@ -70,7 +78,7 @@ class Userslist extends CI_Controller {
          
         $display = fopen("php://output", 'w');
          
-        $arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'Created Date', 'Completed Date', 'Active', 'Status', 'Score', 'Certile');
+        $arrHeaders = array( 'Age', 'Gender', 'File Number', 'Created Date', 'Completed Date', 'Score', 'Certile','P1','P2','P3','P4','P5');
         
         fputcsv($display, array_values($arrHeaders), ",", '"');
        

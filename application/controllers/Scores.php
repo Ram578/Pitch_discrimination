@@ -1,59 +1,86 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Usertestresult extends CI_Controller {
+class Scores extends CI_Controller {
 
-	/**
-	 * This is NewExampleInfo page controller.
-	 * Develope on 19th July'2016 by Hemanth Kumar
-	 */
 	public function index()
 	{
-		$this->load->model('adminmodel');
-		
-		$application_type = $_GET['type'];
+		$user_file_num = $_GET['file_num'];
 		
 		$this->load->model('adminmodel');
 		
-		$arrData['application_type'] = $application_type;
+		$arrData['user_file_num'] = $user_file_num;
 		
-		var_dump($application_type);
-		$arrData['TestResults'] = $this->adminmodel->FetchTestResult();
-						
-		foreach ($arrData['TestResults'] as $key => &$value) 
-		{
-			$intScore = $this->adminmodel->FetchUserResult($value['id']);
-
-			$value['score'] = $intScore;
-
-			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
-		}
+		$arrData['User'] = $this->adminmodel->fetch_user($user_file_num);
 		
-		// print_r($arrData);
-		// die;
+		$arrData['PitchResults'] = $this->adminmodel->FetchUserTestResult("pitch", $arrData['User'][0]['id']);
+		
+		$arrData['TimeResults'] = $this->adminmodel->FetchUserTestResult("time",$arrData['User'][0]['id']);
+	   // $arrData['TonalResults'] = $this->adminmodel->FetchUserTestResult("tonal",$arrData['User'][0]['id']);
+		
+		// var_dump($arrData);
+				
+					$intPitchScore = $this->adminmodel->FetchPitchUserResult($arrData['User'][0]['id']);
+					
+					$intTimeScore = $this->adminmodel->FetchTimeUserResult($arrData['User'][0]['id']);
+					
+					$arrData['User'][0]['pitch_score'] = $intPitchScore;
 
-		$this->load->view('userslist', $arrData);
+					$arrData['User'][0]['pitch_certile'] = $this->adminmodel->FetchPitchCertileWRT($intPitchScore, $arrData['User'][0]['age'], $arrData['User'][0]['gender']);
+					$arrData['User'][0]['time_score'] = $intTimeScore;
+
+					$arrData['User'][0]['time_certile'] = $this->adminmodel->FetchTimeCertileWRT($intTimeScore, $arrData['User'][0]['age'], $arrData['User'][0]['gender']);
+					// var_dump($arrData);
+				
+				
+	   $this->load->view('scores', $arrData); 
+	   
 	}
-
+	
+	
+	//export user data in csv file
 	public function export()
 	{
-		$this->load->model('adminmodel');
-
-		$arrResult = $this->adminmodel->FetchTestResult();
+		$user_file_num = $_GET['file_num'];
+		$user_id = $_GET['user_id'];
 		
-		var_dump($applicationtype)
-
+		
+		// var_dump($user_file_num);
+		// var_dump($user_id);
+	
+		$this->load->model('adminmodel');
+		
+		$arrResult = $this->adminmodel->fetch_user($user_file_num);
+		
+		
+		 // var_dump($arrResult);
+		 // die;
+		 
 		$arrTemp = array();
 
-		$arrHeaders = array('ID', 'First Name', 'Last Name', 'Age', 'Gender', 'File Number', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7');
-
-		foreach ($arrResult as $key => &$value) 
-		{
-			if(count($value['practice_result']) > 0)
+		$arrHeaders = array('ID', 'First name', 'Last Name', 'Filenumber','Age','Completed date','Score','Certile');
+			
+			$arrResult[0]['firstname'];
+			
+			$arrResult[0]['lastname'];
+			
+			$arrResult[0]['filenumber'];
+			
+			$arrResult[0]['age'];
+			
+			$arrResult[0]['pitch_completed_date'];
+			
+			 // $arrResult[0]['pitch_score'];
+			 
+			 // $arrResult[0]['pitch_certile'];
+			 // var_dump( $arrResult[0]['pitch_certile']);
+			 
+			
+			/*if(count($arrResult['practice_result']) > 0)
 			{
-				if($value['status'] == 1) {
+				if($arrResult[0]['status'] == 1) {
 					$practiceintQt = 1;
-					foreach ($value['practice_result'] as $key => $qt) 
+					foreach ($arrResult['practice_result'] as $key => $qt) 
 					{
 						$value['Practice '.$practiceintQt] = $qt['optionid'];
 						$practiceintQt++;
@@ -66,7 +93,7 @@ class Usertestresult extends CI_Controller {
 					$value['Practice 7'] = '0';
 					
 				} 
-				elseif($value['status'] == 2)
+				elseif($arrResult[0]['status'] == 2)
 				{
 					$value['Practice 1'] = '0';
 					$value['Practice 2'] = '0';
@@ -81,9 +108,9 @@ class Usertestresult extends CI_Controller {
 			}
 			
 			$intQt = 1;
-			if(count($value['test_result']) > 0)
+			if(count($arrResult['test_result']) > 0)
 			{
-				foreach ($value['test_result'] as $key => $qt) {
+				foreach ($arrResult['test_result'] as $key => $qt) {
 					$value['Answer '.$intQt] = $qt['optionid'];
 					$arrHeaders[] = $intQt;
 					$intQt++;
@@ -98,7 +125,7 @@ class Usertestresult extends CI_Controller {
 			unset($arrTempRow['completeddate']);
 			unset($arrTempRow['status']);
 			$arrTemp[] = $arrTempRow;
-		}
+		 }
 		
 		$maxColumns = max(array_map(function($row){
 			    return count($row);
@@ -121,20 +148,20 @@ class Usertestresult extends CI_Controller {
 		//print_r($arrTemp); exit;
 		foreach ($arrTemp as $key => &$value) 
 		{
-			$intScore = $this->adminmodel->FetchUserResult($value['id']);
+			 $intScore = $this->adminmodel->FetchPitchUserResult( $user_id);
 
-			$value['score'] = $intScore;
+			 $value['score'] = $intScore;
 
-			$value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
+			 $value['certile'] = $this->adminmodel->FetchCertileWRT($intScore, $value['age'], $value['gender']);
 		}
 
-		$arrHeaders[] = 'Score';
-		$arrHeaders[] = 'Certile';
+		 $arrHeaders[] = 'Score';
+		 $arrHeaders[] = 'Certile';
 
-		$arrHeaders = array_unique($arrHeaders);
+		 $arrHeaders = array_unique($arrHeaders);
 		
 		// Enable to download this file
-		$filename = "UsersTestResult.csv";
+		$filename = "UserScores.csv";
 		 		
 		header("Pragma: public");
 		header("Content-Type: text/plain");
@@ -168,7 +195,7 @@ class Usertestresult extends CI_Controller {
 		  } 
 		  */
 		 
-		fclose($display);
+		// fclose($display);
 		
 	}
 
