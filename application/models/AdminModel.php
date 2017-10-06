@@ -10,8 +10,7 @@ class Adminmodel extends CI_Model
 		parent::__construct();
 	}
 	
-	
-	function check_login()
+	function Login()
 	{
 		if(sizeof($_POST) > 0)
 		{
@@ -59,10 +58,6 @@ class Adminmodel extends CI_Model
 			}
 		}
 	}
-	
-		
-		
-	
 
 	function FetchQuestions()
 	{
@@ -222,19 +217,8 @@ class Adminmodel extends CI_Model
 		$objQuery = $this->db->query($strQuery);
 
 		return $objQuery->result_array();
-
 	}
-	
-	function fetch_user($file)
-	{
-		$strQuery = 'SELECT * FROM users WHERE filenumber='.$file;
 
-		$objQuery = $this->db->query($strQuery);
-
-		return $objQuery->result_array();
-
-	}
-	
 	function FetchUserResult($id_user)
 	{
 		$arrTemp = $this->_userResults($id_user);
@@ -261,21 +245,19 @@ class Adminmodel extends CI_Model
 	}
 	
 	//Get the certile score based on user age, gender and score from pitch_certile_scores table in db
-	function FetchCertileWRT($p_intScore, $age , $gender, $type)
+	function FetchCertileWRT($p_intScore, $age , $gender)
 	{
 		$strQuery = 'SELECT age,score,certile FROM pitch_certile_scores WHERE gender = "'.$gender.'"';
 
 		$objQuery = $this->db->query($strQuery);
 
 		$temp = 0;
-		// var_dump($objQuery);
+		
 		if($objQuery->num_rows())
 		{
 			//Get the certile score based on user age, gender and score
 			foreach($objQuery->result_array() as $row) 
-			
 			{
-				// var_dump($row);
 				//Explode the certile age and score for checking in between the user age and score. 
 				$certile_age = explode("-",$row['age']);
 				$certile_score = explode("-",$row['score']);
@@ -290,39 +272,6 @@ class Adminmodel extends CI_Model
 				}
 			}
 		}
-		
-		return $temp;
-	} 
-	function FetchAllCertileWRT($p_intScore, $age , $gender)
-	{
-		$strQuery = 'SELECT age,score,certile FROM pitch_certile_scores WHERE gender = "'.$gender.'"';
-
-		$objQuery = $this->db->query($strQuery);
-
-		$temp = 0;
-		// var_dump($objQuery);
-		if($objQuery->num_rows())
-		{
-			//Get the certile score based on user age, gender and score
-			foreach($objQuery->result_array() as $row) 
-			
-			{
-				// var_dump($row);
-				//Explode the certile age and score for checking in between the user age and score. 
-				$certile_age = explode("-",$row['age']);
-				$certile_score = explode("-",$row['score']);
-				
-				if($age == $certile_age['0'] || $age >= $certile_age['0'] && $age <= $certile_age['1']) 
-				{
-					if($p_intScore == $certile_score['0'] || $p_intScore >= $certile_score['0'] && $p_intScore <= $certile_score['1']) 
-					{
-						$temp = $row['certile'];
-						break;
-					} 
-				}
-			}
-		}
-		
 		return $temp;
 	} 
 
@@ -358,189 +307,82 @@ class Adminmodel extends CI_Model
 			return array();
 		}
 	}
-	//
-	/*function _userPracticeResults($id_user)
-	{
-		$strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "practice" AND userid = '.$id_user;
-
-		$objQuery = $this->db->query($strQuery);
-
-		if($objQuery->num_rows() > 0)
-		{
-			return $objQuery->result_array();
-		}
-		else
-		{
-			return array();
-		}
-	}
-	*/
 
 	//Get all users practice and test question results
-	
-	function FetchResult()
+	function FetchTestResult()
 	{
-		// var_dump($type); 
-		
 		$arrUsers = $this->FetchUsers();
 		foreach ($arrUsers as $key => &$value) 
 		{
 			$value['test_result'] = $this->_userResults($value['id']);
+			
 			$value['practice_result'] = $this->_userPracticeResults($value['id']);
 		}
-		return $arrUsers;
-	}
-	
-	
-	function FetchTestResult($type)
-	{		
-		$arrUsers = $this->FetchUsers();
-		if($type == "pitch") {
-			foreach ($arrUsers as $key => &$value) 
-			{
-				$value['test_result'] = $this->_userResults($value['id']);
-				$value['practice_result'] = $this->_userPracticeResults($value['id']);
-			}
-		} else {
-			foreach ($arrUsers as $key => &$value) 
-			{
-				$value['test_result'] = $this->_userResults($value['id']);
-				$value['practice_result'] = $this->_userPracticeResults($value['id']);
-			}
-		/*} elseif($type == "tonal") {
-			foreach ($arrUsers as $key => &$value) 
-			{
-				$value['test_result'] = $this->_userResults($value['id']);
-				$value['practice_result'] = $this->_userPracticeResults($value['id']);
-			}*/
-		}
 		
 		return $arrUsers;
 	}
 	
-	function _userPitchResults($user_id)
+	function delete_question_row()
 	{
-		
-		// $strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "test" AND userid = '.$user_id.' ORDER BY q.serial_number';
-		$strQuery = 'SELECT ua.questionid , ua.optionid , q.answer , q.includeinscoring, h.status FROM pitch_user_answers ua INNER JOIN pitch_questions q  on ua.questionid = q.id INNER JOIN users h  on q.id = h.id WHERE q.questiontype = "test" AND userid= '.$user_id.' ';
+		$id = $_POST['id'];
 
-		$objQuery = $this->db->query($strQuery);
-
-		if($objQuery->num_rows() > 0)
+		if($id)
 		{
-			return $objQuery->result_array();
-		}
-		else
-		{
-			return array();
-		}
-	}
-	function _userTimeResults($user_id)
-	{
-		
-		 $strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM time_user_answers ua INNER JOIN time_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "test" AND userid = '.$user_id.' ORDER BY q.serial_number';
-		// $strQuery = 'SELECT ua.questionid , ua.optionid , q.answer , q.includeinscoring, h.status FROM pitch_user_answers ua INNER JOIN pitch_questions q  on ua.questionid = q.id INNER JOIN users h  on q.id = h.id WHERE q.questiontype = "test" AND userid= '.$user_id.' ORDER BY q.serial_number';
-
-		$objQuery = $this->db->query($strQuery);
-
-		if($objQuery->num_rows() > 0)
-		{
-			return $objQuery->result_array();
-		}
-		else
-		{
-			return array();
-		}
-	}
-	
-	function _userPitchPracticeResults($user_id)
-	{
-		// $strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM pitch_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "practice" AND userid = '.$user_id;
-		$strQuery = 'SELECT ua.questionid , ua.optionid , q.answer , q.includeinscoring, h.status FROM pitch_user_answers ua INNER JOIN pitch_questions q  on ua.questionid = q.id INNER JOIN users h  on q.id = h.id WHERE q.questiontype = "practice" AND userid= '.$user_id.' ';
-		
-		$objQuery = $this->db->query($strQuery);
-
-		if($objQuery->num_rows() > 0)
-		{
-			return $objQuery->result_array();
-		}
-		else
-		{
-			return array();
-		}
-	}
-	function _userTimePracticeResults($user_id)
-	{
-		// $strQuery = 'SELECT ua.`questionid`, ua.`optionid`, q.`answer`, q.includeinscoring FROM time_user_answers ua INNER JOIN pitch_questions q ON q.id = ua.`questionid` WHERE q.questiontype = "practice" AND userid = '.$user_id;
-		$strQuery = 'SELECT ua.questionid , ua.optionid , q.answer , q.includeinscoring, h.status FROM time_user_answers ua INNER JOIN time_questions q  on ua.questionid = q.id INNER JOIN users h  on q.id = h.id WHERE q.questiontype = "practice" AND userid= '.$user_id.'';
-
-		$objQuery = $this->db->query($strQuery);
-
-		if($objQuery->num_rows() > 0)
-		{
-			return $objQuery->result_array();
-		}
-		else
-		{
-			return array();
-		}
-	}
-	
-	function FetchUserTestResult($type, $user_id)
-	{	
-		// $arrUsers = $this->FetchUsers();	
-	   //$arrUsers = $this->fetch_user($file);
-		if($type == "pitch") {
-			$value['test_result'] = $this->_userPitchResults($user_id);
-			$value['practice_result'] = $this->_userPitchPracticeResults($user_id);
-			 // var_dump($value);
-		} elseif($type == "time") {
-			$value['test_result'] = $this->_userTimeResults($user_id);
-			$value['practice_result'] = $this->_userTimePracticeResults($user_id);
-			 // var_dump($value);
-		} elseif($type == "tonal") {
-			$value['test_result'] = $this->_userTimeResults($user_id);
-			$value['practice_result'] = $this->_usertTimePracticeResults($user_id);
-		}
-		// var_dump($value);
-		
-		return $value;
-	}
-	
-	
-	
-	function FetchPitchUserResult($user_id)
-	{
-		$arrTemp = $this->_userPitchResults($user_id);
-
-		$intCounter = 0;
-
-		foreach ($arrTemp as $key => $value) {
-			if($value['includeinscoring'] && ($value['optionid'] == $value['answer']))
+			/*
+			//Delete the question in pitch_questions and delete that question user responses
+			$this->db->where('questionid', $id);
+			$this->db->delete('pitch_user_answers');
+			
+			$this->db->where('id', $id);
+			$this->db->delete('pitch_questions');
+			*/
+			
+			//Update the question show_or_hide field to hide the question
+			$this->db->where('id', $id);
+			$this->db->update('pitch_questions', array('show_or_hide'  => 0, 'active' => 0));
+			
+			if($this->db->affected_rows()) 
 			{
-				$intCounter = $intCounter + 1;
+				$sql = 'SELECT * FROM pitch_questions_order WHERE type="questions"';
+				$result = $this->db->query($sql);
+				
+				if($result->num_rows() > 0) 
+				{
+					$row = $result->row();
+					$obj = unserialize($row->question_order);
+					
+					foreach($obj['test'] as $key => $value) 
+					{
+						if($value == $id) 
+						{
+							//delete the element of question
+							array_splice($obj['test'], $key, 1);
+						}
+					}
+					
+					$arrData = array(
+							'question_order' => serialize($obj)
+							);
+					
+					$this->db->where('type', 'questions');
+
+					$this->db->update('pitch_questions_order', $arrData);
+					
+				} 
+				/////
+				return true;
 			}
-			// var_dump($value);
-		}
-
-		return $intCounter;
-	}
-	function FetchTimeUserResult($user_id)
-	{
-		$arrTemp = $this->_userTimeResults($user_id);
-
-		$intCounter = 0;
-
-		foreach ($arrTemp as $key => $value) {
-			if($value['includeinscoring'] && ($value['optionid'] == $value['answer']))
+			else
 			{
-				$intCounter = $intCounter + 1;
+				return false;
 			}
 		}
-
-		return $intCounter;
+		else
+		{
+			return false;
+		}
 	}
-	
+
 	function UpdateIncludeInScore()
 	{
 		$id = $_POST['questionid'];
@@ -927,106 +769,36 @@ class Adminmodel extends CI_Model
 			return false;
 		}
 	}
-	
-	function FetchPitchCertileWRT($p_intScore, $age , $gender)
-	{
-		$strQuery = 'SELECT age,score,certile FROM pitch_certile_scores WHERE gender = "'.$gender.'"';
-
-		$objQuery = $this->db->query($strQuery);
-
-		$temp = 0;
-		// var_dump($objQuery);
-		if($objQuery->num_rows())
-		{
-			//Get the certile score based on user age, gender and score
-			foreach($objQuery->result_array() as $row) 
-			
-			{
-				// var_dump($row);
-				//Explode the certile age and score for checking in between the user age and score. 
-				$certile_age = explode("-",$row['age']);
-				$certile_score = explode("-",$row['score']);
-				
-				if($age == $certile_age['0'] || $age >= $certile_age['0'] && $age <= $certile_age['1']) 
-				{
-					if($p_intScore == $certile_score['0'] || $p_intScore >= $certile_score['0'] && $p_intScore <= $certile_score['1']) 
-					{
-						$temp = $row['certile'];
-						break;
-					} 
-				}
-			}
-		}
+	// function checkbox() {
 		
-		return $temp;
-	} 
-	
-	function FetchTitchCertileWRT($p_intScore, $age , $gender)
-	{
-		$strQuery = 'SELECT age,score,certile FROM time_certile_scores WHERE gender = "'.$gender.'"';
-
-		$objQuery = $this->db->query($strQuery);
-
-		$temp = 0;
-		// var_dump($objQuery);
-		if($objQuery->num_rows())
-		{
-			//Get the certile score based on user age, gender and score
-			foreach($objQuery->result_array() as $row) 
-			
-			{
-				// var_dump($row);
-				//Explode the certile age and score for checking in between the user age and score. 
-				$certile_age = explode("-",$row['age']);
-				$certile_score = explode("-",$row['score']);
-				
-				if($age == $certile_age['0'] || $age >= $certile_age['0'] && $age <= $certile_age['1']) 
-				{
-					if($p_intScore == $certile_score['0'] || $p_intScore >= $certile_score['0'] && $p_intScore <= $certile_score['1']) 
-					{
-						$temp = $row['certile'];
-						break;
-					} 
-				}
-			}
-		}
+		// $subscore_check = $_POST['active'];
+		// $this->db->where('id', 1);
+		// $this->db->update('pitch_subscore_checkbox', array('active' => $subscore_check));	
 		
-		return $temp;
-	} 
-	function FetchTimeCertileWRT($p_intScore, $age , $gender)
-	{
-		$strQuery = 'SELECT age,score,certile FROM time_certile_scores WHERE gender = "'.$gender.'"';
-
-		$objQuery = $this->db->query($strQuery);
-
-		$temp = 0;
-		// var_dump($objQuery);
-		if($objQuery->num_rows())
-		{
-			//Get the certile score based on user age, gender and score
-			foreach($objQuery->result_array() as $row) 
-			
-			{
-				// var_dump($row);
-				//Explode the certile age and score for checking in between the user age and score. 
-				$certile_age = explode("-",$row['age']);
-				$certile_score = explode("-",$row['score']);
-				
-				if($age == $certile_age['0'] || $age >= $certile_age['0'] && $age <= $certile_age['1']) 
-				{
-					if($p_intScore == $certile_score['0'] || $p_intScore >= $certile_score['0'] && $p_intScore <= $certile_score['1']) 
-					{
-						$temp = $row['certile'];
-						break;
-					} 
-				}
-			}
-		}
+	// }	
+	/*function checkbox() {
+		$subscore_check = $_POST['active'];
+		$this->db->where('id', 1);
+		$this->db->update('pitch_subscore_checkbox', array('active' => $subscore_check));	
 		
-		return $temp;
-	} 
-	
-	
+		if($this->db->affected_rows()) 
+		{
+			$success = array(
+				"success" => "success",
+				"status" => "update",
+				"message" => "Updated successfully."
+			);
+		}
+		else 
+		{
+			$success = array(
+				"success" => "failed",
+				"status" => "update",
+				"message" => "Something went wrong."
+			);
+		}
+		return $success;
+	}*/
 	function  checkbox()
 	{
 		$subscore_check = $_POST['active'];
@@ -1056,7 +828,6 @@ class Adminmodel extends CI_Model
 		return $objQuery->row_array();
 		
 	}
-	
 }
 
 ?>

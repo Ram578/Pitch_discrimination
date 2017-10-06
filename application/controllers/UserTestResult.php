@@ -10,14 +10,7 @@ class Usertestresult extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('adminmodel');
-		
-		$application_type = $_GET['type'];
-		
-		$this->load->model('adminmodel');
-		
-		$arrData['application_type'] = $application_type;
-		
-		var_dump($application_type);
+
 		$arrData['TestResults'] = $this->adminmodel->FetchTestResult();
 						
 		foreach ($arrData['TestResults'] as $key => &$value) 
@@ -32,7 +25,7 @@ class Usertestresult extends CI_Controller {
 		// print_r($arrData);
 		// die;
 
-		$this->load->view('userslist', $arrData);
+		$this->load->view('user_test_result', $arrData);
 	}
 
 	public function export()
@@ -40,8 +33,6 @@ class Usertestresult extends CI_Controller {
 		$this->load->model('adminmodel');
 
 		$arrResult = $this->adminmodel->FetchTestResult();
-		
-		var_dump($applicationtype)
 
 		$arrTemp = array();
 

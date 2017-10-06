@@ -18,7 +18,7 @@ class Home extends CI_Controller {
 			redirect('/welcome', 'refresh');
 		}else
 		{
-			$arrData['Title'] = 'AIMs - Admin panel';
+			$arrData['Title'] = 'AIMs - Pitch Discrimination Registration Form';
 
 			$Header = $this->load->view('header', $arrData,true);
 
@@ -63,6 +63,31 @@ class Home extends CI_Controller {
 	}
 	
 	//
+	public function check_register() 
+	{
+		$this->load->model('registermodel');
+		
+		$result = $this->registermodel->check_register_user();
+				
+		if($result['status'])
+    	{
+    		redirect('/welcome', 'refresh');
+    	}
+		else
+    	{
+    		$arrData['Title'] = 'AIMs - Pitch Discrimination Registration Form';
+
+			$Header = $this->load->view('header', $arrData,true);
+
+			$arrData['Header'] = $Header;
+			
+			$arrData['file_number'] = $result['file_num'];
+
+			$arrData['Footer'] = $this->load->view('footer', $arrData, true);
+
+			$this->load->view('data_register', $arrData);
+    	} 
+	}
 	
 	public function date_test() 
 	{
