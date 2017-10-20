@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://localhost/projects/aimstonal_final/pitch';
-$config['base_url'] = 'http://139.59.85.41/pitch';
+$config['base_url'] = 'http://139.59.85.41/aimstonal/pitch';
 
 /*
 |--------------------------------------------------------------------------

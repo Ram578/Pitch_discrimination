@@ -78,6 +78,5 @@ class Registermodel extends CI_Model
 			}
 		}
 	}
-	
 }
 ?>

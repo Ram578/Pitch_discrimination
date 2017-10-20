@@ -73,6 +73,15 @@ class Frontendmodel extends CI_Model
 		//return $row;
 	}
 	
+	function fetch_subscores_status() 
+	{
+		$query = "SELECT subscore_check FROM pitch_subscore_checkbox WHERE id=1";
+		
+		$objQuery = $this->db->query($query);
+
+		return $objQuery->row_array();
+	}
+	
 	// Get the practice test questions
 	function fetch_practice_questions()
 	{	

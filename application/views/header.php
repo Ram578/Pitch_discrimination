@@ -27,7 +27,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="<?=base_url();?>resources/js/screenfull.js"></script>
 	<script src="<?=base_url();?>resources/js/swiper.js"></script>
-	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script> -->
     <script type="text/javascript">
     	var strBaseURL = "<?=base_url();?>";
     </script>    

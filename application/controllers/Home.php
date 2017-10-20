@@ -85,15 +85,4 @@ class Home extends CI_Controller {
     	} 
 	}
 	
-	/*public function date_test() 
-	{
-		$this->load->model('registermodel');
-		
-		$result = $this->registermodel->test_date();
-		echo timezones('UM5');
-		echo "\n";
-		var_dump($result);
-		die;
-	}
-	*/
 }
